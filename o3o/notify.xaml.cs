@@ -16,8 +16,10 @@ namespace o3o
     /// <summary>
     /// Interaction logic for notify.xaml
     /// </summary>
+    /// 
     public partial class notify : Window
     {
+
         static System.Windows.Forms.Timer Timer = new System.Windows.Forms.Timer();
         float wait = 300;
         public string Text { get { return this.text.Content.ToString();} set { this.text.Content = value; } }
@@ -26,11 +28,14 @@ namespace o3o
             InitializeComponent();
             this.Left = (System.Windows.SystemParameters.PrimaryScreenWidth - this.Width) - 105;
             this.Top = 0-this.Height;
+            
             this.Show();
+            this.SetAreoGlass();
             Timer.Tick += new EventHandler(timer_Tick);
             Timer.Interval = (1);
             Timer.Start();
         }
+
 
          private void timer_Tick(Object myObject, EventArgs myEventArgs)
          {
@@ -64,6 +69,11 @@ namespace o3o
               }
               else
                   return false;
+         }
+
+         private void button1_Click(object sender, RoutedEventArgs e)
+         {
+             this.Close();
          }
     }
 }

@@ -13,3 +13,5 @@ c:\o3o\o3o\obj\x86\Debug\GenerateResource.read.1.tlog
 c:\o3o\o3o\obj\x86\Debug\GenerateResource.write.1.tlog
 c:\o3o\o3o\obj\x86\Debug\o3o.exe
 c:\o3o\o3o\obj\x86\Debug\o3o.pdb
+C:\o3o\o3o\obj\x86\Debug\Window1.baml
+C:\o3o\o3o\obj\x86\Debug\Window1.g.cs
