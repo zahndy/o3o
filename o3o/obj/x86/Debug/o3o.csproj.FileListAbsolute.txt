@@ -1,0 +1,15 @@
+c:\o3o\o3o\bin\Debug\o3o.exe
+c:\o3o\o3o\bin\Debug\o3o.pdb
+c:\o3o\o3o\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\o3o\o3o\obj\x86\Debug\MainWindow.baml
+c:\o3o\o3o\obj\x86\Debug\notify.baml
+c:\o3o\o3o\obj\x86\Debug\MainWindow.g.cs
+c:\o3o\o3o\obj\x86\Debug\notify.g.cs
+c:\o3o\o3o\obj\x86\Debug\App.g.cs
+c:\o3o\o3o\obj\x86\Debug\o3o_MarkupCompile.cache
+c:\o3o\o3o\obj\x86\Debug\o3o.g.resources
+c:\o3o\o3o\obj\x86\Debug\o3o.Properties.Resources.resources
+c:\o3o\o3o\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\o3o\o3o\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\o3o\o3o\obj\x86\Debug\o3o.exe
+c:\o3o\o3o\obj\x86\Debug\o3o.pdb

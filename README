@@ -1,0 +1,6 @@
+o3o is a C# WPF Twitter client
+
+TODO:
+-create container for twitter messages
+-api intergration
+-basic UI work/elements
