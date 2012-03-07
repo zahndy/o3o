@@ -68,7 +68,7 @@ namespace o3o
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            this.SetAreoGlass();
+            this.SetAeroGlass();
         }
 
         private void testbutton_Click(object sender, RoutedEventArgs e)
