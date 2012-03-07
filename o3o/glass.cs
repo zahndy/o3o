@@ -25,11 +25,11 @@ namespace o3o
         [DllImport("dwmapi.dll", PreserveSig = false)]
         static extern bool DwmIsCompositionEnabled();
 
-        public static bool SetAreoGlass(this Window Window)
+        public static bool SetAeroGlass(this Window Window)
         {
-            return SetAreoGlass(Window, new AeroMargin(-1, -1, -1, -1));
+            return SetAeroGlass(Window, new AeroMargin(-1, -1, -1, -1));
         }
-        public static bool SetAreoGlass(this Window Window, AeroMargin Margin)
+        public static bool SetAeroGlass(this Window Window, AeroMargin Margin)
         {
             if (!DwmIsCompositionEnabled()) return false;
             IntPtr hwnd = new WindowInteropHelper(Window).Handle;
