@@ -30,7 +30,7 @@ namespace o3o
             this.Top = 0-this.Height;
             
             this.Show();
-            this.SetAreoGlass();
+            this.SetAeroGlass();
             Timer.Tick += new EventHandler(timer_Tick);
             Timer.Interval = (1);
             Timer.Start();
