@@ -37,9 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Newtonsoft.Json.dll</HintPath>
+      <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
@@ -54,21 +54,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Twitterizer.Data, Version=2.3.3.21969, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Twitterizer2, Version=2.4.0.2028, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Twitterizer.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Twitterizer2, Version=2.3.3.21964, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Twitterizer2.dll</HintPath>
-    </Reference>
-    <Reference Include="Twitterizer2.Asynchronous, Version=2.3.3.21967, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Twitterizer2.Asynchronous.dll</HintPath>
-    </Reference>
-    <Reference Include="Twitterizer2.Streaming, Version=2.3.3.22119, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Twitterizer2.Streaming.dll</HintPath>
+      <HintPath>Libs\Twitterizer2.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -79,6 +67,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GetOAuthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GetOAuthForm.Designer.cs">
+      <DependentUpon>GetOAuthForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="glass.cs" />
     <Compile Include="TweetElement.xaml.cs">
       <DependentUpon>TweetElement.xaml</DependentUpon>
@@ -142,11 +136,15 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Newtonsoft.Json.dll" />
-    <Content Include="Twitterizer.Data.dll" />
-    <Content Include="Twitterizer2.Asynchronous.dll" />
-    <Content Include="Twitterizer2.dll" />
-    <Content Include="Twitterizer2.Streaming.dll" />
+    <Resource Include="Libs\GettingStarted.txt" />
+    <Resource Include="Libs\Json.NET.license.txt" />
+    <Content Include="Libs\Newtonsoft.Json.dll" />
+    <Content Include="Libs\Newtonsoft.Json.pdb" />
+    <Resource Include="Libs\Newtonsoft.Json.xml" />
+    <Content Include="Libs\Twitterizer2.dll" />
+    <Resource Include="Libs\Twitterizer2.license.txt" />
+    <Content Include="Libs\Twitterizer2.pdb" />
+    <Resource Include="Libs\Twitterizer2.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
