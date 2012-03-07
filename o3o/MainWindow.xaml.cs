@@ -73,7 +73,9 @@ namespace o3o
 
         private void testbutton_Click(object sender, RoutedEventArgs e)
         {
-            Notification("test");
+            //Notification("test");
+            TweetElement element = new TweetElement();
+            TweetElements.Content = element;
         }
 
         public void Notification(string message)
@@ -91,6 +93,11 @@ namespace o3o
         private void minimisebutton_Click(object sender, RoutedEventArgs e)
         {
              WindowState = WindowState.Minimized;
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
     }
