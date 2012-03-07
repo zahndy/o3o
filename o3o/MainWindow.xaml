@@ -72,7 +72,7 @@
         </Window.Resources>
     
     <Grid>
-        <Button Content="testBtn" Height="23" HorizontalAlignment="Left" Margin="12,30,0,0" Name="testbutton" VerticalAlignment="Top" Width="75" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
-        
+        <!--<Button Content="testBtn" Height="23" HorizontalAlignment="Left" Margin="12,30,0,0" Name="testbutton" VerticalAlignment="Top" Width="75" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />-->
+        <ScrollViewer Margin="0,26,0,20" Name="scrollViewer1" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="{Binding ElementName=Scroller, Path=ViewportHeight}"/>
     </Grid>
 </Window>
