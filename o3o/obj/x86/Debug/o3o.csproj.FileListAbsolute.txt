@@ -39,7 +39,8 @@ C:\GIT\GIThub\o3o\o3o\obj\x86\Debug\GenerateResource.write.1.tlog
 C:\GIT\GIThub\o3o\o3o\obj\x86\Debug\o3o_Content.g.cs
 C:\GIT\GIThub\o3o\o3o\bin\Debug\o3o.exe.config
 C:\GIT\GIThub\o3o\o3o\bin\Debug\Newtonsoft.Json.dll
-C:\GIT\GIThub\o3o\o3o\bin\Debug\Twitterizer.Data.dll
-C:\GIT\GIThub\o3o\o3o\bin\Debug\Twitterizer2.Asynchronous.dll
 C:\GIT\GIThub\o3o\o3o\bin\Debug\Twitterizer2.dll
-C:\GIT\GIThub\o3o\o3o\bin\Debug\Twitterizer2.Streaming.dll
+C:\GIT\GitHub\o3o\o3o\bin\Debug\Newtonsoft.Json.pdb
+C:\GIT\GitHub\o3o\o3o\bin\Debug\Newtonsoft.Json.xml
+C:\GIT\GitHub\o3o\o3o\bin\Debug\Twitterizer2.pdb
+C:\GIT\GitHub\o3o\o3o\bin\Debug\Twitterizer2.xml
