@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        
+        xmlns:l="clr-namespace:o3o"
         Title=" o3o" Height="700" Width="279" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="586" MinWidth="279">
     
         <Window.Resources>
@@ -143,8 +143,15 @@
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="{Binding ElementName=Scroller, Path=ViewportHeight}" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000">
                 <Grid Height="Auto">
-                    <ScrollViewer Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Style="{StaticResource myStyle}">
-                    </ScrollViewer>
+                    <ListBox Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <l:TweetElement Margin="4"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <TextBox Name="textBox1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,568,1,17" TextChanged="textBox1_TextChanged" Background="#81FFFFFF" />
                     
                     <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,620,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Style="{StaticResource glassText}"/>

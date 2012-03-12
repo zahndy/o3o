@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\GIT\GitHub\o3o\o3o\obj\x86\Debug\
+C:\o3o\o3o\obj\x86\Debug\
 o3o
 none
 false
 DEBUG;TRACE
-C:\GIT\GitHub\o3o\o3o\App.xaml
+C:\o3o\o3o\App.xaml
 41751958662
 423783826
 12-1656072035
-171486974950
+18-1627864307
 MainWindow.xaml;notify.xaml;TweetElement.xaml;Window1.xaml;
 
 False

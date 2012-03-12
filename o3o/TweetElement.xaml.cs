@@ -19,9 +19,27 @@ namespace o3o
     /// </summary>
     public partial class TweetElement : UserControl
     {
+        string tweet;
+        public string name { get; set; }
+        public string Tweet { 
+            get { return tweet; } 
+            set { tweet = value; } 
+        }
+        public string Image { get; set; }
+        // add time and all that stuff
         public TweetElement()
         {
+            
             InitializeComponent();
+            TweetBlock.Text = tweet;
         }
+        
+
+        
+        //public double Top
+        //{
+        //    get { return grid.Margin.Top; }
+        //    set { grid.Margin.Top = value; }
+        //}
     }
 }

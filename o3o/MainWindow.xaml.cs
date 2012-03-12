@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using System.Collections.ObjectModel;
+using System.Web.UI.WebControls;
 
 namespace o3o
 {
@@ -70,12 +72,16 @@ namespace o3o
         {
             this.SetAeroGlass();
         }
-
+        ObservableCollection<TweetElement> items = new ObservableCollection<TweetElement>();
         private void testbutton_Click(object sender, RoutedEventArgs e)
         {
             //Notification("test");
             TweetElement element = new TweetElement();
-            TweetElements.Content = element;
+           element.Tweet = "test";
+            
+            items.Add(element );
+            TweetElements.ItemsSource = items;
+            
         }
 
         public void Notification(string message)

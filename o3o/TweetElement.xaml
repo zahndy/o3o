@@ -5,8 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="82" d:DesignWidth="300">
-    <Grid>
-        <Image Height="58" HorizontalAlignment="Left" Margin="12,12,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="58" />
-        <TextBlock Height="58" HorizontalAlignment="Left" Margin="76,12,0,0" Name="textBlock1" Text="TextBlock" VerticalAlignment="Top" Width="212" />
-    </Grid>
+    <Border BorderThickness="2,2,2,2"   
+        CornerRadius="5,5,5,5"   
+        Background="#FF626262"   
+        BorderBrush="#FFFFAC00"   
+        Grid.ColumnSpan="2">
+        <!-- WILL CHANGE BORDER LATER-->
+        <Grid>
+            <Image Height="58" HorizontalAlignment="Left" Margin="12,12,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="58" />
+            <TextBlock Name="TweetBlock" Height="58" HorizontalAlignment="Left" Margin="76,12,0,0" Text="TextBlock" VerticalAlignment="Top" Width="212" />
+        </Grid>
+    </Border>
 </UserControl>
