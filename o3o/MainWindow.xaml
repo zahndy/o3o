@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:l="clr-namespace:o3o"
-        Title=" o3o" Height="700" Width="279" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="586" MinWidth="279">
+        Title=" o3o" Height="700" Width="290" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="700" MinWidth="300" Margin="290">
     
         <Window.Resources>
             <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
@@ -135,6 +135,14 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3DFFFFFF"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#47FFFFFF"/>
+            </Style.Resources>
+        </Style>
+            
     </Window.Resources>
     
     <Grid>
@@ -143,14 +151,8 @@
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="{Binding ElementName=Scroller, Path=ViewportHeight}" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000">
                 <Grid Height="Auto">
-                    <ListBox Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    <l:TweetElement Margin="4"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                    <ListBox ScrollViewer.CanContentScroll="False" Mouse.MouseDown="OnListViewMouseDown" Mouse.MouseMove="OnListViewMouseMove" Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     </ListBox>
                     <TextBox Name="textBox1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,568,1,17" TextChanged="textBox1_TextChanged" Background="#81FFFFFF" />
                     

@@ -14,7 +14,6 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Collections.ObjectModel;
-using System.Web.UI.WebControls;
 
 namespace o3o
 {
@@ -50,11 +49,11 @@ namespace o3o
         public MainWindow()
         {
             InitializeComponent();
-            MouseDown += delegate { DragMove(); };
+            MouseDown += delegate { if (MouseButtonState.Pressed == Mouse.LeftButton) { DragMove(); } };
             this.Loaded += new RoutedEventHandler(Window1_Loaded);  
 
         }
-
+        
         #region removeicon
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -71,16 +70,20 @@ namespace o3o
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetAeroGlass();
+            
         }
-        ObservableCollection<TweetElement> items = new ObservableCollection<TweetElement>();
+
+        int i;
         private void testbutton_Click(object sender, RoutedEventArgs e)
         {
             //Notification("test");
             TweetElement element = new TweetElement();
-           element.Tweet = "test";
-            
-            items.Add(element );
-            TweetElements.ItemsSource = items;
+            i++;
+            element.Tweet = i.ToString();
+            element.label1.Text= "sdfsdf";
+
+            TweetElements.Items.Insert(0,element);
+           
             
         }
 
@@ -105,6 +108,73 @@ namespace o3o
         {
 
         }
+
+        #region scrollviewgrab
+
+
+        private Point myMousePlacementPoint;
+
+        private void OnListViewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                myMousePlacementPoint = this.PointToScreen(Mouse.GetPosition(this));
+            }
+        }
+
+        private void OnListViewMouseMove(object sender, MouseEventArgs e)
+        {
+            ScrollViewer scrollViewer = GetScrollViewer(TweetElements) as ScrollViewer;
+
+            if (e.MiddleButton == MouseButtonState.Pressed)
+            {
+                var currentPoint = this.PointToScreen(Mouse.GetPosition(this));
+
+                if (currentPoint.Y < myMousePlacementPoint.Y)
+                {
+                    scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - 3);
+                }
+                else if (currentPoint.Y > myMousePlacementPoint.Y)
+                {
+                    scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + 3);
+                }
+
+                if (currentPoint.X < myMousePlacementPoint.X)
+                {
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 3);
+                }
+                else if (currentPoint.X > myMousePlacementPoint.X)
+                {
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 3);
+                }
+            }
+        }
+
+        public static DependencyObject GetScrollViewer(DependencyObject o)
+        {
+            // Return the DependencyObject if it is a ScrollViewer
+            if (o is ScrollViewer)
+            { return o; }
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(o); i++)
+            {
+                var child = VisualTreeHelper.GetChild(o, i);
+
+                var result = GetScrollViewer(child);
+                if (result == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    return result;
+                }
+            }
+            return null;
+        }
+
+
+        #endregion
 
     }
 
