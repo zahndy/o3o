@@ -67,6 +67,7 @@ namespace o3o
 
         #endregion
 
+
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetAeroGlass();
@@ -76,15 +77,19 @@ namespace o3o
         int i;
         private void testbutton_Click(object sender, RoutedEventArgs e)
         {
-            //Notification("test");
-            TweetElement element = new TweetElement();
             i++;
-            element.Tweet = i.ToString();
-            element.label1.Text= "sdfsdf";
 
-            TweetElements.Items.Insert(0,element);
-           
+            Tweet(i.ToString(), "zanderroxley", "somedate");
             
+        }
+
+        public void Tweet(string message, string user, string date) // image is fetched in Tweetelement.xaml.cs
+        {
+            TweetElement element = new TweetElement();
+            element.Tweet = message;
+            element.name = user;
+            element.Date = date;
+            TweetElements.Items.Insert(0, element);
         }
 
         public void Notification(string message)
@@ -106,7 +111,12 @@ namespace o3o
 
         private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            int left = 140 - (textBox1.Text.Length);
+            charleft.Text = left.ToString();
+            if (left < 0)
+                charleft.Foreground = new SolidColorBrush(Colors.Red); 
+            else
+                charleft.Foreground = new SolidColorBrush(Colors.Black); 
         }
 
         #region scrollviewgrab

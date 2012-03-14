@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:l="clr-namespace:o3o"
-        Title=" o3o" Height="700" Width="290" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="700" MinWidth="300" Margin="290">
+        Title="o3o" Height="700" Width="290" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="700" MinWidth="300" Margin="290" Icon="/o3o;component/Images/o3o%20Icon%20final.ico">
     
         <Window.Resources>
             <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
@@ -154,7 +154,7 @@
                     <ListBox ScrollViewer.CanContentScroll="False" Mouse.MouseDown="OnListViewMouseDown" Mouse.MouseMove="OnListViewMouseMove" Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     </ListBox>
-                    <TextBox Name="textBox1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,568,1,17" TextChanged="textBox1_TextChanged" Background="#81FFFFFF" />
+                    <TextBox Name="textBox1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,568,1,17" TextChanged="textBox1_TextChanged" Background="#81FFFFFF" TextWrapping="Wrap" />
                     
                     <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,620,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Style="{StaticResource glassText}"/>
                     <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,620,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="2" Width="35" FontSize="10" Style="{StaticResource glassText}"/>
