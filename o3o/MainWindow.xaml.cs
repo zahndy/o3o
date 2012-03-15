@@ -22,29 +22,7 @@ namespace o3o
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region noicon
 
-        [DllImport("user32.dll")]
-        static extern int GetWindowLong(IntPtr hwnd, int index);
-
-        [DllImport("user32.dll")]
-        static extern int SetWindowLong(IntPtr hwnd, int index, int newStyle);
-
-        [DllImport("user32.dll")]
-        static extern bool SetWindowPos(IntPtr hwnd, IntPtr hwndInsertAfter, int x, int y, int width, int height, uint flags);
-
-        [DllImport("user32.dll")]
-        static extern IntPtr SendMessage(IntPtr hwnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-        const int GWL_EXSTYLE = -20;
-        const int WS_EX_DLGMODALFRAME = 0x0001;
-        const int SWP_NOSIZE = 0x0001;
-        const int SWP_NOMOVE = 0x0002;
-        const int SWP_NOZORDER = 0x0004;
-        const int SWP_FRAMECHANGED = 0x0020;
-        const uint WM_SETICON = 0x0080;
-
-        #endregion
 
         public MainWindow()
         {
@@ -53,25 +31,12 @@ namespace o3o
             this.Loaded += new RoutedEventHandler(Window1_Loaded);  
 
         }
-        
-        #region removeicon
-
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-            IntPtr hwnd = new WindowInteropHelper(this).Handle;
-            int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-            SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_DLGMODALFRAME);
-            SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
-        }
-
-        #endregion
 
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetAeroGlass();
-            
+           
         }
 
         int i;
@@ -119,72 +84,7 @@ namespace o3o
                 charleft.Foreground = new SolidColorBrush(Colors.Black); 
         }
 
-        #region scrollviewgrab
-
-
-        private Point myMousePlacementPoint;
-
-        private void OnListViewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.MiddleButton == MouseButtonState.Pressed)
-            {
-                myMousePlacementPoint = this.PointToScreen(Mouse.GetPosition(this));
-            }
-        }
-
-        private void OnListViewMouseMove(object sender, MouseEventArgs e)
-        {
-            ScrollViewer scrollViewer = GetScrollViewer(TweetElements) as ScrollViewer;
-
-            if (e.MiddleButton == MouseButtonState.Pressed)
-            {
-                var currentPoint = this.PointToScreen(Mouse.GetPosition(this));
-
-                if (currentPoint.Y < myMousePlacementPoint.Y)
-                {
-                    scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset - 3);
-                }
-                else if (currentPoint.Y > myMousePlacementPoint.Y)
-                {
-                    scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + 3);
-                }
-
-                if (currentPoint.X < myMousePlacementPoint.X)
-                {
-                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 3);
-                }
-                else if (currentPoint.X > myMousePlacementPoint.X)
-                {
-                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 3);
-                }
-            }
-        }
-
-        public static DependencyObject GetScrollViewer(DependencyObject o)
-        {
-            // Return the DependencyObject if it is a ScrollViewer
-            if (o is ScrollViewer)
-            { return o; }
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(o); i++)
-            {
-                var child = VisualTreeHelper.GetChild(o, i);
-
-                var result = GetScrollViewer(child);
-                if (result == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    return result;
-                }
-            }
-            return null;
-        }
-
-
-        #endregion
+     
 
     }
 

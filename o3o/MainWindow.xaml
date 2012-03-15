@@ -142,6 +142,56 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#47FFFFFF"/>
             </Style.Resources>
         </Style>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border 
+             Name="Border"
+             Background="Transparent"
+             BorderBrush="Black" 
+             BorderThickness="0,0,0,0" 
+             CornerRadius="6,6,0,0" >
+                                <ContentPresenter x:Name="ContentSite"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               ContentSource="Header"
+               Margin="12,2,12,2"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="3"
+                                      Direction="330"
+                                      Color="Black"
+                                      Opacity="1"
+                                      BlurRadius="6"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="2"
+                                      Direction="330"
+                                      Color="White"
+                                      Opacity="0.7"
+                                      BlurRadius="4"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
             
     </Window.Resources>
     
@@ -149,19 +199,19 @@
         <!--<Button Content="testBtn" Height="23" HorizontalAlignment="Left" Margin="12,30,0,0" Name="testbutton" VerticalAlignment="Top" Width="75" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />-->
         
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="{Binding ElementName=Scroller, Path=ViewportHeight}" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" Padding="0" BorderBrush="#00000000">
-            <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000">
+            <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid Height="Auto">
-                    <ListBox ScrollViewer.CanContentScroll="False" Mouse.MouseDown="OnListViewMouseDown" Mouse.MouseMove="OnListViewMouseMove" Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     </ListBox>
                     <TextBox Name="textBox1" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,568,1,17" TextChanged="textBox1_TextChanged" Background="#81FFFFFF" TextWrapping="Wrap" />
                     
                     <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,620,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Style="{StaticResource glassText}"/>
-                    <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,620,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="2" Width="35" FontSize="10" Style="{StaticResource glassText}"/>
+                    <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,620,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="1" Width="35" FontSize="11" Style="{StaticResource glassText}"/>
                     <Button Content="send" Height="17" HorizontalAlignment="Center" Margin="76,0,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000">
+            <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid />
             </TabItem>
         </TabControl>
