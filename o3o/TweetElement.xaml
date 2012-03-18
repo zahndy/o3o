@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="265" Loaded="UserControl_Loaded">
+             d:DesignHeight="100" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style TargetType="TextBlock" x:Key="glassText">
             <Setter Property="Foreground" Value="Black" />
@@ -32,21 +32,31 @@
         </Style>
     </UserControl.Resources>
     
-    <Grid Width="265" Height="100">
+    <Grid Width="300" Height="100">
             <!--<Rectangle Height="72" HorizontalAlignment="Left" Margin="6,6,0,0" Name="rectangle1" Stroke="Black" VerticalAlignment="Top" Width="235" Fill="Black" />-->
         
             <Polygon
-                Points="6,6 260,6 260,72 25, 72 6,90">
+                Points="6,6 297,6 297,77 25,77 6,95">
                 <Polygon.Fill>
                     <SolidColorBrush Color="Black" Opacity="0.4"/>
                 </Polygon.Fill>
             </Polygon>
             
             <!--<Image Height="58" HorizontalAlignment="Left" Margin="12,12,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="58" />-->
-            <TextBlock Name="TweetBlock" Height="58" HorizontalAlignment="Left" Margin="62,11,0,0" Text="TextBlock" VerticalAlignment="Top" Width="196" Foreground="White" Background="Transparent" TextWrapping="Wrap"></TextBlock>
-        <TextBlock MouseDown="label1_MouseDown" MouseEnter="label1_MouseEnter" MouseLeave="label1_MouseLeave" Text="Label" Height="23" HorizontalAlignment="Left" Margin="29,71,0,0" Name="label1" VerticalAlignment="Top" Foreground="Black" Padding="0" Width="100" />
-        <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="Label" Height="23" HorizontalAlignment="Left" Margin="139,71,0,0" Name="datelabel" VerticalAlignment="Top" Foreground="#96000000" Padding="0" Width="119" />
-        <Image Height="48" HorizontalAlignment="Left" Margin="0,11,0,0" Name="tweetImg" Stretch="Fill" VerticalAlignment="Top" Width="48" />
+        <TextBlock Name="TweetBlock" Height="66" HorizontalAlignment="Left" Margin="55,8,0,0" Text="text" VerticalAlignment="Top" Width="240" Foreground="White" Background="Transparent" TextWrapping="Wrap">
+                  <TextBlock.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock MouseDown="label1_MouseDown" MouseEnter="label1_MouseEnter" MouseLeave="label1_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="29,76,0,0" Name="label1" VerticalAlignment="Top" Foreground="Black" Padding="0" Width="100" />
+        <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="175,76,0,0" Name="datelabel" VerticalAlignment="Top" Foreground="#96000000" Padding="0" Width="119" />
+        <Border >
+            <Image Height="48" HorizontalAlignment="Left" Margin="0,11,0,0" Name="tweetImg" Stretch="Fill" VerticalAlignment="Top" Width="48" />
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="-45"
+                    ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
+            </Border.Effect>
+        </Border>
     </Grid>
 
 </UserControl>

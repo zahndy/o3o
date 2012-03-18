@@ -22,7 +22,6 @@ namespace o3o
 
         static System.Windows.Forms.Timer Timer = new System.Windows.Forms.Timer();
         float wait = 300;
-        public string Text { get { return this.text.Content.ToString();} set { this.text.Content = value; } }
         public notify()
         {
             InitializeComponent();

@@ -66,7 +66,10 @@ namespace o3o
             {
                 return TwitterTimeline.RetweetsOfMe(privOAuth.GetOAuthToken()).ResponseObject;
             }
-            
+            public TwitterStatusCollection GetTweets()
+            {
+                return TwitterTimeline.HomeTimeline(privOAuth.GetOAuthToken()).ResponseObject;
+            }
             //More possibilities upcoming~
         }
 

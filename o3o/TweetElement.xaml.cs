@@ -29,7 +29,9 @@ namespace o3o
         public string name;
         public string Image; //?
         public string Date;
-        
+        public string imagelocation;
+        public string ID;
+
         public TweetElement()
         {
             
@@ -45,7 +47,7 @@ namespace o3o
             label1.Text = name;
             var image = new BitmapImage();
             int BytesToRead=100;
-            WebRequest request = WebRequest.Create(new Uri("http://twimg0-a.akamaihd.net/profile_images/1548278996/zandersauce_2_normal.png")); // REPLACE with requestjson(string user)
+            WebRequest request = WebRequest.Create(new Uri(imagelocation)); 
             request.Timeout = -1;
             WebResponse response = request.GetResponse();
             Stream responseStream = response.GetResponseStream();
@@ -101,39 +103,10 @@ namespace o3o
 
         private void datelabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-           // string target = URL FOR TWEET HERE;
-          //  System.Diagnostics.Process.Start(target);
+            string target = "https://twitter.com/#!/"+name+"/statuses/"+ID;
+            System.Diagnostics.Process.Start(target);
         }
 
-        public string requestjson(string user)
-        {
-            StringBuilder sb = new StringBuilder();
-            byte[] buf = new byte[8192];
-            HttpWebRequest request = (HttpWebRequest)
-                WebRequest.Create("http://api.twitter.com/1/users/show.json?screen_name="+name);
-            HttpWebResponse response = (HttpWebResponse)
-                request.GetResponse();
-            Stream resStream = response.GetResponseStream();
-
-            string tempString = null;
-            int count = 0;
-
-            do
-            {
-                count = resStream.Read(buf, 0, buf.Length);
-                if (count != 0)
-                {
-                    tempString = Encoding.ASCII.GetString(buf, 0, count);
-                    sb.Append(tempString);
-                }
-            }
-            while (count > 0);
-
-            //sb.ToString()
-            // tear apart the JSON here and get the user id from it. 
-            // then return the ID
-            return "";
-        }
 
     }
 }

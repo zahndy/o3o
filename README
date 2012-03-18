@@ -1,8 +1,7 @@
 o3o is a C# WPF Twitter client
 
+as of now it works but still needs a lot of tweaks and features added.
+
 TODO:
-- essential work/basic functionality
+- preferences tab
 - smooth draggable listbox?
-- add reply and a combobox to the tweet template.
-- seperate login window
-- system tab
