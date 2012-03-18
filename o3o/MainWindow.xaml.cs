@@ -102,7 +102,7 @@ namespace o3o
             element.Date = date;
             element.imagelocation = url;
             element.ID = id;
-            TweetElements.Items.Insert(0, element);
+            TweetElements.Items.Add(element);
         }
 
         public void FillMentions(string message, string user, string date, string url, string id) // image is fetched in Tweetelement.xaml.cs
@@ -113,7 +113,7 @@ namespace o3o
             element.Date = date;
             element.imagelocation = url;
             element.ID = id;
-            TweetMentions.Items.Insert(0, element);
+            TweetMentions.Items.Add( element);
         }
 
         public void Notification(string message, string user, string date, string url, string id)
@@ -125,7 +125,7 @@ namespace o3o
             element.Date = date;
             element.imagelocation = url;
             element.ID = id;
-            notification.content.Items.Insert(0, element);
+            notification.content.Items.Add(element);
             
         }
 

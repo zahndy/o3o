@@ -4,6 +4,5 @@ as of now it works but still needs a lot of tweaks and features added.
 
 TODO:
 - detection of hashtags and @user and turn them into links
-- scrollbar styling (remove background and upper/lower arrows)
 - preferences tab
 - smooth draggable listbox?
