@@ -15,6 +15,8 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Net;
 using System.IO;
+using System.Web;
+using System.Text.RegularExpressions;
 
 namespace o3o
 {
@@ -39,10 +41,68 @@ namespace o3o
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
         }
+        public Hyperlink Username(string x)
+        {
+            string username = x.Replace("@", "");
+            Hyperlink link = new Hyperlink();
+            link.NavigateUri = new Uri("http://twitter.com/" + username);
+            link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
+            link.Inlines.Add(x+" ");
+            link.Foreground = new SolidColorBrush(Colors.SkyBlue);
+            return link;
+
+        }
+
+        public Hyperlink Hashtag(string x)
+        {
+            string username = x.Replace("#", "");
+            Hyperlink link = new Hyperlink();
+            link.NavigateUri = new Uri("http://search.twitter.com/search?q=" + username);
+            link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
+            link.Inlines.Add(x + " ");
+            link.Foreground = new SolidColorBrush(Colors.SkyBlue);
+            return link;
+
+        }
+
+        public Hyperlink http(string x)
+        {
+            string url = x.Replace("http://", "");
+            Hyperlink link = new Hyperlink();
+            link.NavigateUri = new Uri(x);
+            link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
+            link.Inlines.Add(url + " ");
+            link.Foreground = new SolidColorBrush(Colors.SkyBlue);
+            return link;
+
+        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            TweetBlock.Text = Tweet;
+            var kaas = Tweet.Split(' ');
+            foreach (string a in kaas)
+            {
+                if (a.StartsWith("@"))
+                {
+                    TweetBlock.Inlines.Add(Username(a));
+                }
+                else if (a.StartsWith("#"))
+                {
+                    TweetBlock.Inlines.Add(Hashtag(a));
+                }
+                else if (a.StartsWith("http"))
+                {
+                    TweetBlock.Inlines.Add(http(a));
+                }
+                else
+                {
+                    TweetBlock.Text += a+" ";
+                }
+            }
+
+            // find hashtags and @user in Tweet
+            //TweetBlock.Text = Tweet.ParseURL().ParseUsername().ParseHashtag();
+            
             datelabel.Text = Date;
             label1.Text = name;
             var image = new BitmapImage();
@@ -72,7 +132,10 @@ namespace o3o
             tweetImg.Source = image;
 
         }
-
+        private void Hyperlink_RequestNavigateEvent(object sender, RequestNavigateEventArgs e)
+            {
+                Process.Start(e.Uri.ToString());
+            }
         private void label1_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -106,7 +169,11 @@ namespace o3o
             string target = "https://twitter.com/#!/"+name+"/statuses/"+ID;
             System.Diagnostics.Process.Start(target);
         }
-
-
+        
+        private void RequestNavigateHandler(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(e.Uri.ToString());
+        }
     }
+
 }
