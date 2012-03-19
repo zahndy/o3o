@@ -44,24 +44,27 @@ namespace o3o
         public Hyperlink Username(string x)
         {
             string username = x.Replace("@", "");
-            Hyperlink link = new Hyperlink();
-            link.NavigateUri = new Uri("http://twitter.com/" + username);
-            link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
-            link.Inlines.Add(x+" ");
-            link.Foreground = new SolidColorBrush(Colors.SkyBlue);
-            return link;
+            username.Replace(":", "");
+            Hyperlink uname = new Hyperlink();
+            uname.NavigateUri = new Uri("http://twitter.com/" + username);
+            uname.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
+            uname.Inlines.Add(x);
+            uname.TextDecorations = null;
+            uname.Foreground = new SolidColorBrush(Colors.SkyBlue);
+            return uname;
 
         }
 
         public Hyperlink Hashtag(string x)
         {
-            string username = x.Replace("#", "");
-            Hyperlink link = new Hyperlink();
-            link.NavigateUri = new Uri("http://search.twitter.com/search?q=" + username);
-            link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
-            link.Inlines.Add(x + " ");
-            link.Foreground = new SolidColorBrush(Colors.SkyBlue);
-            return link;
+            string hastag = x.Replace("#", "");
+            Hyperlink hash = new Hyperlink();
+            hash.NavigateUri = new Uri("http://search.twitter.com/search?q=" + hastag);
+            hash.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
+            hash.Inlines.Add(x);
+            hash.TextDecorations = null;
+            hash.Foreground = new SolidColorBrush(Colors.SkyBlue);
+            return hash;
 
         }
 
@@ -71,7 +74,8 @@ namespace o3o
             Hyperlink link = new Hyperlink();
             link.NavigateUri = new Uri(x);
             link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
-            link.Inlines.Add(url + " ");
+            link.Inlines.Add(url);
+            link.TextDecorations = null;
             link.Foreground = new SolidColorBrush(Colors.SkyBlue);
             return link;
 
@@ -79,20 +83,23 @@ namespace o3o
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var kaas = Tweet.Split(' ');
+            var kaas =  Tweet.Split(' ');
             foreach (string a in kaas)
             {
                 if (a.StartsWith("@"))
                 {
                     TweetBlock.Inlines.Add(Username(a));
+                    TweetBlock.Inlines.Add(" ");
                 }
                 else if (a.StartsWith("#"))
                 {
                     TweetBlock.Inlines.Add(Hashtag(a));
+                    TweetBlock.Inlines.Add(" ");
                 }
                 else if (a.StartsWith("http"))
                 {
                     TweetBlock.Inlines.Add(http(a));
+                    TweetBlock.Inlines.Add(" ");
                 }
                 else
                 {
@@ -133,9 +140,9 @@ namespace o3o
 
         }
         private void Hyperlink_RequestNavigateEvent(object sender, RequestNavigateEventArgs e)
-            {
-                Process.Start(e.Uri.ToString());
-            }
+        {
+            Process.Start(e.Uri.ToString());
+        }
         private void label1_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
@@ -168,11 +175,6 @@ namespace o3o
         {
             string target = "https://twitter.com/#!/"+name+"/statuses/"+ID;
             System.Diagnostics.Process.Start(target);
-        }
-        
-        private void RequestNavigateHandler(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(e.Uri.ToString());
         }
     }
 
