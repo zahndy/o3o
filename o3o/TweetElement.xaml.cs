@@ -33,7 +33,7 @@ namespace o3o
         public string Date;
         public string imagelocation;
         public string ID;
-
+        public bool loaded = false;
         public TweetElement()
         {
             
@@ -41,103 +41,87 @@ namespace o3o
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
         }
-        public Hyperlink Username(string x)
-        {
-            string username = x.Replace("@", "");
-            username.Replace(":", "");
-            Hyperlink uname = new Hyperlink();
-            uname.NavigateUri = new Uri("http://twitter.com/" + username);
-            uname.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
-            uname.Inlines.Add(x);
-            uname.TextDecorations = null;
-            uname.Foreground = new SolidColorBrush(Colors.SkyBlue);
-            return uname;
-
-        }
-
-        public Hyperlink Hashtag(string x)
-        {
-            string hastag = x.Replace("#", "");
-            Hyperlink hash = new Hyperlink();
-            hash.NavigateUri = new Uri("http://search.twitter.com/search?q=" + hastag);
-            hash.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
-            hash.Inlines.Add(x);
-            hash.TextDecorations = null;
-            hash.Foreground = new SolidColorBrush(Colors.SkyBlue);
-            return hash;
-
-        }
-
-        public Hyperlink http(string x)
-        {
-            string url = x.Replace("http://", "");
-            Hyperlink link = new Hyperlink();
-            link.NavigateUri = new Uri(x);
-            link.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigateEvent);
-            link.Inlines.Add(url);
-            link.TextDecorations = null;
-            link.Foreground = new SolidColorBrush(Colors.SkyBlue);
-            return link;
-
-        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var kaas =  Tweet.Split(' ');
-            foreach (string a in kaas)
+            if (loaded == false)
             {
-                if (a.StartsWith("@"))
+                var kaas = Tweet.Split(' ');
+                foreach (string a in kaas)
                 {
-                    TweetBlock.Inlines.Add(Username(a));
-                    TweetBlock.Inlines.Add(" ");
+                    if (a.StartsWith("@"))
+                    {
+                        string username = a.Replace("@", "");
+                        username.Replace(":", "");
+                        Hyperlink uname = new Hyperlink( new Run(a)) { NavigateUri = new Uri("http://twitter.com/" + username) };
+                        //uname.Inlines.Add(a);
+                        uname.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                        uname.TextDecorations = null;
+                        uname.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                        TweetBlock.Inlines.Add(uname);
+                        TweetBlock.Inlines.Add(new Run(" "));
+
+                    }
+                    else if (a.StartsWith("#"))
+                    {
+                        string hashtag = a.Replace("#", "");
+                        Hyperlink hash = new Hyperlink() { NavigateUri = new Uri("http://search.twitter.com/search?q=" + hashtag) };
+                        hash.Inlines.Add(a);
+                        hash.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                        hash.TextDecorations = null;
+                        hash.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                        TweetBlock.Inlines.Add(hash);
+                        TweetBlock.Inlines.Add(new Run(" "));
+                    }
+                    else if (a.StartsWith("http"))
+                    {
+                        string url = a.Replace("http://", "");
+                        Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
+                        link.Inlines.Add(url);
+                        link.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                        link.TextDecorations = null;
+                        link.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                        TweetBlock.Inlines.Add(link);
+                        TweetBlock.Inlines.Add(new Run(" "));
+                    }
+                    else
+                    {
+                        TweetBlock.Inlines.Add( new Run(a+ " "));
+                    }
                 }
-                else if (a.StartsWith("#"))
+
+                // find hashtags and @user in Tweet
+                //TweetBlock.Text = Tweet.ParseURL().ParseUsername().ParseHashtag();
+
+                datelabel.Text = Date;
+                label1.Text = name;
+                var image = new BitmapImage();
+                int BytesToRead = 100;
+                WebRequest request = WebRequest.Create(new Uri(imagelocation));
+                request.Timeout = -1;
+                WebResponse response = request.GetResponse();
+                Stream responseStream = response.GetResponseStream();
+                BinaryReader reader = new BinaryReader(responseStream);
+                MemoryStream memoryStream = new MemoryStream();
+
+                byte[] bytebuffer = new byte[BytesToRead];
+                int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+
+                while (bytesRead > 0)
                 {
-                    TweetBlock.Inlines.Add(Hashtag(a));
-                    TweetBlock.Inlines.Add(" ");
+                    memoryStream.Write(bytebuffer, 0, bytesRead);
+                    bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
                 }
-                else if (a.StartsWith("http"))
-                {
-                    TweetBlock.Inlines.Add(http(a));
-                    TweetBlock.Inlines.Add(" ");
-                }
-                else
-                {
-                    TweetBlock.Text += a+" ";
-                }
+
+                image.BeginInit();
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                image.StreamSource = memoryStream;
+                image.EndInit();
+
+                tweetImg.Source = image;
+                loaded = true;
             }
-
-            // find hashtags and @user in Tweet
-            //TweetBlock.Text = Tweet.ParseURL().ParseUsername().ParseHashtag();
-            
-            datelabel.Text = Date;
-            label1.Text = name;
-            var image = new BitmapImage();
-            int BytesToRead=100;
-            WebRequest request = WebRequest.Create(new Uri(imagelocation)); 
-            request.Timeout = -1;
-            WebResponse response = request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            BinaryReader reader = new BinaryReader(responseStream);
-            MemoryStream memoryStream = new MemoryStream();
-
-            byte[] bytebuffer = new byte[BytesToRead];
-            int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-            while (bytesRead > 0)
-            {
-                memoryStream.Write(bytebuffer, 0, bytesRead);
-                bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-            }
-
-            image.BeginInit();
-            memoryStream.Seek(0, SeekOrigin.Begin);
-
-            image.StreamSource = memoryStream;
-            image.EndInit();
-
-            tweetImg.Source = image;
-
         }
         private void Hyperlink_RequestNavigateEvent(object sender, RequestNavigateEventArgs e)
         {
