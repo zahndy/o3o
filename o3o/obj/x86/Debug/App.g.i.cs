@@ -59,6 +59,8 @@ namespace o3o {
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public static void Main() {
+            SplashScreen splashScreen = new SplashScreen("splashscreen1.png");
+            splashScreen.Show(true);
             o3o.App app = new o3o.App();
             app.InitializeComponent();
             app.Run();

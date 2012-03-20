@@ -41,11 +41,26 @@ namespace o3o
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
         }
-
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (loaded == false)
             {
+            SolidColorBrush color;
+            if (Properties.Settings.Default.use_system_color)
+            {
+                color = new SolidColorBrush(
+                    System.Windows.Media.Color.FromArgb(Properties.Settings.Default.system_color.A,
+                                                      Properties.Settings.Default.system_color.R,
+                                                      Properties.Settings.Default.system_color.G,
+                                                      Properties.Settings.Default.system_color.B));
+            }
+            else
+            {
+               color = new SolidColorBrush(Colors.SkyBlue);
+            }
+
+            TweetBlock.Inlines.Clear();
                 var kaas = Tweet.Split(' ');
                 foreach (string a in kaas)
                 {
@@ -57,7 +72,7 @@ namespace o3o
                         //uname.Inlines.Add(a);
                         uname.RequestNavigate += Hyperlink_RequestNavigateEvent;
                         uname.TextDecorations = null;
-                        uname.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                        uname.Foreground = color;
                         TweetBlock.Inlines.Add(uname);
                         TweetBlock.Inlines.Add(new Run(" "));
 
@@ -69,7 +84,7 @@ namespace o3o
                         hash.Inlines.Add(a);
                         hash.RequestNavigate += Hyperlink_RequestNavigateEvent;
                         hash.TextDecorations = null;
-                        hash.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                        hash.Foreground = color;
                         TweetBlock.Inlines.Add(hash);
                         TweetBlock.Inlines.Add(new Run(" "));
                     }
@@ -80,7 +95,7 @@ namespace o3o
                         link.Inlines.Add(url);
                         link.RequestNavigate += Hyperlink_RequestNavigateEvent;
                         link.TextDecorations = null;
-                        link.Foreground = new SolidColorBrush(Colors.SkyBlue);
+                        link.Foreground = color;
                         TweetBlock.Inlines.Add(link);
                         TweetBlock.Inlines.Add(new Run(" "));
                     }
@@ -89,9 +104,6 @@ namespace o3o
                         TweetBlock.Inlines.Add( new Run(a+ " "));
                     }
                 }
-
-                // find hashtags and @user in Tweet
-                //TweetBlock.Text = Tweet.ParseURL().ParseUsername().ParseHashtag();
 
                 datelabel.Text = Date;
                 label1.Text = name;
