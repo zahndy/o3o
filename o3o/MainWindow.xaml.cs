@@ -57,6 +57,7 @@ namespace o3o
 
         void get_tweets()
         {
+            TweetElements.Items.Clear();
             Twitterizer.TwitterStatusCollection response = o3o.Twitter.GetTweets();
             foreach (Twitterizer.TwitterStatus tweet in response)
             {
@@ -71,7 +72,7 @@ namespace o3o
         {
             Twitterizer.TwitterStatusCollection menstruations = o3o.Twitter.GetMentions();
 
-
+            TweetMentions.Items.Clear();
             foreach (Twitterizer.TwitterStatus drama in menstruations)
             {
                 FillMentions(drama.Text, drama.User.ScreenName, drama.CreatedDate.ToString(), drama.User.ProfileImageLocation, drama.Id.ToString());
