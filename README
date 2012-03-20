@@ -3,6 +3,7 @@ o3o is a C# WPF Twitter client
 as of now it works but still needs a lot of tweaks and features added.
 
 TODO:
-- user defined sounds and standard sound lib
+
 - streaming or polling tweets
+- preferences tab
 - smooth draggable listbox?
