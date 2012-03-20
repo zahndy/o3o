@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\burd.ico</ApplicationIcon>
+    <ApplicationIcon>Images\new o3o icon allsize1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomColorPicker">
@@ -64,10 +64,6 @@
     <Reference Include="Twitterizer2, Version=2.4.0.2028, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Twitterizer2.dll</HintPath>
-    </Reference>
-    <Reference Include="Twitterizer2.Streaming, Version=2.4.0.2030, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\Twitterizer2.Streaming.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -162,19 +158,14 @@
     <SplashScreen Include="SplashScreen1.png" />
     <Resource Include="Libs\GettingStarted.txt" />
     <Resource Include="Libs\Json.NET.license.txt" />
+    <Resource Include="Images\new o3o icon allsize1.ico" />
+    <Resource Include="Images\gear_icon.png" />
     <Resource Include="Images\leftarrow.png" />
     <Resource Include="Images\rightarrow.png" />
     <Resource Include="Images\Reload_Hover.png" />
     <Resource Include="Images\Reload_normal.png" />
     <Resource Include="Images\leftarrow_over.png" />
     <Resource Include="Images\rightarrow_over.png" />
-    <Resource Include="Images\reply.png" />
-    <Resource Include="Images\reply_onclick.png" />
-    <Resource Include="Images\reply_onhover.png" />
-    <Resource Include="Images\reply_empty.png" />
-    <Resource Include="Images\gear.png" />
-    <Resource Include="Images\gear_selected.png" />
-    <Resource Include="Images\burd.ico" />
     <Content Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.pdb" />
     <Resource Include="Libs\Newtonsoft.Json.xml" />

@@ -55,9 +55,4 @@ C:\o3o\o3o\bin\Debug\Twitterizer2.pdb
 C:\o3o\o3o\bin\Debug\Twitterizer2.xml
 C:\o3o\o3o\obj\x86\Debug\o3o.GetOAuthForm.resources
 C:\o3o\o3o\obj\x86\Debug\o3o.AboutBox1.resources
-C:\GIT\GitHub\o3o\o3o\bin\Debug\Twitterizer2.Streaming.dll
-C:\GIT\GitHub\o3o\o3o\bin\Debug\Twitterizer2.Streaming.pdb
-C:\GIT\GitHub\o3o\o3o\bin\Debug\Twitterizer2.Streaming.xml
-C:\GIT\GitHub\o3o\o3o\obj\x86\Debug\o3o_MarkupCompile.lref
-C:\GIT\GitHub\o3o\o3o\obj\x86\Debug\o3o.AboutBox1.resources
-C:\GIT\GitHub\o3o\o3o\obj\x86\Debug\o3o.GetOAuthForm.resources
+C:\o3o\o3o\bin\Debug\CustomColorPicker.dll
