@@ -80,11 +80,11 @@ namespace o3o
             Twitterizer.TwitterStatusCollection response = o3o.Twitter.GetTweets();
             foreach (Twitterizer.TwitterStatus tweet in response)
             {
-                FillHome(tweet.Text, tweet.User.ScreenName, tweet.CreatedDate.ToString(), tweet.User.ProfileImageLocation, tweet.Id.ToString());
+                FillHome(tweet.Text, tweet.User.ScreenName, tweet.CreatedDate, tweet.User.ProfileImageLocation, tweet.Id.ToString());
               
             }
-            int index = response.Count - 1;
-            Notification(response[index].Text, response[index].User.ScreenName, response[index].CreatedDate.ToString(), response[index].User.ProfileImageLocation, response[index].Id.ToString());
+            int index = 0;//response.Count - 1;
+            Notification(response[index].Text, response[index].User.ScreenName, response[index].CreatedDate, response[index].User.ProfileImageLocation, response[index].Id.ToString());
             
         }
         void get_mentions()
@@ -94,7 +94,7 @@ namespace o3o
             TweetMentions.Items.Clear();
             foreach (Twitterizer.TwitterStatus drama in menstruations)
             {
-                FillMentions(drama.Text, drama.User.ScreenName, drama.CreatedDate.ToString(), drama.User.ProfileImageLocation, drama.Id.ToString());
+                FillMentions(drama.Text, drama.User.ScreenName, drama.CreatedDate, drama.User.ProfileImageLocation, drama.Id.ToString());
             }
 
         }
@@ -119,41 +119,42 @@ namespace o3o
             else
             {
                 charleft.Foreground = new SolidColorBrush(Colors.Red); 
-                charleft.Text = "too long";
+                charleft.Text = "Too long";
             }
         }
 
-        public void FillHome(string message, string user, string date, string url, string id) // image is fetched in Tweetelement.xaml.cs
+        public void FillHome(string message, string user, DateTime date, string url, string id) // image is fetched in Tweetelement.xaml.cs
         {
             TweetElement element = new TweetElement();
             element.Tweet = message;
             element.name = user;
-            element.Date = date;
+            element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
             TweetElements.Items.Add(element);
         }
 
-        public void FillMentions(string message, string user, string date, string url, string id) // image is fetched in Tweetelement.xaml.cs
+        public void FillMentions(string message, string user, DateTime date, string url, string id) // image is fetched in Tweetelement.xaml.cs
         {
             TweetElement element = new TweetElement();
             element.Tweet = message;
             element.name = user;
-            element.Date = date;
+            element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
             TweetMentions.Items.Add( element);
         }
 
-        public void Notification(string message, string user, string date, string url, string id)
+        public void Notification(string message, string user, DateTime date, string url, string id)
         {
             notify notification = new notify();
             TweetElement element = new TweetElement();
             element.Tweet = message;
             element.name = user;
-            element.Date = date;
+            element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
             
         }
@@ -239,6 +240,46 @@ namespace o3o
 
         }
 
+        private void textBox1_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (textBox1.Text.Length <= 140)
+                {
+                    if (!String.IsNullOrEmpty(textBox1.Text))
+                    {
+                        o3o.Twitter.SendTweet(textBox1.Text);
+                        textBox1.Text = "";
+                        charleft.Text = "140";
+                        get_tweets();
+                    }
+                    else
+                    {
+                        charleft.Foreground = new SolidColorBrush(Colors.Red);
+                        charleft.Text = "no text";
+                    }
+                }
+                else
+                {
+                    charleft.Foreground = new SolidColorBrush(Colors.Red);
+                    charleft.Text = "too long";
+                }
+            }
+
+        }
+
+        private void btn_right_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void btn_Left_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        
+
         //private void reload_MouseDown(object sender, MouseButtonEventArgs e)
         //{
 
@@ -257,19 +298,22 @@ namespace o3o
         
 
 
+        public string tbox
+        {
+            get { return textBox1.Text;}
+            set { textBox1.Text = value; }
+        }
+
      
 
     }
 
-
-    public class ImageButton : System.Windows.Controls.Button
+    
+    public  class txtbox
     {
-        public ImageSource Source
-        {
-            get { return base.GetValue(SourceProperty) as ImageSource; }
-            set { base.SetValue(SourceProperty, value); }
-        }
-        public static readonly DependencyProperty SourceProperty =
-          DependencyProperty.Register("Source", typeof(ImageSource), typeof(ImageButton));
+        //public txtbox(string text)
+        //{
+        //    textBox1.Text = text;
+        //}
     }
 }
