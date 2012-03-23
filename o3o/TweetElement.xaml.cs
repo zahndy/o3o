@@ -42,8 +42,10 @@ namespace o3o
             datelabel.Text = Date;
         }
         
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            
             if (loaded == false)
             {
             SolidColorBrush color;
@@ -59,7 +61,7 @@ namespace o3o
             {
                color = new SolidColorBrush(Colors.SkyBlue);
             }
-
+            
             TweetBlock.Inlines.Clear();
                 var kaas = Tweet.Split(' ');
                 foreach (string a in kaas)
@@ -172,6 +174,78 @@ namespace o3o
             string target = "https://twitter.com/#!/"+name+"/statuses/"+ID;
             System.Diagnostics.Process.Start(target);
         }
+
+
+
+
+        private void reply()
+        {
+          //  here, append @name too Mainwindow.textBox1 
+            
+        }
+
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
+            menu.Source = new BitmapImage(new Uri("/o3o;component/Images/gear.png", UriKind.Relative));
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_empty.png", UriKind.Relative));
+            menu.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_empty.png", UriKind.Relative));
+        }
+
+        private void replyBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_onhover.png", UriKind.Relative));
+        }
+
+        private void replyBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
+        }
+
+        private void replyBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_onclick.png", UriKind.Relative));
+
+            reply();
+        }
+
+        private void replyBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_onhover.png", UriKind.Relative));
+        }
+
+        private void menu_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            contextmenu.PlacementTarget = this;
+            contextmenu.IsOpen = true;
+        }
+
+        private void menu_MouseEnter(object sender, MouseEventArgs e)
+        {
+            menu.Source = new BitmapImage(new Uri("/o3o;component/Images/gear_selected.png", UriKind.Relative));
+        }
+
+        private void menu_MouseLeave(object sender, MouseEventArgs e)
+        {
+            menu.Source = new BitmapImage(new Uri("/o3o;component/Images/gear.png", UriKind.Relative));
+        }
+
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TweetBlock.Text.ToString());
+        }
+
+        private void TweetBlock_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            contextmenu.PlacementTarget = this;
+            contextmenu.IsOpen = true;
+        }
+
     }
 
 }
