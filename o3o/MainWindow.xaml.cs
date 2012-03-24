@@ -298,22 +298,15 @@ namespace o3o
         
 
 
-        public string tbox
+        public string tbox  // somehow use this in TweetElement.xaml.cs 
         {
             get { return textBox1.Text;}
             set { textBox1.Text = value; }
         }
 
+        
      
 
     }
 
-    
-    public  class txtbox
-    {
-        //public txtbox(string text)
-        //{
-        //    textBox1.Text = text;
-        //}
-    }
 }
