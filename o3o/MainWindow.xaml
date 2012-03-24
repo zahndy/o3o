@@ -309,6 +309,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
+            
+           
         <Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
             <Setter Property="Background" Value="{StaticResource VerticalScrollBarBackground}"/>
             <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
@@ -392,9 +394,14 @@
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="{Binding ElementName=Scroller, Path=ViewportHeight}" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid>
-                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}">
-
+                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000">
+                        <ListBox.OpacityMask>
+                            <LinearGradientBrush StartPoint="1,0">
+                                <GradientStop Color="#FFFFFFFF" Offset="0.95" />
+                                <GradientStop Color="#00FFFFFF" Offset="1" />
+                            </LinearGradientBrush>
+                        </ListBox.OpacityMask>
                     </ListBox>
                     <TextBox x:FieldModifier="public" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" >
                     </TextBox>
@@ -409,7 +416,7 @@
                         <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                     </TextBlock.Effect>
                     </TextBlock>
-                    <Button Content="send" Height="17" HorizontalAlignment="Center" Margin="76,0,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
+                    <Button Content="send" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
                 </Grid>
             </TabItem>
             <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000" Padding="6,0">
