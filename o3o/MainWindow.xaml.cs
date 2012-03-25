@@ -99,27 +99,44 @@ namespace o3o
 
         }
 
+
         private void testbutton_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox1.Text.Length <= 140)
+            if (textBox1.Visibility == Visibility.Collapsed)
             {
-                if (!String.IsNullOrEmpty(textBox1.Text))
+                testbutton.Content = "Cancel";
+                TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                textBox1.Visibility = Visibility.Visible;
+                charleft.Visibility = Visibility.Visible;
+                TweetLbl.Visibility = Visibility.Visible;
+            }
+            else if (textBox1.Visibility == Visibility.Visible)
+            {
+                if (textBox1.Text.Length <= 140)
                 {
-                    o3o.Twitter.SendTweet(textBox1.Text);
-                    textBox1.Text = "";
-                    charleft.Text = "140";
-                    get_tweets();
+                    if (!String.IsNullOrEmpty(textBox1.Text))
+                    {
+                        o3o.Twitter.SendTweet(textBox1.Text);
+                        textBox1.Text = "";
+                        charleft.Text = "140";
+                        get_tweets();
+                    }
+                    else
+                    {
+                        //charleft.Foreground = new SolidColorBrush(Colors.Red);
+                        //charleft.Text = "no text";
+                        testbutton.Content = "Tweet";
+                        TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                        textBox1.Visibility = Visibility.Collapsed;
+                        charleft.Visibility = Visibility.Collapsed;
+                        TweetLbl.Visibility = Visibility.Collapsed;
+                    }
                 }
                 else
                 {
-                    charleft.Foreground = new SolidColorBrush(Colors.Red); 
-                    charleft.Text = "no text";
+                    charleft.Foreground = new SolidColorBrush(Colors.Red);
+                    charleft.Text = "Too long";
                 }
-            }
-            else
-            {
-                charleft.Foreground = new SolidColorBrush(Colors.Red); 
-                charleft.Text = "Too long";
             }
         }
 
@@ -174,9 +191,18 @@ namespace o3o
             int left = 140 - (textBox1.Text.Length);
             charleft.Text = left.ToString();
             if (left < 0)
-                charleft.Foreground = new SolidColorBrush(Colors.Red); 
+            {
+                charleft.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            else if (left == 140)
+            {
+                testbutton.Content = "Cancel";
+            }
             else
-                charleft.Foreground = new SolidColorBrush(Colors.Black); 
+            {
+                charleft.Foreground = new SolidColorBrush(Colors.Black);
+                testbutton.Content = "Send";
+            }
         }
 
         private void btn_right_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -264,6 +290,15 @@ namespace o3o
                     charleft.Foreground = new SolidColorBrush(Colors.Red);
                     charleft.Text = "too long";
                 }
+            }
+            if (e.Key == Key.Escape)
+            {
+                textBox1.Text = "";
+                testbutton.Content = "Tweet";
+                TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                textBox1.Visibility = Visibility.Collapsed;
+                charleft.Visibility = Visibility.Collapsed;
+                TweetLbl.Visibility = Visibility.Collapsed;
             }
 
         }
