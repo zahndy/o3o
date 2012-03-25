@@ -226,6 +226,30 @@
                             <Trigger Property="IsGrouping" Value="true">
                                 <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
                             </Trigger>
+
+                                <!--<Trigger Property="ListBox.Margin"  Value="0,0,0,71">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                            <ThicknessAnimation
+                                                    Storyboard.TargetProperty="BorderThickness"
+                                                    Duration="0:0:0.5" FillBehavior="HoldEnd" From="0,0,0,17" To="0,0,0,70" />
+                                        </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                            <Trigger Property="ListBox.Margin"  Value="0,0,0,16">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ThicknessAnimation
+                                                    Storyboard.TargetProperty="BorderThickness"
+                                                    Duration="0:0:0.5" FillBehavior="HoldEnd" From="0,0,0,70" To="0,0,0,17" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>-->
+
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -309,6 +333,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+            
             
            
         <Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
@@ -394,29 +419,82 @@
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="{Binding ElementName=Scroller, Path=ViewportHeight}" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid>
-                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,70" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000">
+                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000" >
                         <ListBox.OpacityMask>
                             <LinearGradientBrush StartPoint="1,0">
                                 <GradientStop Color="#FFFFFFFF" Offset="0.95" />
                                 <GradientStop Color="#00FFFFFF" Offset="1" />
+                                <GradientStop Color="#FFFFFFFF" Offset="0.01" />
+                                <GradientStop Color="#00FFFFFF" Offset="0" />
                             </LinearGradientBrush>
                         </ListBox.OpacityMask>
                     </ListBox>
-                    <TextBox x:FieldModifier="public" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" >
+                    <TextBox Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" Visibility="Collapsed">
+                        <TextBox.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="TextBox.Visibility"  Value="Visible">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
                     </TextBox>
                     
-                    <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,0,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Foreground="Black">
+                    <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,0,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Foreground="Black" Visibility="Collapsed">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                     </TextBlock.Effect>
+                        <TextBlock.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="TextBlock.Visibility"  Value="Visible">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
                     </TextBlock>
-                    <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,0,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="1" Width="65" FontSize="11" Foreground="Black">
+                    <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,0,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="1" Width="65" FontSize="11" Foreground="Black" Visibility="Collapsed">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                     </TextBlock.Effect>
+                         <TextBlock.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="TextBlock.Visibility"  Value="Visible">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
                     </TextBlock>
-                    <Button Content="send" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
+                    <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
                 </Grid>
             </TabItem>
             <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000" Padding="6,0">
@@ -434,9 +512,6 @@
                 </Grid>
             </TabItem>
             <TabItem Name="SystemTab" BorderBrush="#00000000" Header="Settings">
-                <!--<TabItem.Header>
-                    <Image Height="12" Name="img" Source="/o3o;component/Images/gear_icon.png" />
-                </TabItem.Header>-->
                 <Grid >
                     <Button HorizontalAlignment="Left" Width="90" Height="25" Content="About o3o" Margin="6,0,0,24" VerticalAlignment="Bottom" Click="Button_Click" />
                     <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="193,45,0,0"></cp:CustomColorPicker>
