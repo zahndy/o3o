@@ -66,44 +66,53 @@ namespace o3o
                 var kaas = Tweet.Split(' ');
                 foreach (string a in kaas)
                 {
-                    if (a.StartsWith("@"))
+                    if (a.Length > 1)
                     {
-                        string username = a.Replace("@", "");
-                        username.Replace(":", "");
-                        Hyperlink uname = new Hyperlink( new Run(a)) { NavigateUri = new Uri("http://twitter.com/" + username) };
-                        //uname.Inlines.Add(a);
-                        uname.RequestNavigate += Hyperlink_RequestNavigateEvent;
-                        uname.TextDecorations = null;
-                        uname.Foreground = color;
-                        TweetBlock.Inlines.Add(uname);
-                        TweetBlock.Inlines.Add(new Run(" "));
+                        if (a.StartsWith("@"))
+                        {
+                            string username = a.Replace("@", "");
+                            username.Replace(":", "");
+                            Hyperlink uname = new Hyperlink(new Run(a)) { NavigateUri = new Uri("http://twitter.com/" + username) };
+                            //uname.Inlines.Add(a);
+                            uname.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                            uname.TextDecorations = null;
+                            uname.Foreground = color;
+                            TweetBlock.Inlines.Add(uname);
+                            TweetBlock.Inlines.Add(new Run(" "));
 
-                    }
-                    else if (a.StartsWith("#"))
-                    {
-                        string hashtag = a.Replace("#", "");
-                        Hyperlink hash = new Hyperlink() { NavigateUri = new Uri("http://search.twitter.com/search?q=" + hashtag) };
-                        hash.Inlines.Add(a);
-                        hash.RequestNavigate += Hyperlink_RequestNavigateEvent;
-                        hash.TextDecorations = null;
-                        hash.Foreground = color;
-                        TweetBlock.Inlines.Add(hash);
-                        TweetBlock.Inlines.Add(new Run(" "));
-                    }
-                    else if (a.StartsWith("http"))
-                    {
-                        string url = a.Replace("http://", "");
-                        Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
-                        link.Inlines.Add(url);
-                        link.RequestNavigate += Hyperlink_RequestNavigateEvent;
-                        link.TextDecorations = null;
-                        link.Foreground = color;
-                        TweetBlock.Inlines.Add(link);
-                        TweetBlock.Inlines.Add(new Run(" "));
+                        }
+                        else if (a.StartsWith("#"))
+                        {
+                            string hashtag = a.Replace("#", "");
+                            Hyperlink hash = new Hyperlink() { NavigateUri = new Uri("http://search.twitter.com/search?q=" + hashtag) };
+                            hash.Inlines.Add(a);
+                            hash.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                            hash.TextDecorations = null;
+                            hash.Foreground = color;
+                            TweetBlock.Inlines.Add(hash);
+                            TweetBlock.Inlines.Add(new Run(" "));
+                        }
+                        else if (a.StartsWith("http"))
+                        {
+                            string url = a.Replace("http://", "");
+                            Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
+                            link.Inlines.Add(url);
+                            link.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                            link.TextDecorations = null;
+                            link.Foreground = color;
+                            TweetBlock.Inlines.Add(link);
+                            TweetBlock.Inlines.Add(new Run(" "));
+                        }
+                        else
+                        {
+                            TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(a)));
+                            TweetBlock.Inlines.Add(new Run(" "));
+                        }
                     }
                     else
                     {
-                        TweetBlock.Inlines.Add( new Run(a+ " "));
+                        TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(a)));
+                        TweetBlock.Inlines.Add(new Run(" "));
                     }
                 }
 
@@ -175,15 +184,6 @@ namespace o3o
             System.Diagnostics.Process.Start(target);
         }
 
-
-
-
-        private void reply()
-        {
-          //  here, append @name too Mainwindow.textBox1 
-            
-        }
-
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
             replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
@@ -244,6 +244,16 @@ namespace o3o
         {
             contextmenu.PlacementTarget = this;
             contextmenu.IsOpen = true;
+        }
+
+
+
+
+
+        private void reply()
+        {
+            //  here, append @name too Mainwindow.textBox1 
+
         }
 
     }
