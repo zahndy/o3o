@@ -34,12 +34,15 @@ namespace o3o
         public string imagelocation;
         public string ID;
         public bool loaded = false;
-        public TweetElement()
+
+        private MainWindow parent;
+        public TweetElement(MainWindow prnt)
         {
             
             InitializeComponent();
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
+            parent = prnt;
         }
         
 
@@ -247,13 +250,9 @@ namespace o3o
         }
 
 
-
-
-
         private void reply()
         {
-            //  here, append @name too Mainwindow.textBox1 
-
+            parent.tbox("@" + name);
         }
 
     }
