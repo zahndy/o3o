@@ -140,9 +140,9 @@ namespace o3o
             }
         }
 
-        public void FillHome(string message, string user, DateTime date, string url, string id) // image is fetched in Tweetelement.xaml.cs
+        public void FillHome(string message, string user, DateTime date, string url, string id) 
         {
-            TweetElement element = new TweetElement();
+            TweetElement element = new TweetElement(this);
             element.Tweet = message;
             element.name = user;
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
@@ -151,9 +151,9 @@ namespace o3o
             TweetElements.Items.Add(element);
         }
 
-        public void FillMentions(string message, string user, DateTime date, string url, string id) // image is fetched in Tweetelement.xaml.cs
+        public void FillMentions(string message, string user, DateTime date, string url, string id) 
         {
-            TweetElement element = new TweetElement();
+            TweetElement element = new TweetElement(this);
             element.Tweet = message;
             element.name = user;
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
@@ -165,7 +165,7 @@ namespace o3o
         public void Notification(string message, string user, DateTime date, string url, string id)
         {
             notify notification = new notify();
-            TweetElement element = new TweetElement();
+            TweetElement element = new TweetElement(this);
             element.Tweet = message;
             element.name = user;
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
@@ -333,10 +333,18 @@ namespace o3o
         
 
 
-        public string tbox  // somehow use this in TweetElement.xaml.cs 
+        public void tbox(string inc)  // somehow use this in TweetElement.xaml.cs 
         {
-            get { return textBox1.Text;}
-            set { textBox1.Text = value; }
+            textBox1.Text = inc;
+            if (textBox1.Visibility == Visibility.Collapsed)
+            {
+                testbutton.Content = "Cancel";
+                TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                textBox1.Visibility = Visibility.Visible;
+                charleft.Visibility = Visibility.Visible;
+                TweetLbl.Visibility = Visibility.Visible;
+            }
+            
         }
 
         
