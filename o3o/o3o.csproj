@@ -86,6 +86,7 @@
     <Compile Include="GetOAuthForm.Designer.cs">
       <DependentUpon>GetOAuthForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GetTweets.cs" />
     <Compile Include="glass.cs" />
     <Compile Include="TweetElement.xaml.cs">
       <DependentUpon>TweetElement.xaml</DependentUpon>

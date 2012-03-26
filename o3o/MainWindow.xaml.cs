@@ -17,6 +17,8 @@ using System.Windows.Media.Effects;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using Twitterizer;
+using System.Threading;
+
 namespace o3o
 {
     /// <summary>
@@ -54,10 +56,20 @@ namespace o3o
                 checkBox1.IsChecked = true;
             }
 
-            get_mentions();
-            get_tweets();
 
-           
+            //get_mentions();
+            //get_tweets();
+
+
+            Thread workerthread = new Thread(new ThreadStart(ThreadFunction));
+            workerthread.SetApartmentState(ApartmentState.STA);
+            workerthread.Start();
+            Thread.Sleep(1);
+            workerthread.Join();
+        }
+        private void ThreadFunction()
+        {
+            GetTweets worker = new GetTweets(this, o3o);
         }
 
         [DllImport("dwmapi.dll", EntryPoint = "#127", PreserveSig = false)]
@@ -347,8 +359,8 @@ namespace o3o
             
         }
 
-        
-     
+
+
 
     }
 
