@@ -143,6 +143,7 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3DFFFFFF"/>
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#47FFFFFF"/>
             </Style.Resources>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         </Style>
 
         <Style TargetType="{x:Type TabItem}">
@@ -501,13 +502,29 @@
                 <Grid>
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMentions" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Height="Auto">
+                        <ListBox.OpacityMask>
+                            <LinearGradientBrush StartPoint="1,0">
+                                <GradientStop Color="#FFFFFFFF" Offset="0.95" />
+                                <GradientStop Color="#00FFFFFF" Offset="1" />
+                                <GradientStop Color="#FFFFFFFF" Offset="0.01" />
+                                <GradientStop Color="#00FFFFFF" Offset="0" />
+                            </LinearGradientBrush>
+                        </ListBox.OpacityMask>
                     </ListBox>
-                    </Grid>
+                </Grid>
             </TabItem>
             <TabItem Header="Messages" Name="MessagesTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid>
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMessages" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="{Binding ElementName=Scroller, Path=ViewportWidth}" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Height="Auto">
+                        <ListBox.OpacityMask>
+                            <LinearGradientBrush StartPoint="1,0">
+                                <GradientStop Color="#FFFFFFFF" Offset="0.95" />
+                                <GradientStop Color="#00FFFFFF" Offset="1" />
+                                <GradientStop Color="#FFFFFFFF" Offset="0.01" />
+                                <GradientStop Color="#00FFFFFF" Offset="0" />
+                            </LinearGradientBrush>
+                        </ListBox.OpacityMask>
                     </ListBox>
                 </Grid>
             </TabItem>
