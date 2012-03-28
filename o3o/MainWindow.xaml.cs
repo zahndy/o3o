@@ -24,30 +24,43 @@ namespace o3o
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
+        Twitterizer.TwitterStatusCollection tweets;
+        Twitterizer.TwitterStatusCollection mentions;
+        TweetStack o3o;
         public MainWindow()
         {
-            InitializeComponent();
-            MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
-            this.Loaded += new RoutedEventHandler(Window1_Loaded);  
-            
-        }
-
-        TweetStack o3o;
-        void Window1_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.SetAeroGlass();
             if (String.IsNullOrEmpty(Properties.Settings.Default.OAuth_AccessToken))
             {
-                 o3o = new TweetStack(false);            
+                o3o = new TweetStack(false);
                 o3o.OAuth.AuthenticateTwitter();
                 o3o.OAuth.SaveOAuth();
             }
             else
             {
-                 o3o = new TweetStack(true);
+                o3o = new TweetStack(true);
             }
+
+            tweets = o3o.Twitter.GetTweets();
+            mentions = o3o.Twitter.GetMentions();
+            InitializeComponent();
+            
+            get_mentions();
+            get_tweets();
+            if (tweets.Count < 40)
+            {
+                btn_Left.Visibility = Visibility.Collapsed;
+                btn_right.Visibility = Visibility.Collapsed;
+            }
+            MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
+            this.Loaded += new RoutedEventHandler(Window1_Loaded);  
+            
+        }
+
+        
+        void Window1_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.SetAeroGlass();
+           
 
             if (Properties.Settings.Default.use_system_color == true)
             {
@@ -77,24 +90,23 @@ namespace o3o
         void get_tweets()
         {
             TweetElements.Items.Clear();
-            Twitterizer.TwitterStatusCollection response = o3o.Twitter.GetTweets();
-            foreach (Twitterizer.TwitterStatus tweet in response)
+            
+            foreach (Twitterizer.TwitterStatus tweet in tweets)
             {
                 FillHome(tweet.Text, tweet.User.ScreenName, tweet.CreatedDate, tweet.User.ProfileImageLocation, tweet.Id.ToString());
               
             }
             int index = 0;//response.Count - 1;
-            Notification(response[index].Text, response[index].User.ScreenName, response[index].CreatedDate, response[index].User.ProfileImageLocation, response[index].Id.ToString());
+            Notification(tweets[index].Text, tweets[index].User.ScreenName, tweets[index].CreatedDate, tweets[index].User.ProfileImageLocation, tweets[index].Id.ToString());
             
         }
         void get_mentions()
         {
-            Twitterizer.TwitterStatusCollection menstruations = o3o.Twitter.GetMentions();
 
             TweetMentions.Items.Clear();
-            foreach (Twitterizer.TwitterStatus drama in menstruations)
+            foreach (Twitterizer.TwitterStatus lama in mentions)
             {
-                FillMentions(drama.Text, drama.User.ScreenName, drama.CreatedDate, drama.User.ProfileImageLocation, drama.Id.ToString());
+                FillMentions(lama.Text, lama.User.ScreenName, lama.CreatedDate, lama.User.ProfileImageLocation, lama.Id.ToString());
             }
 
         }
@@ -338,7 +350,7 @@ namespace o3o
             textBox1.Text = inc;
             if (textBox1.Visibility == Visibility.Collapsed)
             {
-                testbutton.Content = "Cancel";
+                testbutton.Content = "Tweet";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
                 textBox1.Visibility = Visibility.Visible;
                 charleft.Visibility = Visibility.Visible;
