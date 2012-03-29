@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\new o3o icon allsize1.ico</ApplicationIcon>
+    <ApplicationIcon>Images\burd.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomColorPicker">
@@ -158,7 +158,6 @@
     <SplashScreen Include="SplashScreen1.png" />
     <Resource Include="Libs\GettingStarted.txt" />
     <Resource Include="Libs\Json.NET.license.txt" />
-    <Resource Include="Images\new o3o icon allsize1.ico" />
     <Resource Include="Images\leftarrow.png" />
     <Resource Include="Images\rightarrow.png" />
     <Resource Include="Images\Reload_Hover.png" />
@@ -171,6 +170,7 @@
     <Resource Include="Images\reply_empty.png" />
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
+    <Resource Include="Images\burd.ico" />
     <Content Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.pdb" />
     <Resource Include="Libs\Newtonsoft.Json.xml" />
