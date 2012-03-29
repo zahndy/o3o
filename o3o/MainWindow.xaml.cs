@@ -52,8 +52,7 @@ namespace o3o
                 btn_right.Visibility = Visibility.Collapsed;
             }
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
-            this.Loaded += new RoutedEventHandler(Window1_Loaded);  
-            
+            this.Loaded += new RoutedEventHandler(Window1_Loaded);
         }
 
         
@@ -67,9 +66,9 @@ namespace o3o
                 checkBox1.IsChecked = true;
             }
 
-            get_mentions();
-            get_tweets();
-
+            //get_mentions();
+            //get_tweets();
+            
            
         }
 
