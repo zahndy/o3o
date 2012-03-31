@@ -18,13 +18,14 @@ namespace o3o
         //vars
         public OAuthstuff OAuth;
         public TwitterInteraction Twitter;
+        public Twitterizer.Streaming.TwitterStream Tweetstream;
 
         //SET THESE Or the program won't work.
         const string CONSUMER_KEY = "QfId2BP2FJB5v7Y0IUl4UA";
         const string CONSUMER_SECRET = "g8xCgUzfCVTnyfUaHeFdHgYHBNrE5fTmF9YAANlRM";
         //And yes I realize it's horrible to keep those in the sourcecode, but .NET can be decompiled regardless, so where the hell are we supposed to keep them?
 
-        public TweetStack(bool _LoadOAuth)
+        public TweetStack(bool _LoadOAuth, bool streaming = false)
         {
             OAuth = new OAuthstuff();
             Twitter = new TwitterInteraction(OAuth);
@@ -32,7 +33,69 @@ namespace o3o
             OAuth.ConsumerSecret = CONSUMER_SECRET;
             if (_LoadOAuth)
                  OAuth.LoadOAuth();
+            if (streaming && _LoadOAuth)
+            {
+                Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
+                Streamopts.Count = 20;
+                Tweetstream = new Twitterizer.Streaming.TwitterStream(OAuth.GetOAuthToken(), "o3o", Streamopts);
+                Tweetstream.StartUserStream(
+                    new Twitterizer.Streaming.InitUserStreamCallback(FriendsCallback),
+                    new Twitterizer.Streaming.StreamStoppedCallback(StreamStoppedcallback),
+                    new Twitterizer.Streaming.StatusCreatedCallback(StatuscreatedCallback), 
+                    new Twitterizer.Streaming.StatusDeletedCallback(statusdeletedCallback), 
+                    new Twitterizer.Streaming.DirectMessageCreatedCallback(DMcreatedCallback),
+                    new Twitterizer.Streaming.DirectMessageDeletedCallback(DMDeletectCallback), 
+                    new Twitterizer.Streaming.EventCallback(eventCallback));
+            }
         }
+
+        #region TwitterStreamStuff
+        //Tweet stream stuff~!
+        
+        void FriendsCallback(Twitterizer.TwitterIdCollection input)
+        {
+            //Don't need this yet
+        }
+
+        void StreamStoppedcallback(Twitterizer.Streaming.StopReasons stopreason)
+        {
+            throw new Exception("Stream was stopped! Stop reason: " + stopreason.ToString());
+        }
+
+        public delegate void newtweetDel(TwitterStatus status);
+        public event newtweetDel NewTweet;
+        void StatuscreatedCallback(TwitterStatus status)
+        {
+            if (NewTweet != null)
+                NewTweet(status);
+        }
+
+        public delegate void TweetDeletedDel(Twitterizer.Streaming.TwitterStreamDeletedEvent DeleteReason);
+        public event TweetDeletedDel TweetDeleted;
+        void statusdeletedCallback(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
+        {
+            if(TweetDeleted != null)
+                TweetDeleted(deletedreason);
+        }
+
+        public delegate void DMReceivedDel(TwitterDirectMessage DM);
+        public event DMReceivedDel DMReceived;
+        void DMcreatedCallback(TwitterDirectMessage incomingDM)
+        {
+            if(DMReceived != null)
+                DMReceived(incomingDM);
+        }
+
+        void DMDeletectCallback(Twitterizer.Streaming.TwitterStreamDeletedEvent DeleteReason)
+        {
+            //Don't need this yet
+        }
+
+        void eventCallback(Twitterizer.Streaming.TwitterStreamEvent eventstuff)
+        {
+            //Don't need this yet
+        }
+        #endregion
 
         //This is basically just a barebone wrapper to keep things simple for you.
         public class TwitterInteraction
