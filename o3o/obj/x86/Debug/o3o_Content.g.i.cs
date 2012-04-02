@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("libs/twitterizer2.streaming.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("libs/twitterizer2.streaming.pdb")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("libs/newtonsoft.json.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("libs/newtonsoft.json.pdb")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("libs/twitterizer2.dll")]
