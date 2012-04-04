@@ -24,9 +24,11 @@ namespace o3o
     /// </summary>
     public partial class MainWindow : Window
     {
-        Twitterizer.TwitterStatusCollection tweets;
-        Twitterizer.TwitterStatusCollection mentions;
+
         TweetStack o3o;
+        System.Windows.Threading.Dispatcher maindispatcher;
+        public delegate void dostuff(string message, string user, DateTime date, string url, string id);
+        public dostuff dostuffdel;
         public MainWindow()
         {
             if (String.IsNullOrEmpty(Properties.Settings.Default.OAuth_AccessToken))
@@ -37,23 +39,35 @@ namespace o3o
             }
             else
             {
-                o3o = new TweetStack(true);
+                o3o = new TweetStack(true,true);
             }
 
-            tweets = o3o.Twitter.GetTweets();
-            mentions = o3o.Twitter.GetMentions();
+            maindispatcher = this.Dispatcher;
             InitializeComponent();
+            o3o.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
             
-            get_mentions();
-            get_tweets();
-            if (tweets.Count < 40)
-            {
-                btn_Left.Visibility = Visibility.Collapsed;
-                btn_right.Visibility = Visibility.Collapsed;
-            }
+            
+            //if (TweetElements.Items.Count < 40)
+            //{
+            //    btn_Left.Visibility = Visibility.Collapsed;
+            //    btn_right.Visibility = Visibility.Collapsed;
+            //}
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
         }
+
+        void o3o_NewTweet(TwitterStatus status)
+        {
+
+            dostuffdel = new dostuff(FillHome);
+            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+
+            dostuffdel = new dostuff(Notification);
+            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+            
+
+        }
+
 
         
         void Window1_Loaded(object sender, RoutedEventArgs e)
@@ -66,8 +80,6 @@ namespace o3o
                 checkBox1.IsChecked = true;
             }
 
-            //get_mentions();
-            //get_tweets();
             
            
         }
@@ -86,27 +98,15 @@ namespace o3o
         }
 
 
-        void get_tweets()
-        {
-            TweetElements.Items.Clear();
-            
-            foreach (Twitterizer.TwitterStatus tweet in tweets)
-            {
-                FillHome(tweet.Text, tweet.User.ScreenName, tweet.CreatedDate, tweet.User.ProfileImageLocation, tweet.Id.ToString());
-              
-            }
-            int index = 0;//response.Count - 1;
-            Notification(tweets[index].Text, tweets[index].User.ScreenName, tweets[index].CreatedDate, tweets[index].User.ProfileImageLocation, tweets[index].Id.ToString());
-            
-        }
+
         void get_mentions()
         {
 
-            TweetMentions.Items.Clear();
-            foreach (Twitterizer.TwitterStatus lama in mentions)
-            {
-                FillMentions(lama.Text, lama.User.ScreenName, lama.CreatedDate, lama.User.ProfileImageLocation, lama.Id.ToString());
-            }
+            //TweetMentions.Items.Clear();
+            //foreach (Twitterizer.TwitterStatus lama in mentions)
+            //{
+            //    FillMentions(lama.Text, lama.User.ScreenName, lama.CreatedDate, lama.User.ProfileImageLocation, lama.Id.ToString());
+            //}
 
         }
 
@@ -130,7 +130,6 @@ namespace o3o
                         o3o.Twitter.SendTweet(textBox1.Text);
                         textBox1.Text = "";
                         charleft.Text = "140";
-                        get_tweets();
                     }
                     else
                     {
@@ -159,7 +158,8 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
-            TweetElements.Items.Add(element);
+            
+            TweetElements.Items.Insert(0, element);
         }
 
         public void FillMentions(string message, string user, DateTime date, string url, string id) 
@@ -273,7 +273,6 @@ namespace o3o
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             get_mentions();
-            get_tweets();
 
         }
 
@@ -288,7 +287,6 @@ namespace o3o
                         o3o.Twitter.SendTweet(textBox1.Text);
                         textBox1.Text = "";
                         charleft.Text = "140";
-                        get_tweets();
                     }
                     else
                     {

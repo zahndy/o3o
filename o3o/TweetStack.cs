@@ -36,7 +36,7 @@ namespace o3o
             if (streaming && _LoadOAuth)
             {
                 Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
-                Streamopts.Count = 20;
+                Streamopts.Count = 0;
                 Tweetstream = new Twitterizer.Streaming.TwitterStream(OAuth.GetOAuthToken(), "o3o", Streamopts);
                 Tweetstream.StartUserStream(
                     new Twitterizer.Streaming.InitUserStreamCallback(FriendsCallback),
@@ -59,6 +59,8 @@ namespace o3o
 
         void StreamStoppedcallback(Twitterizer.Streaming.StopReasons stopreason)
         {
+            System.Windows.Forms.MessageBox.Show("Stream was stopped.");
+
             throw new Exception("Stream was stopped! Stop reason: " + stopreason.ToString());
         }
 
@@ -91,9 +93,12 @@ namespace o3o
             //Don't need this yet
         }
 
+        delegate void twittereventdel(Twitterizer.Streaming.TwitterStreamEvent a);
+        event twittereventdel twitterevent;
         void eventCallback(Twitterizer.Streaming.TwitterStreamEvent eventstuff)
         {
-            //Don't need this yet
+            if (twitterevent != null)
+                twitterevent(eventstuff);
         }
         #endregion
 
