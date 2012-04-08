@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomColorPicker">
-      <HintPath>..\..\Users\zahndy\Desktop\CustomColorPicker.dll</HintPath>
+      <HintPath>Libs\CustomColorPicker.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -175,6 +175,7 @@
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
     <Resource Include="Images\burd.ico" />
+    <Content Include="Libs\CustomColorPicker.dll" />
     <Content Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.pdb" />
     <Resource Include="Libs\Newtonsoft.Json.xml" />
