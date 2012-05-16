@@ -47,11 +47,6 @@ namespace o3o
             o3o.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
             
             
-            //if (TweetElements.Items.Count < 40)
-            //{
-            //    btn_Left.Visibility = Visibility.Collapsed;
-            //    btn_right.Visibility = Visibility.Collapsed;
-            //}
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
         }
@@ -216,35 +211,6 @@ namespace o3o
             }
         }
 
-        private void btn_right_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btn_right.Source = new BitmapImage(new Uri("/o3o;component/Images/rightarrow_over.png", UriKind.Relative));
-        }
-
-        private void btn_right_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btn_right.Source = new BitmapImage(new Uri("/o3o;component/Images/rightarrow.png", UriKind.Relative));
-        }
-
-        private void btn_right_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void btn_Left_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btn_Left.Source = new BitmapImage(new Uri("/o3o;component/Images/leftarrow_over.png", UriKind.Relative));
-        }
-
-        private void btn_Left_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btn_Left.Source = new BitmapImage(new Uri("/o3o;component/Images/leftarrow.png", UriKind.Relative));
-        }
-
-        private void btn_Left_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

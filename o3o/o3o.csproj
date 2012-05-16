@@ -162,12 +162,8 @@
     <SplashScreen Include="SplashScreen1.png" />
     <Resource Include="Libs\GettingStarted.txt" />
     <Resource Include="Libs\Json.NET.license.txt" />
-    <Resource Include="Images\leftarrow.png" />
-    <Resource Include="Images\rightarrow.png" />
     <Resource Include="Images\Reload_Hover.png" />
     <Resource Include="Images\Reload_normal.png" />
-    <Resource Include="Images\leftarrow_over.png" />
-    <Resource Include="Images\rightarrow_over.png" />
     <Resource Include="Images\reply.png" />
     <Resource Include="Images\reply_onclick.png" />
     <Resource Include="Images\reply_onhover.png" />
