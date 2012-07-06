@@ -31,7 +31,8 @@ namespace o3o
         public dostuff dostuffdel;
         public MainWindow()
         {
-            if (String.IsNullOrEmpty(Properties.Settings.Default.OAuth_AccessToken))
+            InitializeComponent();
+            if (!String.IsNullOrEmpty(Properties.Settings.Default.OAuth_AccessToken))
             {
                 o3o = new TweetStack(false);
                 o3o.OAuth.AuthenticateTwitter();
@@ -43,7 +44,6 @@ namespace o3o
             }
 
             maindispatcher = this.Dispatcher;
-            InitializeComponent();
             o3o.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
             
             
