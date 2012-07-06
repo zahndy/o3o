@@ -24,15 +24,39 @@ namespace o3o
         const string CONSUMER_KEY = "QfId2BP2FJB5v7Y0IUl4UA";
         const string CONSUMER_SECRET = "g8xCgUzfCVTnyfUaHeFdHgYHBNrE5fTmF9YAANlRM";
         //And yes I realize it's horrible to keep those in the sourcecode, but .NET can be decompiled regardless, so where the hell are we supposed to keep them?
+        //Perhaps an authentication server? I could easily make one but that'd give us so much power and responsibility, do we want that?
 
         public TweetStack(bool _LoadOAuth, bool streaming = false)
         {
+            //Initialize Open Authentication 
             OAuth = new OAuthstuff();
             Twitter = new TwitterInteraction(OAuth);
             OAuth.ConsumerKey = CONSUMER_KEY;
             OAuth.ConsumerSecret = CONSUMER_SECRET;
+            //and attempt to load the keys from settings
             if (_LoadOAuth)
-                 OAuth.LoadOAuth();
+            {
+                try
+                { OAuth.LoadOAuth(); }
+                catch (Exception ex)
+                {
+                    if(ex.Message.Contains("Accesstoken empty!"))
+                    {
+                        //Hello new user!
+                        //SYNCHRONOUSLY execute an event to handle the new user
+                        if (NewUserEvent != null)
+                            NewUserEvent();
+                        else
+                            throw new Exception("USER_CREATION_UNHANDLED");
+                        if (string.IsNullOrWhiteSpace(OAuth.AccessToken))
+                        {
+                            throw new Exception("USER_CREATION_UNHANDLED");
+                        }
+                    }
+                }
+
+            }
+            //If that gone well, and streaming tweets were requested, try initialize streaming tweets.
             if (streaming && _LoadOAuth)
             {
                 Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
@@ -48,6 +72,9 @@ namespace o3o
                     new Twitterizer.Streaming.EventCallback(eventCallback));
             }
         }
+        //New user event, HAS TO BE EXECUTED SYNCHRONOUSLY.
+        public delegate void NewUserDelegate();
+        public event NewUserDelegate NewUserEvent;
 
         #region TwitterStreamStuff
         //Tweet stream stuff~!
