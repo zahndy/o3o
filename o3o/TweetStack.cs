@@ -189,9 +189,10 @@ namespace o3o
             return true;
         }
 
-        public void CreateUser()
+        public void CreateUser(string name)
         {
             User usr = new User();
+            usr.Name = name;
             usr.AuthenticateTwitter();
             Users.Add(usr);
             usr.Initialize();
@@ -230,6 +231,8 @@ namespace o3o
             public string AccessToken { get; set; }
             [XmlElement]
             public string AccessTokenSecret { get; set; }
+            [XmlElement]
+            public string Name { get; set; }
             public OAuthTokens GetOAuthToken()
             {
                 OAuthTokens OAuth = new OAuthTokens();
@@ -239,10 +242,6 @@ namespace o3o
                 OAuth.ConsumerSecret = CONSUMER_SECRET;
                 return OAuth;
             }
-        }
-        static UserDatabase()
-        {
-
         }
 
 
@@ -255,8 +254,6 @@ namespace o3o
 
 
         //Put simple, all you have to do is make the user run AuthenticateTwitter() to pair the app with their account,
-        //then make sure to run SaveOAuth() to save it to the harddrive, 
-        //and run LoadOAuth() the next time you want to use their account.
         //I'll take care of the rest :3
     }
 }

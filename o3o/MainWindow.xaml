@@ -538,7 +538,6 @@
                     <Label Content="color for links(requires reload)" Height="18" HorizontalAlignment="Left" Margin="-1,45,0,0" Name="label1" VerticalAlignment="Top" Padding="0" />
                     <Label Content="use different color for links" Height="18" HorizontalAlignment="Left" Margin="0,14,0,0" Name="label2" Padding="0" VerticalAlignment="Top" />
                     <CheckBox Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked" Content="" Height="16" HorizontalAlignment="Left" Margin="193,14,0,0" Name="checkBox1" VerticalAlignment="Top" />
-                    <Button Content="Reload tweets" Height="23" HorizontalAlignment="Left" Margin="193,94,0,0" Name="button1" VerticalAlignment="Top" Width="90" Click="button1_Click" />
                 </Grid>
             </TabItem>
         </TabControl>
