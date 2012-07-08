@@ -121,6 +121,7 @@
       <DependentUpon>GetOAuthForm.cs</DependentUpon>
     </Compile>
     <Compile Include="glass.cs" />
+    <Compile Include="Persistence.cs" />
     <Compile Include="TweetElement.xaml.cs">
       <DependentUpon>TweetElement.xaml</DependentUpon>
     </Compile>

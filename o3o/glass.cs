@@ -38,5 +38,6 @@ namespace o3o
             DwmExtendFrameIntoClientArea(hwnd, ref Margin);
             return true;
         }
+
     }
 }
