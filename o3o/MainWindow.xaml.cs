@@ -24,11 +24,12 @@ namespace o3o
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        #region loading stuff
         UserDatabase UsrDB = new UserDatabase();
         System.Windows.Threading.Dispatcher maindispatcher;
         public delegate void dostuff(string message, string user, DateTime date, string url, string id, string Description);
         public dostuff dostuffdel;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +39,68 @@ namespace o3o
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
         }
 
-        
+
+        void Window1_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.SetAeroGlass();
+
+
+
+            if (Properties.Settings.Default.use_system_color == true)
+            {
+                checkBox1.IsChecked = true;
+            }
+
+            if (UsrDB.load() == false || UsrDB.Users.Count == 0)
+                UsrDB.CreateUser("Default user");
+
+
+
+            maindispatcher = this.Dispatcher;
+            foreach (UserDatabase.User usr in UsrDB.Users)
+            {
+                usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
+
+            }
+
+            UpdateUserMenu(UsrDB);
+
+        }
+
+        #endregion
+
+        #region tweet helpers
+
+        void SendTweet()
+        {
+            if (textBox1.Text.Length <= 140)
+            {
+                if (!String.IsNullOrEmpty(textBox1.Text))
+                {
+                    UsrDB.Users.Find(u => u.Name == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(textBox1.Text);
+                    textBox1.Text = "";
+                    charleft.Text = "140";
+                }
+                else
+                {
+                    //charleft.Foreground = new SolidColorBrush(Colors.Red);
+                    //charleft.Text = "no text";
+                    testbutton.Content = "Tweet";
+                    TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                    textBox1.Visibility = Visibility.Collapsed;
+                    charleft.Visibility = Visibility.Collapsed;
+                    TweetLbl.Visibility = Visibility.Collapsed;
+                    charleft.Foreground = new SolidColorBrush(Colors.Red);
+                    charleft.Text = "no text";
+                }
+            }
+            else
+            {
+                charleft.Foreground = new SolidColorBrush(Colors.Red);
+                charleft.Text = "too long";
+            }
+
+        }
 
         void o3o_NewTweet(TwitterStatus status)
         {
@@ -48,109 +110,8 @@ namespace o3o
 
             dostuffdel = new dostuff(Notification);
             maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString(), status.User.Description });
-            
-
-        }
 
 
-        
-        void Window1_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.SetAeroGlass();
-
-            
-
-            if (Properties.Settings.Default.use_system_color == true)
-            {
-                checkBox1.IsChecked = true;
-            }
-
-            if (UsrDB.load() == false || UsrDB.Users.Count == 0)
-                UsrDB.CreateUser();
-
-
-
-            maindispatcher = this.Dispatcher;
-            foreach (UserDatabase.User usr in UsrDB.Users)
-            {
-                usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
-                
-            }
-
-
-            // UserSelectionMenuCurrentName.Header //string of current user
-
-
-            //System.Windows.Controls.MenuItem newMenuItem1 = new System.Windows.Controls.MenuItem(); // here you add more users to the menu, also the events when the user selects something 
-            //newMenuItem1.Header = "another user";
-            //this.UserSelectionMenu.Items.Add(newMenuItem1);
-           
-        }
-
-        [DllImport("dwmapi.dll", EntryPoint = "#127", PreserveSig = false)]
-        public static extern void DwmGetColorizationParameters(out WDM_COLORIZATION_PARAMS parameters);
-        public struct WDM_COLORIZATION_PARAMS
-        {
-            public uint Color1;
-            public uint Color2;
-            public uint Intensity;
-            public uint Unknown1;
-            public uint Unknown2;
-            public uint Unknown3;
-            public uint Opaque;
-        }
-
-
-
-        void get_mentions()
-        {
-
-            //TweetMentions.Items.Clear();
-            //foreach (Twitterizer.TwitterStatus lama in mentions)
-            //{
-            //    FillMentions(lama.Text, lama.User.ScreenName, lama.CreatedDate, lama.User.ProfileImageLocation, lama.Id.ToString());
-            //}
-
-        }
-
-
-        private void testbutton_Click(object sender, RoutedEventArgs e)
-        {
-            if (textBox1.Visibility == Visibility.Collapsed)
-            {
-                testbutton.Content = "Cancel";
-                TweetElements.Margin = new Thickness(0, 0, 0, 70);
-                textBox1.Visibility = Visibility.Visible;
-                charleft.Visibility = Visibility.Visible;
-                TweetLbl.Visibility = Visibility.Visible;
-            }
-            else if (textBox1.Visibility == Visibility.Visible)
-            {
-                if (textBox1.Text.Length <= 140)
-                {
-                    if (!String.IsNullOrEmpty(textBox1.Text))
-                    {
-                        UsrDB.Users[0].tweetStack.Twitter.SendTweet(textBox1.Text);
-                        textBox1.Text = "";
-                        charleft.Text = "140";
-                    }
-                    else
-                    {
-                        //charleft.Foreground = new SolidColorBrush(Colors.Red);
-                        //charleft.Text = "no text";
-                        testbutton.Content = "Tweet";
-                        TweetElements.Margin = new Thickness(0, 0, 0, 17);
-                        textBox1.Visibility = Visibility.Collapsed;
-                        charleft.Visibility = Visibility.Collapsed;
-                        TweetLbl.Visibility = Visibility.Collapsed;
-                    }
-                }
-                else
-                {
-                    charleft.Foreground = new SolidColorBrush(Colors.Red);
-                    charleft.Text = "Too long";
-                }
-            }
         }
 
         public void FillHome(string message, string user, DateTime date, string url, string id, string Description) 
@@ -191,6 +152,24 @@ namespace o3o
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
             
+        }
+        #endregion
+
+        #region UI interactions
+        private void testbutton_Click(object sender, RoutedEventArgs e)
+        {
+            if (textBox1.Visibility == Visibility.Collapsed)
+            {
+                testbutton.Content = "Cancel";
+                TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                textBox1.Visibility = Visibility.Visible;
+                charleft.Visibility = Visibility.Visible;
+                TweetLbl.Visibility = Visibility.Visible;
+            }
+            else if (textBox1.Visibility == Visibility.Visible)
+            {
+                SendTweet();
+            }
         }
 
         private void closebutton_Click(object sender, RoutedEventArgs e)
@@ -247,35 +226,12 @@ namespace o3o
             Properties.Settings.Default.Save();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            get_mentions();
-
-        }
 
         private void textBox1_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if (textBox1.Text.Length <= 140)
-                {
-                    if (!String.IsNullOrEmpty(textBox1.Text))
-                    {
-                        UsrDB.Users[0].tweetStack.Twitter.SendTweet(textBox1.Text);
-                        textBox1.Text = "";
-                        charleft.Text = "140";
-                    }
-                    else
-                    {
-                        charleft.Foreground = new SolidColorBrush(Colors.Red);
-                        charleft.Text = "no text";
-                    }
-                }
-                else
-                {
-                    charleft.Foreground = new SolidColorBrush(Colors.Red);
-                    charleft.Text = "too long";
-                }
+                SendTweet();
             }
             if (e.Key == Key.Escape)
             {
@@ -289,15 +245,6 @@ namespace o3o
 
         }
 
-        private void btn_right_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void btn_Left_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-
-        }
 
         
         public void tbox(string inc)  // somehow use this in TweetElement.xaml.cs 
@@ -311,11 +258,51 @@ namespace o3o
                 charleft.Visibility = Visibility.Visible;
                 TweetLbl.Visibility = Visibility.Visible;
             }
+
+        }
+        #endregion
+
+        #region misc stuff
+        public void UpdateUserMenu(UserDatabase usrDB)
+        {
+            UserSelectionMenu.Items.Clear();
+            foreach (UserDatabase.User usr in usrDB.Users)
+            {
+                System.Windows.Controls.MenuItem newMenuItem1 = new System.Windows.Controls.MenuItem(); // here you add more users to the menu, also the events when the user selects something 
+                newMenuItem1.Header = usr.Name;
+                newMenuItem1.Click += new RoutedEventHandler(newMenuItem1_Click);
+                this.UserSelectionMenu.Items.Add(newMenuItem1);
+            }
             
+
+            
+
         }
 
-        
-     
+        void newMenuItem1_Click(object sender, RoutedEventArgs e)
+        {
+            UserSelectionMenuCurrentName.Header = ((System.Windows.Controls.MenuItem)sender).Header ; //string of current user
+        }
+
+
+
+
+
+
+        [DllImport("dwmapi.dll", EntryPoint = "#127", PreserveSig = false)]
+        public static extern void DwmGetColorizationParameters(out WDM_COLORIZATION_PARAMS parameters);
+        public struct WDM_COLORIZATION_PARAMS
+        {
+            public uint Color1;
+            public uint Color2;
+            public uint Intensity;
+            public uint Unknown1;
+            public uint Unknown2;
+            public uint Unknown3;
+            public uint Opaque;
+        }
+        #endregion
+
 
     }
 
