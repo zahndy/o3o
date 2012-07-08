@@ -492,6 +492,13 @@
                         </TextBlock.Style>
                     </TextBlock>
                     <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
+                    <Menu Height="18" Name="UserSelectionMenu"  HorizontalAlignment="Right" Width="80"  Margin="70,0,20,0" VerticalAlignment="Bottom" Padding="0" Background="#00000000">
+                        <MenuItem Header="User" Name="UserSelectionMenuCurrentName">
+                            <!--<MenuItem Header="User_A"/>
+                            <MenuItem Header="User_B"/>-->
+                        </MenuItem>
+                    </Menu>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000" Padding="6,0">

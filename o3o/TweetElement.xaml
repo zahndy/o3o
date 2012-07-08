@@ -50,12 +50,25 @@
         </TextBlock>
         <TextBlock MouseDown="label1_MouseDown" MouseEnter="label1_MouseEnter" MouseLeave="label1_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="29,76,0,0" Name="label1" VerticalAlignment="Top" Foreground="Black" Padding="0" Width="100" />
         <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="175,76,0,0" Name="datelabel" VerticalAlignment="Top" Foreground="#96000000" Padding="0" Width="67" />
-        <Border Name="imageborder" CornerRadius="5">
-            <Image Height="48" HorizontalAlignment="Left" Margin="0,11,0,0" Name="tweetImg" Stretch="Fill" VerticalAlignment="Top" Width="48" />
+        <Border Name="imageborder">
             <Border.Effect>
                 <DropShadowEffect Color="Black" Direction="-45"
                     ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
             </Border.Effect>
+            <Grid Width="48" Height="48" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top">
+                <Border Name="mask"
+                        Background="White"
+                        BorderBrush="#FF3B5998"
+                        BorderThickness="0"
+                        CornerRadius="6">
+                </Border>
+                <StackPanel>
+                    <StackPanel.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=mask}"/>
+                    </StackPanel.OpacityMask>
+                        <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" />
+                </StackPanel>
+            </Grid>
         </Border>
         <Image MouseUp="replyBtn_MouseUp" MouseEnter="replyBtn_MouseEnter" MouseLeave="replyBtn_MouseLeave" MouseDown="replyBtn_MouseDown" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="248,78,0,0" Name="replyBtn" Stretch="Fill" VerticalAlignment="Top" Width="24" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" />
         <Image MouseUp="menu_MouseDown" MouseLeave="menu_MouseLeave" MouseEnter="menu_MouseEnter" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="274,78,0,0" Name="menu" Stretch="Fill" VerticalAlignment="Top" Width="20" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" >

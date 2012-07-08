@@ -121,7 +121,9 @@
       <DependentUpon>GetOAuthForm.cs</DependentUpon>
     </Compile>
     <Compile Include="glass.cs" />
-    <Compile Include="Persistence.cs" />
+    <Compile Include="Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TweetElement.xaml.cs">
       <DependentUpon>TweetElement.xaml</DependentUpon>
     </Compile>
@@ -141,6 +143,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="notify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -34,6 +34,7 @@ namespace o3o
         public string imagelocation;
         public string ID;
         public bool loaded = false;
+        public string about;
 
         private MainWindow parent;
         public TweetElement(MainWindow prnt)
@@ -44,8 +45,8 @@ namespace o3o
             datelabel.Text = Date;
             parent = prnt;
         }
-        
 
+        BitmapImage image = new BitmapImage();
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             
@@ -121,7 +122,7 @@ namespace o3o
 
                 datelabel.Text = Date;
                 label1.Text = name;
-                var image = new BitmapImage();
+              
                 int BytesToRead = 100;
                 WebRequest request = WebRequest.Create(new Uri(imagelocation));
                 request.Timeout = -1;
@@ -155,10 +156,11 @@ namespace o3o
         }
         private void label1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            string target = "http://twitter.com/#!/"+name;
-            System.Diagnostics.Process.Start(target);
-            
+            Profile userprofile = new Profile();
+            userprofile.name = name;
+            userprofile.image = tweetImg.Source;
+            userprofile.description = about;
+            userprofile.Show();
         }
 
         private void label1_MouseEnter(object sender, MouseEventArgs e)

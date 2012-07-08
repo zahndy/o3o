@@ -27,7 +27,7 @@ namespace o3o
 
         UserDatabase UsrDB = new UserDatabase();
         System.Windows.Threading.Dispatcher maindispatcher;
-        public delegate void dostuff(string message, string user, DateTime date, string url, string id);
+        public delegate void dostuff(string message, string user, DateTime date, string url, string id, string Description);
         public dostuff dostuffdel;
         public MainWindow()
         {
@@ -44,10 +44,10 @@ namespace o3o
         {
 
             dostuffdel = new dostuff(FillHome);
-            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString(), status.User.Description });
 
             dostuffdel = new dostuff(Notification);
-            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString(), status.User.Description });
             
 
         }
@@ -74,7 +74,16 @@ namespace o3o
             foreach (UserDatabase.User usr in UsrDB.Users)
             {
                 usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
+                
             }
+
+
+            // UserSelectionMenuCurrentName.Header //string of current user
+
+
+            //System.Windows.Controls.MenuItem newMenuItem1 = new System.Windows.Controls.MenuItem(); // here you add more users to the menu, also the events when the user selects something 
+            //newMenuItem1.Header = "another user";
+            //this.UserSelectionMenu.Items.Add(newMenuItem1);
            
         }
 
@@ -144,7 +153,7 @@ namespace o3o
             }
         }
 
-        public void FillHome(string message, string user, DateTime date, string url, string id) 
+        public void FillHome(string message, string user, DateTime date, string url, string id, string Description) 
         {
             TweetElement element = new TweetElement(this);
             element.Tweet = message;
@@ -152,11 +161,12 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.about = Description;
             
             TweetElements.Items.Insert(0, element);
         }
 
-        public void FillMentions(string message, string user, DateTime date, string url, string id) 
+        public void FillMentions(string message, string user, DateTime date, string url, string id, string Description) 
         {
             TweetElement element = new TweetElement(this);
             element.Tweet = message;
@@ -164,10 +174,11 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.about = Description;
             TweetMentions.Items.Add( element);
         }
 
-        public void Notification(string message, string user, DateTime date, string url, string id)
+        public void Notification(string message, string user, DateTime date, string url, string id, string Description)
         {
             notify notification = new notify();
             TweetElement element = new TweetElement(this);
@@ -176,6 +187,7 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.about = Description;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
             
@@ -288,25 +300,6 @@ namespace o3o
         }
 
         
-
-        //private void reload_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-
-        //}
-
-        //private void reload_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    reload.Source = new BitmapImage(new Uri("/o3o;component/Images/Reload_normal.png", UriKind.Relative));
-        //}
-
-        //private void reload_MouseEnter(object sender, MouseEventArgs e)
-        //{
-
-        //    reload.Source = new BitmapImage(new Uri("/o3o;component/Images/Reload_Hover.png", UriKind.Relative));
-        //}
-        
-
-
         public void tbox(string inc)  // somehow use this in TweetElement.xaml.cs 
         {
             textBox1.Text = inc;
