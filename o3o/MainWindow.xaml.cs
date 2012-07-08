@@ -25,31 +25,20 @@ namespace o3o
     public partial class MainWindow : Window
     {
 
-        TweetStack o3o;
+        UserDatabase UsrDB = new UserDatabase();
         System.Windows.Threading.Dispatcher maindispatcher;
         public delegate void dostuff(string message, string user, DateTime date, string url, string id);
         public dostuff dostuffdel;
         public MainWindow()
         {
             InitializeComponent();
-            if (!String.IsNullOrEmpty(Properties.Settings.Default.OAuth_AccessToken))
-            {
-                o3o = new TweetStack(false);
-                o3o.OAuth.AuthenticateTwitter();
-                o3o.OAuth.SaveOAuth();
-            }
-            else
-            {
-                o3o = new TweetStack(true,true);
-            }
 
-            maindispatcher = this.Dispatcher;
-            o3o.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
-            
             
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
         }
+
+        
 
         void o3o_NewTweet(TwitterStatus status)
         {
@@ -68,14 +57,24 @@ namespace o3o
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetAeroGlass();
-           
+
+            
 
             if (Properties.Settings.Default.use_system_color == true)
             {
                 checkBox1.IsChecked = true;
             }
 
-            
+            if (UsrDB.load() == false || UsrDB.Users.Count == 0)
+                UsrDB.CreateUser();
+
+
+
+            maindispatcher = this.Dispatcher;
+            foreach (UserDatabase.User usr in UsrDB.Users)
+            {
+                usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
+            }
            
         }
 
@@ -122,7 +121,7 @@ namespace o3o
                 {
                     if (!String.IsNullOrEmpty(textBox1.Text))
                     {
-                        o3o.Twitter.SendTweet(textBox1.Text);
+                        UsrDB.Users[0].tweetStack.Twitter.SendTweet(textBox1.Text);
                         textBox1.Text = "";
                         charleft.Text = "140";
                     }
@@ -250,7 +249,7 @@ namespace o3o
                 {
                     if (!String.IsNullOrEmpty(textBox1.Text))
                     {
-                        o3o.Twitter.SendTweet(textBox1.Text);
+                        UsrDB.Users[0].tweetStack.Twitter.SendTweet(textBox1.Text);
                         textBox1.Text = "";
                         charleft.Text = "140";
                     }

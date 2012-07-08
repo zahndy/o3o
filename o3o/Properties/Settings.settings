@@ -2,18 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="o3o.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="OAuth_ConsumerKey" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="OAuth_ConsumerSecret" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="OAuth_AccessToken" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="OAuth_AccessTokenSecret" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="use_system_color" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
