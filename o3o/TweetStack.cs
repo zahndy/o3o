@@ -4,77 +4,42 @@ using System.Linq;
 using System.Text;
 using Twitterizer;
 using Twitterizer.Core;
+using System.Xml.Serialization;
+
 namespace o3o
 {
-
     //Quick tutorial:
-    //Make a new instance of this class, like TweetStack o3o = new TweetStack(false);
-    //Then run o3o.OAuth.AuthenticateTwitter() to authenticate the user for the first time (AND MAKE SURE TO RUN o3o.OAuth.SaveOAuth()!!!!!!!11oneone)
-    //And run o3o.OAuth.LoadOAuth() for all future sessions
-    //Then run o3o.Twitter.GetTimelineHome() to get all the tweets they'd normally see in their timeline, GetMentions() for the mentions,
-    //And user o3o.Twitter.SendTweet("Something to tweet") to send tweets! (Max 140 chars, or it'll throw an error.)
+    //First, Create a new user and authenticate it and such.
+    //then, make sure you have all the internal tweetstack events hooked.
+    //That's all pretty much, if you want to send a tweet just use TwitterInteraction, which is also inside User.
+
     public class TweetStack
     {
         //vars
-        public OAuthstuff OAuth;
+        
         public TwitterInteraction Twitter;
         public Twitterizer.Streaming.TwitterStream Tweetstream;
 
-        //SET THESE Or the program won't work.
-        const string CONSUMER_KEY = "QfId2BP2FJB5v7Y0IUl4UA";
-        const string CONSUMER_SECRET = "g8xCgUzfCVTnyfUaHeFdHgYHBNrE5fTmF9YAANlRM";
-        //And yes I realize it's horrible to keep those in the sourcecode, but .NET can be decompiled regardless, so where the hell are we supposed to keep them?
-        //Perhaps an authentication server? I could easily make one but that'd give us so much power and responsibility, do we want that?
 
-        public TweetStack(bool _LoadOAuth, bool streaming = false)
+
+        public TweetStack(UserDatabase.User OAuth)
         {
-            //Initialize Open Authentication 
-            OAuth = new OAuthstuff();
             Twitter = new TwitterInteraction(OAuth);
-            OAuth.ConsumerKey = CONSUMER_KEY;
-            OAuth.ConsumerSecret = CONSUMER_SECRET;
-            //and attempt to load the keys from settings
-            if (_LoadOAuth)
-            {
-                try
-                { OAuth.LoadOAuth(); }
-                catch (Exception ex)
-                {
-                    if(ex.Message.Contains("Accesstoken empty!"))
-                    {
-                        //Hello new user!
-                        //SYNCHRONOUSLY execute an event to handle the new user
-                        if (NewUserEvent != null)
-                            NewUserEvent();
-                        else
-                            throw new Exception("USER_CREATION_UNHANDLED");
-                        if (string.IsNullOrWhiteSpace(OAuth.AccessToken))
-                        {
-                            throw new Exception("USER_CREATION_UNHANDLED");
-                        }
-                    }
-                }
-
-            }
+            //and attempt to load the keys from setting
             //If that gone well, and streaming tweets were requested, try initialize streaming tweets.
-            if (streaming && _LoadOAuth)
-            {
-                Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
-                Streamopts.Count = 0;
-                Tweetstream = new Twitterizer.Streaming.TwitterStream(OAuth.GetOAuthToken(), "o3o", Streamopts);
-                Tweetstream.StartUserStream(
-                    new Twitterizer.Streaming.InitUserStreamCallback(FriendsCallback),
-                    new Twitterizer.Streaming.StreamStoppedCallback(StreamStoppedcallback),
-                    new Twitterizer.Streaming.StatusCreatedCallback(StatuscreatedCallback), 
-                    new Twitterizer.Streaming.StatusDeletedCallback(statusdeletedCallback), 
-                    new Twitterizer.Streaming.DirectMessageCreatedCallback(DMcreatedCallback),
-                    new Twitterizer.Streaming.DirectMessageDeletedCallback(DMDeletectCallback), 
-                    new Twitterizer.Streaming.EventCallback(eventCallback));
-            }
+
+            Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
+            Streamopts.Count = 0;
+            Tweetstream = new Twitterizer.Streaming.TwitterStream(OAuth.GetOAuthToken(), "o3o", Streamopts);
+            Tweetstream.StartUserStream(
+                new Twitterizer.Streaming.InitUserStreamCallback(FriendsCallback),
+                new Twitterizer.Streaming.StreamStoppedCallback(StreamStoppedcallback),
+                new Twitterizer.Streaming.StatusCreatedCallback(StatuscreatedCallback),
+                new Twitterizer.Streaming.StatusDeletedCallback(statusdeletedCallback),
+                new Twitterizer.Streaming.DirectMessageCreatedCallback(DMcreatedCallback),
+                new Twitterizer.Streaming.DirectMessageDeletedCallback(DMDeletectCallback),
+                new Twitterizer.Streaming.EventCallback(eventCallback));
         }
-        //New user event, HAS TO BE EXECUTED SYNCHRONOUSLY.
-        public delegate void NewUserDelegate();
-        public event NewUserDelegate NewUserEvent;
 
         #region TwitterStreamStuff
         //Tweet stream stuff~!
@@ -130,10 +95,14 @@ namespace o3o
         #endregion
 
         //This is basically just a barebone wrapper to keep things simple for you.
+        /// <summary>
+        /// This class contains shit to interact with twitter other than receiving tweets through streaming.
+        /// e.g Sending tweets, updating profile, and getting static versions of the current timeline and mentions and such.    
+        /// </summary>
         public class TwitterInteraction
         {
-            private OAuthstuff privOAuth;
-            public TwitterInteraction(OAuthstuff _OAuth)
+            private UserDatabase.User privOAuth;
+            public TwitterInteraction(UserDatabase.User _OAuth)
             {
                 privOAuth = _OAuth;
             }
@@ -145,6 +114,9 @@ namespace o3o
                 else
                     throw new Exception("Status update too long! Make sure it's less than 140 characters!");
             }
+
+            //This is all deprecated since streaming tweets were introduced.
+            //Funny, I'm deprecating things before we even released it :D~! I'm such a horrible coder
             public Twitterizer.TwitterStatusCollection GetTimelineHome()
             {
                 return Twitterizer.TwitterTimeline.UserTimeline(privOAuth.GetOAuthToken()).ResponseObject;
@@ -169,25 +141,79 @@ namespace o3o
         }
 
 
-        //Put simple, all you have to do is make the user run AuthenticateTwitter() to pair the app with their account,
-        //then make sure to run SaveOAuth() to save it to the harddrive, 
-        //and run LoadOAuth() the next time you want to use their account.
-        //I'll take care of the rest :3
-        public class OAuthstuff
+
+
+        
+    }
+
+
+    /// <summary>
+    /// o3o can now have multiple users!
+    /// Every user has their own tweetstack, which can send and receive tweets, DMs, mentions, etc.
+    /// Events and such have to be hooked per user.
+    /// Static retrieval of tweets is no longer supported, and everything will be done through streaming tweets.
+    /// </summary>
+    public class UserDatabase
+    {
+        public List<User> Users = new List<User>();
+        string filename = "Users.xml";
+        public  bool save(string _filename = null)
         {
-            private string privAccessToken;
-            private string privAccessTokenSecret;
-            private string privConsumerKey;
-            private string privConsumerKeySecret;
-            public OAuthstuff() { }
-            public OAuthstuff(string _AccessToken, string _AccessTokenSecret, string _ConsumerKey, string _ConsumerKeySecret)
+            if (_filename == null)
+                _filename = filename;
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
+            System.IO.FileStream fstream = new System.IO.FileStream(_filename, System.IO.FileMode.OpenOrCreate);
+            serializer.Serialize(fstream, Users);
+            fstream.Flush();
+            fstream.Close();
+            return true;
+        }
+
+        public bool load(string _filename = null)
+        {
+            if (_filename == null)
+                _filename = filename;
+            if (!System.IO.File.Exists(_filename))
+                return false;
+            XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
+            System.IO.FileStream fstream = new System.IO.FileStream(_filename, System.IO.FileMode.Open);
+            Users = (List<User>)serializer.Deserialize(fstream);
+            foreach (User usr in Users)
             {
-                privAccessToken = _AccessToken;
-                privAccessTokenSecret = _AccessTokenSecret;
-                privConsumerKey = _ConsumerKey;
-                privConsumerKeySecret = _ConsumerKeySecret;
+                if (!string.IsNullOrWhiteSpace(usr.AccessToken))
+                    usr.Initialize();
+            }
+            fstream.Flush();
+            fstream.Close();
+            return true;
+        }
+
+        public void CreateUser()
+        {
+            User usr = new User();
+            usr.AuthenticateTwitter();
+            Users.Add(usr);
+            usr.Initialize();
+            save();
+        }
+
+        [Serializable]
+        public class User
+        {
+            public User()
+            {
+
             }
 
+            [XmlIgnore]
+            public TweetStack tweetStack;
+
+
+            public void Initialize()
+            {
+                tweetStack = new TweetStack(this);
+            }
 
             public void AuthenticateTwitter()
             {
@@ -195,46 +221,42 @@ namespace o3o
                 f.ShowDialog();
                 if (f.OAuthTokenResponse != null)
                 {
-                    privAccessToken = f.OAuthTokenResponse.Token;
-                    privAccessTokenSecret = f.OAuthTokenResponse.TokenSecret;
-                    privConsumerKey = CONSUMER_KEY;
-                    privConsumerKeySecret = CONSUMER_SECRET;
+                    AccessToken = f.OAuthTokenResponse.Token;
+                    AccessTokenSecret = f.OAuthTokenResponse.TokenSecret;
                 }
             }
 
-            public void SaveOAuth()
-            {
-                Properties.Settings.Default.OAuth_AccessToken = AccessToken;
-                Properties.Settings.Default.OAuth_AccessTokenSecret = AccessTokenSecret;
-                Properties.Settings.Default.OAuth_ConsumerKey = ConsumerKey;
-                Properties.Settings.Default.OAuth_ConsumerSecret = ConsumerSecret;
-                Properties.Settings.Default.Save();
-            }
-
-            public void LoadOAuth()
-            {
-                if (Properties.Settings.Default.OAuth_AccessToken == "")
-                    throw new Exception("Accesstoken empty! Are there any saved credentials at all? You need to reauthenticate!");
-                AccessToken = Properties.Settings.Default.OAuth_AccessToken;
-                AccessTokenSecret = Properties.Settings.Default.OAuth_AccessTokenSecret;
-                ConsumerKey = Properties.Settings.Default.OAuth_ConsumerKey;
-                ConsumerSecret = Properties.Settings.Default.OAuth_ConsumerSecret;
-            }
-
-            public string AccessToken { get { return privAccessToken; } set { privAccessToken = value; } }
-            public string AccessTokenSecret { get { return privAccessTokenSecret; } set { privAccessTokenSecret = value; } }
-            public string ConsumerKey { get { return privConsumerKey; } set { privConsumerKey = value; } }
-            public string ConsumerSecret { get { return privConsumerKeySecret; } set { privConsumerKeySecret = value; } }
+            [XmlElement]
+            public string AccessToken { get; set; }
+            [XmlElement]
+            public string AccessTokenSecret { get; set; }
             public OAuthTokens GetOAuthToken()
             {
-                OAuthTokens privOAuth = new OAuthTokens();
-                privOAuth.AccessToken = privAccessToken;
-                privOAuth.AccessTokenSecret = privAccessTokenSecret;
-                privOAuth.ConsumerKey = privConsumerKey;
-                privOAuth.ConsumerSecret = privConsumerKeySecret;
-                return privOAuth;
+                OAuthTokens OAuth = new OAuthTokens();
+                OAuth.AccessToken = AccessToken;
+                OAuth.AccessTokenSecret = AccessTokenSecret;
+                OAuth.ConsumerKey = CONSUMER_KEY;
+                OAuth.ConsumerSecret = CONSUMER_SECRET;
+                return OAuth;
             }
+        }
+        static UserDatabase()
+        {
 
         }
+
+
+
+        //SET THESE Or the program won't work.
+        public const string CONSUMER_KEY = "QfId2BP2FJB5v7Y0IUl4UA";
+        public const string CONSUMER_SECRET = "g8xCgUzfCVTnyfUaHeFdHgYHBNrE5fTmF9YAANlRM";
+        //And yes I realize it's horrible to keep those in the sourcecode, but .NET can be decompiled regardless, so where the hell are we supposed to keep them?
+        //Perhaps an authentication server? I could easily make one but that'd give us so much power and responsibility, do we want that? If the auth server goes offline then the clients will stop working with it.
+
+
+        //Put simple, all you have to do is make the user run AuthenticateTwitter() to pair the app with their account,
+        //then make sure to run SaveOAuth() to save it to the harddrive, 
+        //and run LoadOAuth() the next time you want to use their account.
+        //I'll take care of the rest :3
     }
 }
