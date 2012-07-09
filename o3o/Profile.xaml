@@ -8,20 +8,9 @@
                 <DropShadowEffect Color="Black" Direction="-45"
                     ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
             </Border.Effect>
-            <Grid Width="100" Height="100" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top">
-                <Border Name="mask"
-                        Background="White"
-                        BorderBrush="#FF3B5998"
-                        BorderThickness="0"
-                        CornerRadius="6">
-                </Border>
-                <StackPanel>
-                    <StackPanel.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=mask}"/>
-                    </StackPanel.OpacityMask>
-                    <Image Height="100" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="100"  />
-                </StackPanel>
-            </Grid>
+
+            <Image Height="100" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="100"  HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top"/>
+                
         </Border>
 
         <Label Content="Username" Height="28" HorizontalAlignment="Left" Margin="107,13,0,0" Name="UserNameLabel" VerticalAlignment="Top" Width="254" FontSize="14" FontWeight="Bold" >
@@ -29,7 +18,7 @@
                 <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="White" Opacity="0.6" RenderingBias="Performance" />
             </Label.Effect>
         </Label>
-        <TextBlock Height="147" HorizontalAlignment="Left" Margin="111,47,0,0" Name="Description" Text="description" VerticalAlignment="Top" Width="250" Foreground="White">
+        <TextBlock Height="147" HorizontalAlignment="Left" Margin="111,47,0,0" Name="Description" Text="description" VerticalAlignment="Top" Width="250" Foreground="White" TextWrapping="Wrap">
         <TextBlock.Effect>
             <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
         </TextBlock.Effect>

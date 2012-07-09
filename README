@@ -3,6 +3,5 @@ o3o is a C# WPF Twitter client
 as of now it works but still needs a lot of tweaks and features added.
 
 TODO:
-- user defined sounds and standard sound lib
-- streaming or polling tweets
-- smooth draggable listbox?
+- replace the tweet popup with a diffetent window element as a UserControl is unable to get TopMost
+- smooth draggable/gestureable scrolling listbox?

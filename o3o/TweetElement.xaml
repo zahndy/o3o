@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300" Loaded="UserControl_Loaded" >
+             d:DesignHeight="100" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style TargetType="TextBlock" x:Key="glassText">
             <Setter Property="Foreground" Value="Black" />
@@ -55,20 +55,9 @@
                 <DropShadowEffect Color="Black" Direction="-45"
                     ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
             </Border.Effect>
-            <Grid Width="48" Height="48" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top">
-                <Border Name="mask"
-                        Background="White"
-                        BorderBrush="#FF3B5998"
-                        BorderThickness="0"
-                        CornerRadius="6">
-                </Border>
-                <StackPanel>
-                    <StackPanel.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=mask}"/>
-                    </StackPanel.OpacityMask>
-                        <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" />
-                </StackPanel>
-            </Grid>
+
+            <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top"/>
+            
         </Border>
         <Image MouseUp="replyBtn_MouseUp" MouseEnter="replyBtn_MouseEnter" MouseLeave="replyBtn_MouseLeave" MouseDown="replyBtn_MouseDown" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="248,78,0,0" Name="replyBtn" Stretch="Fill" VerticalAlignment="Top" Width="24" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" />
         <Image MouseUp="menu_MouseDown" MouseLeave="menu_MouseLeave" MouseEnter="menu_MouseEnter" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="274,78,0,0" Name="menu" Stretch="Fill" VerticalAlignment="Top" Width="20" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" >

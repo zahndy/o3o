@@ -16,6 +16,8 @@ using System.Windows.Interop;
 using System.Windows.Media.Effects;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
+using System.IO;
+using WMPLib;
 using Twitterizer;
 namespace o3o
 {
@@ -44,7 +46,8 @@ namespace o3o
         {
             this.SetAeroGlass();
 
-
+            
+            loadsounds();
 
             if (Properties.Settings.Default.use_system_color == true)
             {
@@ -137,6 +140,7 @@ namespace o3o
             element.ID = id;
             element.about = Description;
             TweetMentions.Items.Add( element);
+
         }
 
         public void Notification(string message, string user, DateTime date, string url, string id, string Description)
@@ -151,7 +155,7 @@ namespace o3o
             element.about = Description;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
-            
+            playsound();
         }
         #endregion
 
@@ -247,7 +251,7 @@ namespace o3o
 
 
         
-        public void tbox(string inc)  // somehow use this in TweetElement.xaml.cs 
+        public void tbox(string inc) 
         {
             textBox1.Text = inc;
             if (textBox1.Visibility == Visibility.Collapsed)
@@ -303,7 +307,109 @@ namespace o3o
         }
         #endregion
 
+        #region sound stuff
 
+            public struct SoundFile
+            {
+                public string soundname, filepath, extension;
+            }
+
+            SoundFile CurrentSelectedSound;
+            int Volume = 100; // also save this somewhere 
+            List<SoundFile> sounds = new List<SoundFile>();
+            void playsound()
+            {
+                    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+                    wplayer.URL = CurrentSelectedSound.filepath;
+                    wplayer.settings.volume = Volume;
+                    wplayer.controls.play();
+            }
+
+            void loadsounds()
+            {
+
+                string path = Directory.GetCurrentDirectory();
+                string[] filenameswav = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Sounds", "*.wav" );
+                string[] filenamesmp3 = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Sounds", "*.mp3");
+
+                foreach (string Sname in filenamesmp3)
+                {
+                    SoundFile file = new SoundFile();
+                    file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
+                    file.filepath = Sname;
+                    file.extension = "mp3";
+                    sounds.Add( file );
+                }
+                foreach (string Sname in filenameswav)
+                {
+                    SoundFile file = new SoundFile();
+                    file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
+                    file.filepath = Sname;
+                    file.extension = "wav";
+                    sounds.Add(file);
+                }
+
+               
+                foreach (SoundFile sound in sounds)
+                {
+                    System.Windows.Controls.ComboBoxItem SoundMenuItem = new System.Windows.Controls.ComboBoxItem(); 
+                    SoundMenuItem.Content = sound.soundname;
+                    this.soundselection.Items.Add(SoundMenuItem);
+                }
+
+                CurrentSelectedSound = sounds[0]; // Bleep.mp3 will be the default sound, unless the user picked a different one previously
+                soundselection.SelectedIndex = 0;
+
+            }
+
+            private void soundselection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            {         
+                        CurrentSelectedSound = sounds[soundselection.SelectedIndex];
+            }
+
+            private void playbutton_Click(object sender, RoutedEventArgs e)
+            {
+                playsound();
+            }
+
+            private void button1_Click(object sender, RoutedEventArgs e)
+            {
+                Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+                dialog.DefaultExt = ".mp3";
+                dialog.Filter = "Sound Files(*.mp3;*.wav)|*.mp3;*.wav";
+                Nullable<bool> result = dialog.ShowDialog();
+                if (result == true)
+                {
+                    File.Copy(dialog.FileName, Directory.GetCurrentDirectory() + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName), true);
+
+                    SoundFile file = new SoundFile();
+                    file.soundname = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
+                    file.filepath = dialog.FileName;
+                    if(System.IO.Path.GetExtension(dialog.FileName)==".wav")
+                        file.extension = "wav";
+                    else if (System.IO.Path.GetExtension(dialog.FileName) == ".mp3")
+                        file.extension = "mp3";
+                    sounds.Add(file);
+
+                    System.Windows.Controls.ComboBoxItem SoundMenuItem = new System.Windows.Controls.ComboBoxItem();
+                    SoundMenuItem.Content = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
+                    this.soundselection.Items.Add(SoundMenuItem);
+                }
+            }
+
+            private void slider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+            {
+                Volume = Convert.ToInt32(Math.Round(slider1.Value));
+            }
+        #endregion
+
+           
+
+            
+
+            
+
+            
     }
 
 }

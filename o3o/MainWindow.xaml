@@ -9,7 +9,7 @@
         Title="o3o" Height="700" Width="340" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="340" Margin="290" Icon="/o3o;component/Images/burd.ico" MaxWidth="340">
     
         <Window.Resources>
-            <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
+        <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
                 <ControlTemplate.Resources>
                     <Storyboard x:Key="Timeline1">
                         <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="glow" Storyboard.TargetProperty="(UIElement.Opacity)">
@@ -498,7 +498,6 @@
                             <MenuItem Header="User_B"/>-->
                         </MenuItem>
                     </Menu>
-
                 </Grid>
             </TabItem>
             <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000" Padding="6,0">
@@ -534,13 +533,25 @@
             <TabItem Name="SystemTab" BorderBrush="#00000000" Header="Settings">
                 <Grid >
                     <Button HorizontalAlignment="Left" Width="90" Height="25" Content="About o3o" Margin="6,0,0,24" VerticalAlignment="Bottom" Click="Button_Click" />
-                    <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="193,45,0,0"></cp:CustomColorPicker>
-                    <Label Content="color for links(requires reload)" Height="18" HorizontalAlignment="Left" Margin="-1,45,0,0" Name="label1" VerticalAlignment="Top" Padding="0" />
-                    <Label Content="use different color for links" Height="18" HorizontalAlignment="Left" Margin="0,14,0,0" Name="label2" Padding="0" VerticalAlignment="Top" />
-                    <CheckBox Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked" Content="" Height="16" HorizontalAlignment="Left" Margin="193,14,0,0" Name="checkBox1" VerticalAlignment="Top" />
+                    <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="174,45,0,0"></cp:CustomColorPicker>
+                    <Label Content="color for links(requires restart):" Height="18" HorizontalAlignment="Left" Margin="-1,45,0,0" Name="label1" VerticalAlignment="Top" Padding="0" />
+                    <Label Content="use different color for links:" Height="18" HorizontalAlignment="Left" Margin="0,14,0,0" Name="label2" Padding="0" VerticalAlignment="Top" />
+                    <CheckBox Checked="checkBox1_Checked" Unchecked="checkBox1_Unchecked" Content="" Height="16" HorizontalAlignment="Left" Margin="174,14,0,0" Name="checkBox1" VerticalAlignment="Top" />
+                    <Label Content="Notification Sound:" Height="18" HorizontalAlignment="Left" Margin="0,84,0,0" Name="label3" Padding="0" VerticalAlignment="Top" />
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="174,80,0,0" Name="soundselection" VerticalAlignment="Top" Width="105" Background="#00000000" SelectionChanged="soundselection_SelectionChanged">
+                    </ComboBox>
+                    <Button Content="" Height="23" HorizontalAlignment="Left" Margin="284,80,0,0" Name="playbutton" VerticalAlignment="Top" Width="26" Click="playbutton_Click">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/o3o;component/Images/playback_play.png" />
+                        </Button.Background>
+                    </Button>
+                    <Button Content="Open File" Height="23" HorizontalAlignment="Left" Margin="174,109,0,0" Name="button1" VerticalAlignment="Top" Width="105" Click="button1_Click" />
+                    <Slider Height="23" HorizontalAlignment="Left" Margin="79.393,138,0,0" Name="slider1" VerticalAlignment="Top" Width="199.607" Value="100" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" />
+                    <Label Content="Volume:" Height="28" HorizontalAlignment="Left" Margin="6,133,0,0" Name="label4" VerticalAlignment="Top" />
+                    <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="65,138,0,0" Name="label5" VerticalAlignment="Top" />
+                    <Label Content="100" Height="28" HorizontalAlignment="Left" Margin="281,138,0,0" Name="label6" VerticalAlignment="Top" />
                 </Grid>
             </TabItem>
         </TabControl>
-        
     </Grid>
 </Window>
