@@ -9,7 +9,7 @@
                     ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
             </Border.Effect>
 
-            <Image Height="100" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="100"  HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top"/>
+            <Image Height="100" HorizontalAlignment="Left" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="100" Margin="0,11,0,0" />
                 
         </Border>
 
