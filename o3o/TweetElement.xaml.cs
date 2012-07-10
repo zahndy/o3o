@@ -30,18 +30,18 @@ namespace o3o
     {
         public float PolyOpacity
         {
-            get { return Opacity; }
+            get { return polyOpacity; }
             set
             {
-                Opacity = value;
-                SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(Opacity*255),0,0,0));
+                polyOpacity = value;
+                SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity*255),0,0,0));
                 messagePolygon.Fill = gBrush; 
             }
         }
 
         public string Tweet;
         public string name;
-        public float  Opacity = 0.6f; 
+        public float  polyOpacity = 0.6f; 
         public string Date;
         public string imagelocation;
         public string ID;
@@ -56,7 +56,7 @@ namespace o3o
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
             parent = prnt;
-            SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(Opacity*255),0,0,0));
+            SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity*255),0,0,0));
             messagePolygon.Fill = gBrush;
         }
 
@@ -173,15 +173,16 @@ namespace o3o
                     image.StreamSource = memoryStream;
                     image.EndInit();
 
-                    tweetImg.Source = image;
+                    //tweetImg.Source = image;
 
                 }
                 catch
                 {
-                    tweetImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                                        System.Drawing.SystemIcons.Error.Handle,
-                                        Int32Rect.Empty,
-                                        BitmapSizeOptions.FromEmptyOptions());
+                    //tweetImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                    //                    System.Drawing.SystemIcons.Error.Handle,
+                    //                    Int32Rect.Empty,
+                    //                    BitmapSizeOptions.FromEmptyOptions());
+                    //tweetImg.Source = Properties.Resources.image_Failed;
                 }
                 loaded = true;
             }
@@ -291,6 +292,14 @@ namespace o3o
         private void reply()
         {
             parent.tbox("@" + name);
+        }
+
+        private void naRetweet_Click(object sender, RoutedEventArgs e)
+        {
+            if (("RT @" + name + Tweet).Length > 139)
+                parent.NaitiveRetweet(("RT @" + name + Tweet).Substring(0, 139));
+            else
+                parent.NaitiveRetweet(("RT @" + name + Tweet));
         }
 
     }

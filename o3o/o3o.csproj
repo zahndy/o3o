@@ -197,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\playback_play.png" />
+    <Resource Include="Images\image_Failed.png" />
     <Content Include="Sounds\Bleep.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

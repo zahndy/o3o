@@ -16,6 +16,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Effects;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
+using System.Diagnostics;
 using System.IO;
 using WMPLib;
 using Twitterizer;
@@ -36,11 +37,9 @@ namespace o3o
         {
             InitializeComponent();
 
-            
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
             this.Loaded += new RoutedEventHandler(Window1_Loaded);
         }
-
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
@@ -105,6 +104,11 @@ namespace o3o
 
         }
 
+        public void NaitiveRetweet(string text)
+        {
+            UsrDB.Users.Find(u => u.Name == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(text);
+        }
+
         void o3o_NewTweet(TwitterStatus status)
         {
 
@@ -113,7 +117,6 @@ namespace o3o
 
             dostuffdel = new dostuff(Notification);
             maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString(), status.User.Description });
-
 
         }
 
@@ -125,7 +128,7 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
-            element.Opacity = polygonOpacity;
+            element.polyOpacity = polygonOpacity;
             element.about = Description;
             TweetElements.Items.Insert(0, element);
             if (TweetElements.Items.Count > 40)
@@ -143,7 +146,7 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
-            element.Opacity = polygonOpacity;
+            element.polyOpacity = polygonOpacity;
             element.about = Description;
             TweetMentions.Items.Add( element);
             if (TweetMentions.Items.Count > 40)
@@ -161,7 +164,7 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
-            element.Opacity = polygonOpacity;
+            element.polyOpacity = polygonOpacity;
             element.about = Description;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
@@ -325,7 +328,7 @@ namespace o3o
             }
 
             SoundFile CurrentSelectedSound;
-            int Volume = 50; // also save this somewhere 
+            int Volume = 20; // also save this somewhere 
             List<SoundFile> sounds = new List<SoundFile>();
             void playsound()
             {

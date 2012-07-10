@@ -60,6 +60,13 @@ namespace o3o.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap image_Failed {
+            get {
+                object obj = ResourceManager.GetObject("image_Failed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap playback_play {
             get {
                 object obj = ResourceManager.GetObject("playback_play", resourceCulture);

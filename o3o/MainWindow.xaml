@@ -550,7 +550,7 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="174,80,0,0" Name="soundselection" VerticalAlignment="Top" Width="105" Background="White" SelectionChanged="soundselection_SelectionChanged">
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="174,80,0,0" Name="soundselection" VerticalAlignment="Top" Width="105" SelectionChanged="soundselection_SelectionChanged">
                     </ComboBox>
                     <Button Content="" Height="23" HorizontalAlignment="Left" Margin="284,80,0,0" Name="playbutton" VerticalAlignment="Top" Width="26" Click="playbutton_Click">
                         <Button.Background>
@@ -558,8 +558,8 @@
                         </Button.Background>
                     </Button>
                     <Button Content="Open File" Height="23" HorizontalAlignment="Left" Margin="174,109,0,0" Name="button1" VerticalAlignment="Top" Width="105" Click="button1_Click" />
-                    <Slider Height="23" HorizontalAlignment="Right" Margin="0,138,37,0" Name="slider1" VerticalAlignment="Top" Width="153.53" Value="50" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" Maximum="100" />
-                    <Label Content="Volume:" Height="28" HorizontalAlignment="Left" Margin="-1,138,0,0" Name="label4" VerticalAlignment="Top" >
+                    <Slider Height="23" HorizontalAlignment="Right" Margin="0,138,37,0" Name="slider1" VerticalAlignment="Top" Width="154" Value="20" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" Maximum="100" />
+                    <Label Content="Volume:" Height="28" HorizontalAlignment="Left" Margin="-1,142,0,0" Name="label4" VerticalAlignment="Top" Padding="0">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
@@ -580,13 +580,13 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Slider Height="23" HorizontalAlignment="Left" Margin="125,172,0,0" Name="OpacitySlider" VerticalAlignment="Top" Width="154" Value="0.6" Maximum="1" SmallChange="0.01" ValueChanged="OpacitySlider_ValueChanged" TickFrequency="0.1" />
-                    <Label Content="0" Height="28" HorizontalAlignment="Left" Margin="115,172,0,0" Name="label9" VerticalAlignment="Top" >
+                    <Slider Height="23" HorizontalAlignment="Right" Margin="125,172,37,0" Name="OpacitySlider" VerticalAlignment="Top" Width="154" Value="0.6" Maximum="1" SmallChange="0.01" ValueChanged="OpacitySlider_ValueChanged" TickFrequency="0.1" />
+                    <Label Content="0" Height="28"  HorizontalAlignment="Right" Margin="115,172,185,0" Name="label9" VerticalAlignment="Top" >
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Label Content="1" Height="28" HorizontalAlignment="Left" Margin="281,172,0,0" Name="label10" VerticalAlignment="Top" >
+                    <Label Content="1" Height="28" HorizontalAlignment="Right" Margin="0,172,19,0" Name="label10" VerticalAlignment="Top" >
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
