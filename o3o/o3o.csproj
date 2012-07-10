@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\burd.ico</ApplicationIcon>
+    <ApplicationIcon>Images\twitter_512.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -198,6 +198,8 @@
   <ItemGroup>
     <Resource Include="Images\playback_play.png" />
     <Resource Include="Images\image_Failed.png" />
+    <Resource Include="Images\twitter_32.ico" />
+    <Resource Include="Images\twitter_512.ico" />
     <Content Include="Sounds\Bleep.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -255,15 +257,12 @@
     <SplashScreen Include="SplashScreen1.png" />
     <Resource Include="Libs\GettingStarted.txt" />
     <Resource Include="Libs\Json.NET.license.txt" />
-    <Resource Include="Images\Reload_Hover.png" />
-    <Resource Include="Images\Reload_normal.png" />
     <Resource Include="Images\reply.png" />
     <Resource Include="Images\reply_onclick.png" />
     <Resource Include="Images\reply_onhover.png" />
     <Resource Include="Images\reply_empty.png" />
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
-    <Resource Include="Images\burd.ico" />
     <Content Include="Libs\CustomColorPicker.dll" />
     <Content Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.pdb" />
