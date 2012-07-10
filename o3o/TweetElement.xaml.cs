@@ -173,7 +173,7 @@ namespace o3o
                     image.StreamSource = memoryStream;
                     image.EndInit();
 
-                    //tweetImg.Source = image;
+                    tweetImg.Source = image;
 
                 }
                 catch
