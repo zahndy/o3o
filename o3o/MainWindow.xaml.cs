@@ -130,7 +130,7 @@ namespace o3o
             TweetElements.Items.Insert(0, element);
             if (TweetElements.Items.Count > 40)
             {
-                TweetElements.Items.RemoveAt(TweetElements.Items.Count);
+                TweetElements.Items.RemoveAt(TweetElements.Items.Count-1);
             }
             
         }
