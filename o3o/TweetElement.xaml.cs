@@ -98,14 +98,22 @@ namespace o3o
                         }
                         else if (a.StartsWith("http"))
                         {
-                            string url = a.Replace("http://", "");
-                            Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
-                            link.Inlines.Add(url);
-                            link.RequestNavigate += Hyperlink_RequestNavigateEvent;
-                            link.TextDecorations = null;
-                            link.Foreground = color;
-                            TweetBlock.Inlines.Add(link);
-                            TweetBlock.Inlines.Add(new Run(" "));
+                            try
+                            {
+                                string url = a.Replace("http://", "");
+                                Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
+                                link.Inlines.Add(url);
+                                link.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                                link.TextDecorations = null;
+                                link.Foreground = color;
+                                TweetBlock.Inlines.Add(link);
+                                TweetBlock.Inlines.Add(new Run(" "));
+                            }
+                            catch
+                            {
+                                TweetBlock.Inlines.Add(a);
+                                TweetBlock.Inlines.Add(new Run(" "));
+                            }
                         }
                         else
                         {

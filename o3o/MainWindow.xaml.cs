@@ -403,6 +403,12 @@ namespace o3o
             }
         #endregion
 
+            private void ClearUserDataButton_Click(object sender, RoutedEventArgs e)
+            {
+                // here clear all the users and close
+                System.Windows.Application.Current.Shutdown();
+            }
+
            
 
             
