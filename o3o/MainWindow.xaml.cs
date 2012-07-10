@@ -125,9 +125,14 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.Opacity = polygonOpacity;
             element.about = Description;
-            
             TweetElements.Items.Insert(0, element);
+            if (TweetElements.Items.Count > 40)
+            {
+                TweetElements.Items.RemoveAt(TweetElements.Items.Count);
+            }
+            
         }
 
         public void FillMentions(string message, string user, DateTime date, string url, string id, string Description) 
@@ -138,9 +143,13 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.Opacity = polygonOpacity;
             element.about = Description;
             TweetMentions.Items.Add( element);
-
+            if (TweetMentions.Items.Count > 40)
+            {
+                TweetMentions.Items.RemoveAt(TweetElements.Items.Count);
+            }
         }
 
         public void Notification(string message, string user, DateTime date, string url, string id, string Description)
@@ -152,6 +161,7 @@ namespace o3o
             element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
             element.imagelocation = url;
             element.ID = id;
+            element.Opacity = polygonOpacity;
             element.about = Description;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
@@ -315,7 +325,7 @@ namespace o3o
             }
 
             SoundFile CurrentSelectedSound;
-            int Volume = 100; // also save this somewhere 
+            int Volume = 50; // also save this somewhere 
             List<SoundFile> sounds = new List<SoundFile>();
             void playsound()
             {
@@ -407,6 +417,30 @@ namespace o3o
             {
                 // here clear all the users and close
                 System.Windows.Application.Current.Shutdown();
+            }
+
+            public float polygonOpacity = 0.4f; // needs to be stored per profile
+
+            private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+            {
+                polygonOpacity = (float)OpacitySlider.Value;
+                foreach (TweetElement tweet in TweetElements.Items)
+                {
+                    tweet.PolyOpacity = polygonOpacity;
+                }
+
+                foreach (TweetElement tweet in TweetMentions.Items)
+                {
+                    tweet.PolyOpacity = polygonOpacity;
+                }
+            }
+
+            private void volumeLabel_TextChanged(object sender, TextChangedEventArgs e)
+            {
+                if(volumeLabel.Text.Length >1)
+                volumeLabel.Text = volumeLabel.Text.Substring(0, 2);
+                else if (volumeLabel.Text.Length > 0)
+                    volumeLabel.Text = volumeLabel.Text.Substring(0, 1);
             }
 
            

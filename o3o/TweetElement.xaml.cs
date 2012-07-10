@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
+using System.Windows.Interop;
 using System.Diagnostics;
 using System.Net;
 using System.IO;
@@ -27,9 +28,20 @@ namespace o3o
     /// </summary>
     public partial class TweetElement : UserControl
     {
+        public float PolyOpacity
+        {
+            get { return Opacity; }
+            set
+            {
+                Opacity = value;
+                SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(Opacity*255),0,0,0));
+                messagePolygon.Fill = gBrush; 
+            }
+        }
+
         public string Tweet;
         public string name;
-        public string Image; //?
+        public float  Opacity = 0.6f; 
         public string Date;
         public string imagelocation;
         public string ID;
@@ -44,6 +56,8 @@ namespace o3o
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
             parent = prnt;
+            SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(Opacity*255),0,0,0));
+            messagePolygon.Fill = gBrush;
         }
 
         BitmapImage image = new BitmapImage();
@@ -133,31 +147,42 @@ namespace o3o
 
                 datelabel.Text = Date;
                 label1.Text = name;
-              
-                int BytesToRead = 100;
-                WebRequest request = WebRequest.Create(new Uri(imagelocation));
-                request.Timeout = -1;
-                WebResponse response = request.GetResponse();
-                Stream responseStream = response.GetResponseStream();
-                BinaryReader reader = new BinaryReader(responseStream);
-                MemoryStream memoryStream = new MemoryStream();
 
-                byte[] bytebuffer = new byte[BytesToRead];
-                int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-                while (bytesRead > 0)
+                try
                 {
-                    memoryStream.Write(bytebuffer, 0, bytesRead);
-                    bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                    int BytesToRead = 100;
+                    WebRequest request = WebRequest.Create(new Uri(imagelocation));
+                    request.Timeout = -1;
+                    WebResponse response = request.GetResponse();
+                    Stream responseStream = response.GetResponseStream();
+                    BinaryReader reader = new BinaryReader(responseStream);
+                    MemoryStream memoryStream = new MemoryStream();
+
+                    byte[] bytebuffer = new byte[BytesToRead];
+                    int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+
+                    while (bytesRead > 0)
+                    {
+                        memoryStream.Write(bytebuffer, 0, bytesRead);
+                        bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                    }
+
+                    image.BeginInit();
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    image.StreamSource = memoryStream;
+                    image.EndInit();
+
+                    tweetImg.Source = image;
+
                 }
-
-                image.BeginInit();
-                memoryStream.Seek(0, SeekOrigin.Begin);
-
-                image.StreamSource = memoryStream;
-                image.EndInit();
-
-                tweetImg.Source = image;
+                catch
+                {
+                    tweetImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                                        System.Drawing.SystemIcons.Error.Handle,
+                                        Int32Rect.Empty,
+                                        BitmapSizeOptions.FromEmptyOptions());
+                }
                 loaded = true;
             }
         }

@@ -35,10 +35,10 @@
     <Grid Width="300" Height="100" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
             <!--<Rectangle Height="72" HorizontalAlignment="Left" Margin="6,6,0,0" Name="rectangle1" Stroke="Black" VerticalAlignment="Top" Width="235" Fill="Black" />-->
         
-            <Polygon
+            <Polygon Name="messagePolygon"
                 Points="6,6 297,6 297,77 25,77 6,95">
                 <Polygon.Fill>
-                    <SolidColorBrush Color="Black" Opacity="0.4"/>
+                    <SolidColorBrush Color="Black" Opacity="0.4" />
                 </Polygon.Fill>
             </Polygon>
             
