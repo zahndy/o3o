@@ -22,9 +22,9 @@ namespace o3o
     public partial class Profile : Window
     {
         public System.Windows.Media.ImageSource image;
-        public string name;
-        public string description;
+        public MainWindow parent;
 
+        
         [DllImport("user32.dll")]
         static extern int GetWindowLong(IntPtr hwnd, int index);
         [DllImport("user32.dll")]
@@ -41,27 +41,59 @@ namespace o3o
         const int SWP_FRAMECHANGED = 0x0020;
         const uint WM_SETICON = 0x0080;
 
-        public Profile()
+        Twitterizer.TwitterUser User;
+        public Profile(MainWindow prnt, string name)
         {
-
+            parent = prnt;
             InitializeComponent();
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
-
+           User = parent.UsrDB.Users[0].tweetStack.Twitter.GetUser(name);
             
         }
 
         private void twitterpagelabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            string target = "http://twitter.com/#!/" + name;
+            string target = "http://twitter.com/#!/" + User.Name;
             System.Diagnostics.Process.Start(target);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            UserNameLabel.Content = name;
-            Description.Text = description;
+            UserNameLabel.Content = User.Name;
+            Description.Text = User.Description;
             image1.Source = image;
-
+            tweetsLbl.Content = "Tweets: " + User.NumberOfStatuses;
+            followersLbl.Content = "Followers: " + User.NumberOfFollowers;
+            language.Content = "Language: " + User.Language.ToString();
+            creationdate.Content = "Created: " + User.CreatedDate.ToString();
+            if(!User.Verified.HasValue)
+            {
+                
+                if ((bool)User.Verified)
+                {
+                    VerifiedLbl.Content = "Verified";
+                    VerifiedLbl.Foreground = new SolidColorBrush(Colors.Green);
+                }
+                else if (!(bool)User.Verified)
+                    VerifiedLbl.Content = "Not Verified";
+                    VerifiedLbl.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            try
+            {
+                if(!String.IsNullOrEmpty(User.Website))
+                {
+                    WebsiteLabl.Content="Website: "+Environment.NewLine+User.Website;
+                }
+                else
+                {
+                    WebsiteLabl.Visibility = Visibility.Hidden;
+                }
+            }
+            catch
+            {
+                WebsiteLabl.Visibility = Visibility.Hidden;
+            }
+          
             this.SetAeroGlass();
         }
 
@@ -72,6 +104,12 @@ namespace o3o
             int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
             SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_DLGMODALFRAME);
             SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+        }
+
+        private void WebsiteLabl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string target = User.Website.ToString();
+            System.Diagnostics.Process.Start(target);
         }
         
     }

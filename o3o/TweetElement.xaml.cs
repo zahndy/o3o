@@ -46,7 +46,6 @@ namespace o3o
         public string imagelocation;
         public string ID;
         public bool loaded = false;
-        public string about;
 
         private MainWindow parent;
         public TweetElement(MainWindow prnt)
@@ -115,7 +114,7 @@ namespace o3o
 
                                 string url = a.Replace("http://", "");
 
-                                if (a != "http://" && !String.IsNullOrEmpty(url))
+                                if (a != "http://" && a != "http" && a != "http:" && !String.IsNullOrEmpty(url))
                                 {
                                     Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
                                     link.Inlines.Add(url);
@@ -193,10 +192,8 @@ namespace o3o
         }
         private void label1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Profile userprofile = new Profile();
-            userprofile.name = name;
+            Profile userprofile = new Profile(parent,name);
             userprofile.image = tweetImg.Source;
-            userprofile.description = about;
             userprofile.Show();
         }
 
@@ -291,7 +288,8 @@ namespace o3o
 
         private void reply()
         {
-            parent.tbox("@" + name);
+            parent.tbox("@" + name + " ");
+            
         }
 
         private void naRetweet_Click(object sender, RoutedEventArgs e)

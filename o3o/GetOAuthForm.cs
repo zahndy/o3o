@@ -20,6 +20,7 @@ namespace o3o
             //Still have to make this work'n'stuff.
             InitializeComponent();
             otokenresp = Twitterizer.OAuthUtility.GetRequestToken(_CONSUMERKEY,_CONSUMERSECRET, "oob");
+            
             CONSUMERKEY = _CONSUMERKEY;
             CONSUMERSECRET = _CONSUMERSECRET;
         }

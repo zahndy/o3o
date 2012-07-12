@@ -46,5 +46,29 @@ namespace o3o.Properties {
                 this["system_color"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int Volume {
+            get {
+                return ((int)(this["Volume"]));
+            }
+            set {
+                this["Volume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.4")]
+        public float PolygonOpacity {
+            get {
+                return ((float)(this["PolygonOpacity"]));
+            }
+            set {
+                this["PolygonOpacity"] = value;
+            }
+        }
     }
 }

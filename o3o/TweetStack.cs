@@ -138,6 +138,13 @@ namespace o3o
                 return TwitterTimeline.HomeTimeline(privOAuth.GetOAuthToken()).ResponseObject;
             }
             //More possibilities upcoming~
+            public TwitterUser GetUser(string _UserName)
+            {
+                return TwitterUser.Show(privOAuth.GetOAuthToken(), _UserName).ResponseObject;
+            }
+
+
+            
         }
 
 
@@ -157,6 +164,15 @@ namespace o3o
     {
         public List<User> Users = new List<User>();
         string filename = "Users.xml";
+
+        public void WipeUsers()
+        {
+            Users.Clear();
+
+            //save(); // why do you rely on if (!System.IO.File.Exists(_filename)) when you are saving a empty xml
+            System.IO.File.Delete(System.IO.Directory.GetCurrentDirectory() + "\\Users.xml");
+
+        }
         public  bool save(string _filename = null)
         {
             if (_filename == null)
@@ -189,11 +205,12 @@ namespace o3o
             return true;
         }
 
-        public void CreateUser(string name)
+        public void CreateUser(string asdf = null)
         {
             User usr = new User();
-            usr.Name = name;
+            
             usr.AuthenticateTwitter();
+            
             Users.Add(usr);
             usr.Initialize();
             save();
@@ -224,6 +241,7 @@ namespace o3o
                 {
                     AccessToken = f.OAuthTokenResponse.Token;
                     AccessTokenSecret = f.OAuthTokenResponse.TokenSecret;
+                    UserDetails = f.OAuthTokenResponse;
                 }
             }
 
@@ -232,7 +250,8 @@ namespace o3o
             [XmlElement]
             public string AccessTokenSecret { get; set; }
             [XmlElement]
-            public string Name { get; set; }
+            public OAuthTokenResponse UserDetails { get; set; }
+            
             public OAuthTokens GetOAuthToken()
             {
                 OAuthTokens OAuth = new OAuthTokens();

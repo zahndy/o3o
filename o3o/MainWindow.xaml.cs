@@ -28,9 +28,9 @@ namespace o3o
     public partial class MainWindow : Window
     {
         #region loading stuff
-        UserDatabase UsrDB = new UserDatabase();
+        public UserDatabase UsrDB = new UserDatabase();
         System.Windows.Threading.Dispatcher maindispatcher;
-        public delegate void dostuff(string message, string user, DateTime date, string url, string id, string Description);
+        public delegate void dostuff(string message, string user, DateTime date, string url, string id);
         public dostuff dostuffdel;
 
         public MainWindow()
@@ -54,8 +54,8 @@ namespace o3o
             }
 
             if (UsrDB.load() == false || UsrDB.Users.Count == 0)
-                UsrDB.CreateUser("Default user");
-
+                UsrDB.CreateUser();
+            UserSelectionMenuCurrentName.Header = UsrDB.Users[0].UserDetails.ScreenName;
 
 
             maindispatcher = this.Dispatcher;
@@ -79,7 +79,7 @@ namespace o3o
             {
                 if (!String.IsNullOrEmpty(textBox1.Text))
                 {
-                    UsrDB.Users.Find(u => u.Name == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(textBox1.Text);
+                    UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(textBox1.Text);
                     textBox1.Text = "";
                     charleft.Text = "140";
                 }
@@ -106,21 +106,21 @@ namespace o3o
 
         public void NaitiveRetweet(string text)
         {
-            UsrDB.Users.Find(u => u.Name == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(text);
+            UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(text);
         }
 
         void o3o_NewTweet(TwitterStatus status)
         {
 
             dostuffdel = new dostuff(FillHome);
-            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString(), status.User.Description });
+            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
 
             dostuffdel = new dostuff(Notification);
-            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString(), status.User.Description });
-
+            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+           
         }
 
-        public void FillHome(string message, string user, DateTime date, string url, string id, string Description) 
+        public void FillHome(string message, string user, DateTime date, string url, string id) 
         {
             TweetElement element = new TweetElement(this);
             element.Tweet = message;
@@ -129,7 +129,6 @@ namespace o3o
             element.imagelocation = url;
             element.ID = id;
             element.polyOpacity = polygonOpacity;
-            element.about = Description;
             TweetElements.Items.Insert(0, element);
             if (TweetElements.Items.Count > 40)
             {
@@ -138,7 +137,7 @@ namespace o3o
             
         }
 
-        public void FillMentions(string message, string user, DateTime date, string url, string id, string Description) 
+        public void FillMentions(string message, string user, DateTime date, string url, string id) 
         {
             TweetElement element = new TweetElement(this);
             element.Tweet = message;
@@ -147,7 +146,6 @@ namespace o3o
             element.imagelocation = url;
             element.ID = id;
             element.polyOpacity = polygonOpacity;
-            element.about = Description;
             TweetMentions.Items.Add( element);
             if (TweetMentions.Items.Count > 40)
             {
@@ -155,7 +153,7 @@ namespace o3o
             }
         }
 
-        public void Notification(string message, string user, DateTime date, string url, string id, string Description)
+        public void Notification(string message, string user, DateTime date, string url, string id)
         {
             notify notification = new notify();
             TweetElement element = new TweetElement(this);
@@ -165,7 +163,6 @@ namespace o3o
             element.imagelocation = url;
             element.ID = id;
             element.polyOpacity = polygonOpacity;
-            element.about = Description;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
             playsound();
@@ -182,6 +179,7 @@ namespace o3o
                 textBox1.Visibility = Visibility.Visible;
                 charleft.Visibility = Visibility.Visible;
                 TweetLbl.Visibility = Visibility.Visible;
+                textBox1.Focus();
             }
             else if (textBox1.Visibility == Visibility.Visible)
             {
@@ -274,7 +272,9 @@ namespace o3o
                 textBox1.Visibility = Visibility.Visible;
                 charleft.Visibility = Visibility.Visible;
                 TweetLbl.Visibility = Visibility.Visible;
+                
             }
+            textBox1.Focus();
 
         }
         #endregion
@@ -286,7 +286,7 @@ namespace o3o
             foreach (UserDatabase.User usr in usrDB.Users)
             {
                 System.Windows.Controls.MenuItem newMenuItem1 = new System.Windows.Controls.MenuItem(); // here you add more users to the menu, also the events when the user selects something 
-                newMenuItem1.Header = usr.Name;
+                newMenuItem1.Header = usr.UserDetails.ScreenName;
                 newMenuItem1.Click += new RoutedEventHandler(newMenuItem1_Click);
                 this.UserSelectionMenu.Items.Add(newMenuItem1);
             }
@@ -328,7 +328,7 @@ namespace o3o
             }
 
             SoundFile CurrentSelectedSound;
-            int Volume = 20; // also save this somewhere 
+            int Volume = Properties.Settings.Default.Volume; // also save this somewhere 
             List<SoundFile> sounds = new List<SoundFile>();
             void playsound()
             {
@@ -413,20 +413,25 @@ namespace o3o
             private void slider1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
             {
                 Volume = Convert.ToInt32(Math.Round(slider1.Value));
+                Properties.Settings.Default.Volume = Volume;
             }
         #endregion
 
             private void ClearUserDataButton_Click(object sender, RoutedEventArgs e)
             {
-                // here clear all the users and close
+                if (System.Windows.Forms.MessageBox.Show("R U SUR", "Y U DO DIS", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
+                    return;
+                UsrDB.WipeUsers();
+                System.Diagnostics.Process.Start(System.Windows.Application.ResourceAssembly.Location);
                 System.Windows.Application.Current.Shutdown();
             }
 
-            public float polygonOpacity = 0.4f; // needs to be stored per profile
+            public float polygonOpacity = Properties.Settings.Default.PolygonOpacity; 
 
             private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
             {
                 polygonOpacity = (float)OpacitySlider.Value;
+                Properties.Settings.Default.PolygonOpacity = polygonOpacity;
                 foreach (TweetElement tweet in TweetElements.Items)
                 {
                     tweet.PolyOpacity = polygonOpacity;

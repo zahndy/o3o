@@ -8,5 +8,11 @@
     <Setting Name="system_color" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">0, 192, 192</Value>
     </Setting>
+    <Setting Name="Volume" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="PolygonOpacity" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0.4</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

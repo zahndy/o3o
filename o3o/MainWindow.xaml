@@ -492,7 +492,7 @@
                         </TextBlock.Style>
                     </TextBlock>
                     <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
-                    <Menu Height="18" Name="UserSelectionMenu"  HorizontalAlignment="Right" Width="80"  Margin="70,0,20,0" VerticalAlignment="Bottom" Padding="0" Background="#00000000">
+                    <Menu Height="20" Name="UserSelectionMenu"  HorizontalAlignment="Right" Width="98"  Margin="0,0,6,-1" VerticalAlignment="Bottom" Padding="0" Background="#00000000" Panel.ZIndex="10">
                         <MenuItem Header="" Name="UserSelectionMenuCurrentName">
                             <!--<MenuItem Header="User_A"/>
                             <MenuItem Header="User_B"/>-->
@@ -574,7 +574,7 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Button Content="Clear User Data and close" Height="25" HorizontalAlignment="Left" Margin="155,0,0,24" Name="ClearUserDataButton" VerticalAlignment="Bottom" Width="155" Click="ClearUserDataButton_Click" />
+                    <Button Content="Clear User Data and Restart" Height="25" HorizontalAlignment="Left" Margin="155,0,0,24" Name="ClearUserDataButton" VerticalAlignment="Bottom" Width="155" Click="ClearUserDataButton_Click" />
                     <Label Content="Text balloon opacity:" Height="21" HorizontalAlignment="Left" Margin="-1,172,0,0" Name="label7" VerticalAlignment="Top" Padding="0" >
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
