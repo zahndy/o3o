@@ -254,26 +254,48 @@
     <Content Include="Sounds\Bleep2.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\buttonchime.wav" />
+    <Content Include="Sounds\buttonchime.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\chronos.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\clutter.wav" />
-    <Content Include="Sounds\Ding.wav" />
+    <Content Include="Sounds\clutter.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Ding.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\Drum.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\Echo.wav" />
-    <Content Include="Sounds\kollege.wav" />
+    <Content Include="Sounds\Echo.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\kollege.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\Marimba.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sounds\Pop.wav" />
-    <Content Include="Sounds\Pop2.wav" />
-    <Content Include="Sounds\Short_Beep.wav" />
-    <Content Include="Sounds\stereo.wav" />
-    <Content Include="Sounds\Sweep.wav" />
-    <Content Include="Sounds\Waterdrop.wav" />
+    <Content Include="Sounds\Pop.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Pop2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Short_Beep.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\stereo.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Sweep.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Waterdrop.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\playback_play.png" />
     <Resource Include="Images\image_Failed.png" />
     <Resource Include="Images\twitter_32.ico" />

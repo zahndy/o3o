@@ -383,11 +383,16 @@ namespace o3o
 
 
             }
-
+            bool isloaded = false;
             private void soundselection_SelectionChanged(object sender, SelectionChangedEventArgs e)
             {         
                         CurrentSelectedSound = sounds[soundselection.SelectedIndex];
-
+                        if (isloaded)
+                        {
+                            al.DeleteSources(1, new int[1] { FSource });
+                            al.DeleteBuffers(1, new int[1] { FBuffer });
+                            FContext.Dispose();
+                        }
                         int[] Buf = new int[1];
                         FContext = new ContextAL();
                         FBuffer = FileWAV.LoadFromFile(CurrentSelectedSound.filepath);
@@ -402,6 +407,7 @@ namespace o3o
                         al.Listenerfv(al.POSITION, new float[3] { 0, 0, 0 });
                         al.Listenerfv(al.VELOCITY, new float[3] { 0, 0, 0 });
                         al.Listenerfv(al.ORIENTATION, new float[6] { 0, 0, -1, 0, 1, 0 });
+                        isloaded = true;
             }
 
             private void playbutton_Click(object sender, RoutedEventArgs e)
