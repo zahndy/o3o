@@ -194,6 +194,7 @@ namespace o3o
         {
             Profile userprofile = new Profile(parent,name);
             userprofile.image = tweetImg.Source;
+            userprofile.Topmost = true;
             userprofile.Show();
         }
 

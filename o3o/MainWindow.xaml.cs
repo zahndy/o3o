@@ -20,6 +20,9 @@ using System.Diagnostics;
 using System.IO;
 using WMPLib;
 using Twitterizer;
+using OpenAL;
+using Unf;
+
 namespace o3o
 {
     /// <summary>
@@ -330,12 +333,13 @@ namespace o3o
             SoundFile CurrentSelectedSound;
             int Volume = Properties.Settings.Default.Volume; // also save this somewhere 
             List<SoundFile> sounds = new List<SoundFile>();
+
+            private int FBuffer;
+            private int FSource;
+            private ContextAL FContext;
             void playsound()
             {
-                    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
-                    wplayer.URL = CurrentSelectedSound.filepath;
-                    wplayer.settings.volume = Volume;
-                    wplayer.controls.play();
+                al.SourcePlay(FSource);
             }
 
             void loadsounds()
@@ -349,8 +353,12 @@ namespace o3o
                 {
                     SoundFile file = new SoundFile();
                     file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
-                    file.filepath = Sname;
-                    file.extension = "mp3";
+                    ConvertMp3 converter = new ConvertMp3(Sname, Directory.GetCurrentDirectory() + @"\Sounds\" + file.soundname + ".wav", Sname);
+                    converter.ShowDialog();
+
+                    file.filepath = Directory.GetCurrentDirectory() + @"\Sounds\" + file.soundname + ".wav";
+                    file.extension = "wav";
+                    
                     sounds.Add( file );
                 }
                 foreach (string Sname in filenameswav)
@@ -373,11 +381,27 @@ namespace o3o
                 CurrentSelectedSound = sounds[0]; // Bleep.mp3 will be the default sound, unless the user picked a different one previously
                 soundselection.SelectedIndex = 0;
 
+
             }
 
             private void soundselection_SelectionChanged(object sender, SelectionChangedEventArgs e)
             {         
                         CurrentSelectedSound = sounds[soundselection.SelectedIndex];
+
+                        int[] Buf = new int[1];
+                        FContext = new ContextAL();
+                        FBuffer = FileWAV.LoadFromFile(CurrentSelectedSound.filepath);
+                        al.GenSources(1, Buf);
+                        FSource = Buf[0];
+                        al.Sourcei(FSource, al.BUFFER, FBuffer);
+                        al.Sourcef(FSource, al.PITCH, 1.0f);
+                        float newvol = Volume / 100f;
+                        al.Sourcef(FSource, al.GAIN, newvol);
+                        al.Sourcefv(FSource, al.POSITION, new float[3] { 0, 0, 0 });
+                        al.Sourcefv(FSource, al.VELOCITY, new float[3] { 0, 0, 0 });
+                        al.Listenerfv(al.POSITION, new float[3] { 0, 0, 0 });
+                        al.Listenerfv(al.VELOCITY, new float[3] { 0, 0, 0 });
+                        al.Listenerfv(al.ORIENTATION, new float[6] { 0, 0, -1, 0, 1, 0 });
             }
 
             private void playbutton_Click(object sender, RoutedEventArgs e)
@@ -393,15 +417,22 @@ namespace o3o
                 Nullable<bool> result = dialog.ShowDialog();
                 if (result == true)
                 {
-                    File.Copy(dialog.FileName, Directory.GetCurrentDirectory() + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName), true);
-
+                    
                     SoundFile file = new SoundFile();
                     file.soundname = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
-                    file.filepath = dialog.FileName;
-                    if(System.IO.Path.GetExtension(dialog.FileName)==".wav")
+                    
+                    if (System.IO.Path.GetExtension(dialog.FileName) == ".wav")
+                    {
+                        File.Copy(dialog.FileName, Directory.GetCurrentDirectory() + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName), true);
                         file.extension = "wav";
+                    }
                     else if (System.IO.Path.GetExtension(dialog.FileName) == ".mp3")
+                    {
+                        ConvertMp3 converter = new ConvertMp3(dialog.FileName, Directory.GetCurrentDirectory() + "\\Sounds\\" + file.soundname + ".wav");
+                        converter.ShowDialog();
                         file.extension = "mp3";
+                    }
+                    file.filepath = Directory.GetCurrentDirectory() + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName);
                     sounds.Add(file);
 
                     System.Windows.Controls.ComboBoxItem SoundMenuItem = new System.Windows.Controls.ComboBoxItem();
@@ -414,6 +445,8 @@ namespace o3o
             {
                 Volume = Convert.ToInt32(Math.Round(slider1.Value));
                 Properties.Settings.Default.Volume = Volume;
+                float newvol = Volume / 100f;
+                al.Sourcef(FSource, al.GAIN, newvol);
             }
         #endregion
 
@@ -449,6 +482,15 @@ namespace o3o
                 volumeLabel.Text = volumeLabel.Text.Substring(0, 2);
                 else if (volumeLabel.Text.Length > 0)
                     volumeLabel.Text = volumeLabel.Text.Substring(0, 1);
+            }
+
+            private void Window_Closed(object sender, EventArgs e)
+            {
+                al.DeleteSources(1, new int[1] { FSource });
+
+                al.DeleteBuffers(1, new int[1] { FBuffer });
+
+                FContext.Dispose();
             }
 
            

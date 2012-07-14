@@ -154,6 +154,13 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AlUnf.cs" />
+    <Compile Include="ConvertMp3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConvertMp3.Designer.cs">
+      <DependentUpon>ConvertMp3.cs</DependentUpon>
+    </Compile>
     <Compile Include="GetOAuthForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +168,7 @@
       <DependentUpon>GetOAuthForm.cs</DependentUpon>
     </Compile>
     <Compile Include="glass.cs" />
+    <Compile Include="OpenAl.cs" />
     <Compile Include="Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
@@ -219,6 +227,9 @@
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConvertMp3.resx">
+      <DependentUpon>ConvertMp3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GetOAuthForm.resx">
       <DependentUpon>GetOAuthForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,7 +240,6 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
-    <None Include="o3o_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -238,64 +248,42 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sounds\Bleep.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Bleep2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\buttonchime.wav" />
+    <Content Include="Sounds\chronos.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\clutter.wav" />
+    <Content Include="Sounds\Ding.wav" />
+    <Content Include="Sounds\Drum.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Echo.wav" />
+    <Content Include="Sounds\kollege.wav" />
+    <Content Include="Sounds\Marimba.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Pop.wav" />
+    <Content Include="Sounds\Pop2.wav" />
+    <Content Include="Sounds\Short_Beep.wav" />
+    <Content Include="Sounds\stereo.wav" />
+    <Content Include="Sounds\Sweep.wav" />
+    <Content Include="Sounds\Waterdrop.wav" />
     <Resource Include="Images\playback_play.png" />
     <Resource Include="Images\image_Failed.png" />
     <Resource Include="Images\twitter_32.ico" />
     <Resource Include="Images\twitter_512.ico" />
-    <Content Include="Sounds\Bleep.mp3">
+    <None Include="ffmpeg.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Bleep2.mp3">
+    </None>
+    <Resource Include="Libs\ffmpeg_readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\buttonchime.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\chronos.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\clutter.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Ding.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Ding.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Drum.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Echo.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\kollege.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Marimba.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Pop.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Pop2.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Short_beep.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Short_Beep.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\stereo.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Sweep.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sounds\Waterdrop.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <None Include="SplashScreen1.png" />
     <Resource Include="Libs\GettingStarted.txt" />
     <Resource Include="Libs\Json.NET.license.txt" />
@@ -305,11 +293,17 @@
     <Resource Include="Images\reply_empty.png" />
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
-    <Content Include="Libs\CustomColorPicker.dll" />
-    <Content Include="Libs\Newtonsoft.Json.dll" />
+    <None Include="Libs\CustomColorPicker.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libs\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Libs\Newtonsoft.Json.pdb" />
     <Resource Include="Libs\Newtonsoft.Json.xml" />
-    <Content Include="Libs\Twitterizer2.dll" />
+    <None Include="Libs\Twitterizer2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Resource Include="Libs\Twitterizer2.license.txt" />
     <Content Include="Libs\Twitterizer2.pdb" />
     <Resource Include="Libs\Twitterizer2.XML" />
