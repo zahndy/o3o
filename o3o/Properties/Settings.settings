@@ -14,5 +14,8 @@
     <Setting Name="PolygonOpacity" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.4</Value>
     </Setting>
+    <Setting Name="amountOfTWeetsToDisplay" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

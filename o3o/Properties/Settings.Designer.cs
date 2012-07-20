@@ -70,5 +70,17 @@ namespace o3o.Properties {
                 this["PolygonOpacity"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public int amountOfTWeetsToDisplay {
+            get {
+                return ((int)(this["amountOfTWeetsToDisplay"]));
+            }
+            set {
+                this["amountOfTWeetsToDisplay"] = value;
+            }
+        }
     }
 }

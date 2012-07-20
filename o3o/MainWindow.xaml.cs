@@ -47,8 +47,7 @@ namespace o3o
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetAeroGlass();
-
-            
+            SettingsAmountOfTweetsTextb.Text = Properties.Settings.Default.amountOfTWeetsToDisplay.ToString();
             loadsounds();
 
             if (Properties.Settings.Default.use_system_color == true)
@@ -85,11 +84,15 @@ namespace o3o
                     UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(textBox1.Text);
                     textBox1.Text = "";
                     charleft.Text = "140";
+
+                    testbutton.Content = "Tweet";
+                    TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                    textBox1.Visibility = Visibility.Collapsed;
+                    charleft.Visibility = Visibility.Collapsed;
+                    TweetLbl.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    //charleft.Foreground = new SolidColorBrush(Colors.Red);
-                    //charleft.Text = "no text";
                     testbutton.Content = "Tweet";
                     TweetElements.Margin = new Thickness(0, 0, 0, 17);
                     textBox1.Visibility = Visibility.Collapsed;
@@ -133,7 +136,7 @@ namespace o3o
             element.ID = id;
             element.polyOpacity = polygonOpacity;
             TweetElements.Items.Insert(0, element);
-            if (TweetElements.Items.Count > 40)
+            if (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
                 TweetElements.Items.RemoveAt(TweetElements.Items.Count-1);
             }
@@ -150,7 +153,7 @@ namespace o3o
             element.ID = id;
             element.polyOpacity = polygonOpacity;
             TweetMentions.Items.Add( element);
-            if (TweetMentions.Items.Count > 40)
+            if (TweetMentions.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
                 TweetMentions.Items.RemoveAt(TweetElements.Items.Count);
             }
@@ -497,6 +500,15 @@ namespace o3o
                 al.DeleteBuffers(1, new int[1] { FBuffer });
 
                 FContext.Dispose();
+            }
+
+            private void SettingsAmountOfTweetsTextb_TextChanged(object sender, TextChangedEventArgs e)
+            {
+                Properties.Settings.Default.amountOfTWeetsToDisplay = Convert.ToInt32(SettingsAmountOfTweetsTextb.Text);
+                while (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
+                {
+                    TweetElements.Items.RemoveAt(TweetElements.Items.Count - 1);
+                }
             }
 
            

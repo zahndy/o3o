@@ -296,9 +296,9 @@ namespace o3o
         private void naRetweet_Click(object sender, RoutedEventArgs e)
         {
             if (("RT @" + name + Tweet).Length > 139)
-                parent.NaitiveRetweet(("RT @" + name + Tweet).Substring(0, 139));
+                parent.NaitiveRetweet(("RT @" + name +" "+ Tweet).Substring(0, 139));
             else
-                parent.NaitiveRetweet(("RT @" + name + Tweet));
+                parent.NaitiveRetweet(("RT @" + name +" "+ Tweet));
         }
 
     }
