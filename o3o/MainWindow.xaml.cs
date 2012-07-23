@@ -47,6 +47,10 @@ namespace o3o
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             this.SetAeroGlass();
+
+            this.Left = Properties.Settings.Default.LastWindowPosition.X;
+            this.Top = Properties.Settings.Default.LastWindowPosition.Y;
+
             SettingsAmountOfTweetsTextb.Text = Properties.Settings.Default.amountOfTWeetsToDisplay.ToString();
             loadsounds();
 
@@ -496,10 +500,12 @@ namespace o3o
             private void Window_Closed(object sender, EventArgs e)
             {
                 al.DeleteSources(1, new int[1] { FSource });
-
                 al.DeleteBuffers(1, new int[1] { FBuffer });
-
                 FContext.Dispose();
+
+                Point WindowPosition = new Point((int)this.Left, (int)this.Top);
+                Properties.Settings.Default.LastWindowPosition = WindowPosition;
+                Properties.Settings.Default.Save();
             }
 
             private void SettingsAmountOfTweetsTextb_TextChanged(object sender, TextChangedEventArgs e)

@@ -82,5 +82,17 @@ namespace o3o.Properties {
                 this["amountOfTWeetsToDisplay"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100,100")]
+        public global::System.Windows.Point LastWindowPosition {
+            get {
+                return ((global::System.Windows.Point)(this["LastWindowPosition"]));
+            }
+            set {
+                this["LastWindowPosition"] = value;
+            }
+        }
     }
 }

@@ -315,17 +315,11 @@
     <Resource Include="Images\reply_empty.png" />
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
-    <None Include="Libs\CustomColorPicker.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Libs\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Libs\CustomColorPicker.dll" />
+    <None Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.pdb" />
     <Resource Include="Libs\Newtonsoft.Json.xml" />
-    <None Include="Libs\Twitterizer2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Libs\Twitterizer2.dll" />
     <Resource Include="Libs\Twitterizer2.license.txt" />
     <Content Include="Libs\Twitterizer2.pdb" />
     <Resource Include="Libs\Twitterizer2.XML" />
