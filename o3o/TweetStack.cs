@@ -19,18 +19,25 @@ namespace o3o
         
         public TwitterInteraction Twitter;
         public Twitterizer.Streaming.TwitterStream Tweetstream;
+        UserDatabase.User privOAuth;
 
 
 
         public TweetStack(UserDatabase.User OAuth)
         {
-            Twitter = new TwitterInteraction(OAuth);
+            privOAuth = OAuth;
+            Twitter = new TwitterInteraction(privOAuth);
             //and attempt to load the keys from setting
             //If that gone well, and streaming tweets were requested, try initialize streaming tweets.
 
             Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
             Streamopts.Count = 0;
-            Tweetstream = new Twitterizer.Streaming.TwitterStream(OAuth.GetOAuthToken(), "o3o", Streamopts);
+            StartStream(Streamopts);
+        }
+
+        public void StartStream(Twitterizer.Streaming.StreamOptions Streamopts)
+        {
+            Tweetstream = new Twitterizer.Streaming.TwitterStream(privOAuth.GetOAuthToken(), "o3o", Streamopts);
             Tweetstream.StartUserStream(
                 new Twitterizer.Streaming.InitUserStreamCallback(FriendsCallback),
                 new Twitterizer.Streaming.StreamStoppedCallback(StreamStoppedcallback),
@@ -51,9 +58,13 @@ namespace o3o
 
         void StreamStoppedcallback(Twitterizer.Streaming.StopReasons stopreason)
         {
-            System.Windows.Forms.MessageBox.Show("Stream was stopped.");
-
-            throw new Exception("Stream was stopped! Stop reason: " + stopreason.ToString());
+            //What happen??!??!?!??!!??!1//1/1/111oneone
+            //Restart dat SHEET OF PAPER
+            TwitterStatus notification = new TwitterStatus();
+            notification.Text = "Stream died! Restarting stream.. Poke a developer if this happens a lot, or get a better connection.";
+            notification.User = new TwitterUser();
+            notification.User.ScreenName = "Internal message system";
+            StartStream(new Twitterizer.Streaming.StreamOptions());
         }
 
         public delegate void newtweetDel(TwitterStatus status);
@@ -101,10 +112,10 @@ namespace o3o
         /// </summary>
         public class TwitterInteraction
         {
-            private UserDatabase.User privOAuth;
-            public TwitterInteraction(UserDatabase.User _OAuth)
+            UserDatabase.User privOAuth;
+            public TwitterInteraction(UserDatabase.User _oauth)
             {
-                privOAuth = _OAuth;
+                privOAuth = _oauth;
             }
 
             public void SendTweet(string tweet)
