@@ -18,6 +18,7 @@ using System.Net;
 using System.IO;
 using System.Web;
 using System.Text.RegularExpressions;
+using Twitterizer;
 
 namespace o3o
 {
@@ -46,12 +47,20 @@ namespace o3o
         public string imagelocation;
         public string ID;
         public bool loaded = false;
+        TwitterStatus Status;
 
         private MainWindow parent;
-        public TweetElement(MainWindow prnt)
+        public TweetElement(MainWindow prnt, TwitterStatus status)
         {
             
             InitializeComponent();
+
+            Tweet = status.Text;
+            name = status.User.ScreenName;
+            Date = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString();
+            imagelocation = status.User.ProfileImageLocation;
+            ID = status.Id.ToString();
+            Status = status;
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
             parent = prnt;
@@ -289,17 +298,23 @@ namespace o3o
 
         private void reply()
         {
-            parent.tbox("@" + name + " ");
+            parent.reply("@" + name + " ",Status);
             
         }
 
         private void naRetweet_Click(object sender, RoutedEventArgs e)
         {
             if (("RT @" + name + Tweet).Length > 139)
-                parent.NaitiveRetweet(("RT @" + name +" "+ Tweet).Substring(0, 139));
+                parent.ReplyTweet(Status.Id, ("RT @" + name + " " + Tweet).Substring(0, 139));
             else
-                parent.NaitiveRetweet(("RT @" + name +" "+ Tweet));
+                parent.ReplyTweet(Status.Id, ("RT @" + name + " " + Tweet));
         }
+
+        private void tweetImg_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+        }
+
 
     }
 

@@ -56,7 +56,7 @@
                     ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
             </Border.Effect>
 
-            <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Source="/o3o;component/Images/image_Failed.png" />
+            <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Source="/o3o;component/Images/image_Failed.png" ImageFailed="tweetImg_ImageFailed" />
             
         </Border>
         <Image MouseUp="replyBtn_MouseUp" MouseEnter="replyBtn_MouseEnter" MouseLeave="replyBtn_MouseLeave" MouseDown="replyBtn_MouseDown" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="248,78,0,0" Name="replyBtn" Stretch="Fill" VerticalAlignment="Top" Width="24" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" />

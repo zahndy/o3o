@@ -143,7 +143,16 @@ namespace o3o
                 return TwitterUser.Show(privOAuth.GetOAuthToken(), _UserName).ResponseObject;
             }
 
-
+            public void Reply(decimal Id, string tweet)
+            {
+                StatusUpdateOptions options = new StatusUpdateOptions();
+                options.InReplyToStatusId = Id;
+                Twitterizer.TwitterResponse<TwitterStatus> response = Twitterizer.TwitterStatus.Update(privOAuth.GetOAuthToken(), tweet,options);
+                if (!(response.Result == RequestResult.Success))
+                {
+                    throw new Exception("reply failed: " + response.ErrorMessage);
+                }
+            }
             
         }
 

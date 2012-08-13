@@ -33,8 +33,9 @@ namespace o3o
         #region loading stuff
         public UserDatabase UsrDB = new UserDatabase();
         System.Windows.Threading.Dispatcher maindispatcher;
-        public delegate void dostuff(string message, string user, DateTime date, string url, string id);
+        public delegate void dostuff(TwitterStatus status);
         public dostuff dostuffdel;
+        public Screen[] Displays = System.Windows.Forms.Screen.AllScreens;
 
         public MainWindow()
         {
@@ -63,6 +64,68 @@ namespace o3o
                 UsrDB.CreateUser();
             UserSelectionMenuCurrentName.Header = UsrDB.Users[0].UserDetails.ScreenName;
 
+            DisplaysComboBox.SelectedIndex = Properties.Settings.Default.DisplayIndex;
+            int dex;
+            int upperBound = Displays.GetUpperBound(0);
+            for (dex = 0; dex <= upperBound; dex++)
+            {
+                if (Displays[dex].Primary)
+                {
+                    DisplaysComboBox.Items.Add(dex + ": " + Displays[dex].DeviceName + " Width:" + Displays[dex].Bounds.Width.ToString() + " Height:" + Displays[dex].Bounds.Height.ToString() + " (primary)");
+                }
+                else
+                {
+                    string entry = dex + ": " + Displays[dex].DeviceName + " Width:" + Displays[dex].Bounds.Width.ToString() + " Height:" + Displays[dex].Bounds.Height.ToString();
+                    System.Windows.Point primaryscreen = new System.Windows.Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
+                    if (Displays[dex].Bounds.X < primaryscreen.X)
+                    {
+                        if (Displays[dex].Bounds.Y > primaryscreen.Y)
+                        {
+                            entry = entry + " (Bottom Left)";
+                        }
+                        else if (Displays[dex].Bounds.Y < primaryscreen.Y)
+                        {
+                            entry = entry + " (Top Left)";
+                        }
+                        else
+                        {
+                            entry = entry + " (Left)";
+                        }
+                    }
+                    else if (Displays[dex].Bounds.X > primaryscreen.X)
+                    {
+                        if (Displays[dex].Bounds.Y > primaryscreen.Y)
+                        {
+                            entry = entry + " (Bottom Right)";
+                        }
+                        else if (Displays[dex].Bounds.Y < primaryscreen.Y)
+                        {
+                            entry = entry + " (Top Right)";
+                        }
+                        else
+                        {
+                            entry = entry + " (Right)";
+                        }
+                    }
+                    else if (Displays[dex].Bounds.X == primaryscreen.X)
+                    {
+                        if (Displays[dex].Bounds.Y < primaryscreen.Y)
+                        {
+                            entry = entry + " (Bottom)";
+                        }
+                        else if (Displays[dex].Bounds.Y > primaryscreen.Y)
+                        {
+                            entry = entry + " (Top)";
+                        }
+                        else
+                        {
+                            entry = entry + " (What?)";
+                        }
+                    }
+                    DisplaysComboBox.Items.Add(entry);
+                }
+
+            }
 
             maindispatcher = this.Dispatcher;
             foreach (UserDatabase.User usr in UsrDB.Users)
@@ -79,21 +142,46 @@ namespace o3o
 
         #region tweet helpers
 
+        bool inreply = false;
+        TwitterStatus replystatus;
+
         void SendTweet()
         {
             if (textBox1.Text.Length <= 140)
             {
                 if (!String.IsNullOrEmpty(textBox1.Text))
                 {
-                    UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(textBox1.Text);
-                    textBox1.Text = "";
-                    charleft.Text = "140";
+                    if (!String.IsNullOrEmpty(replystatus.StringId))
+                    {
+                        if (inreply && textBox1.Text.StartsWith("@" + replystatus.User.ScreenName))
+                        {
+                            UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.Reply(replystatus.Id, textBox1.Text);
+                            textBox1.Text = "";
+                            charleft.Text = "140";
 
-                    testbutton.Content = "Tweet";
-                    TweetElements.Margin = new Thickness(0, 0, 0, 17);
-                    textBox1.Visibility = Visibility.Collapsed;
-                    charleft.Visibility = Visibility.Collapsed;
-                    TweetLbl.Visibility = Visibility.Collapsed;
+                            testbutton.Content = "Tweet";
+                            TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                            textBox1.Visibility = Visibility.Collapsed;
+                            charleft.Visibility = Visibility.Collapsed;
+                            TweetLbl.Visibility = Visibility.Collapsed;
+                            inreply = false;
+                            replystatus = null;
+                        }
+                    }
+                    else
+                    {
+                        UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(textBox1.Text);
+                        textBox1.Text = "";
+                        charleft.Text = "140";
+
+                        testbutton.Content = "Tweet";
+                        TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                        textBox1.Visibility = Visibility.Collapsed;
+                        charleft.Visibility = Visibility.Collapsed;
+                        TweetLbl.Visibility = Visibility.Collapsed;
+                        inreply = false;
+                        replystatus = null;
+                    }
                 }
                 else
                 {
@@ -104,6 +192,8 @@ namespace o3o
                     TweetLbl.Visibility = Visibility.Collapsed;
                     charleft.Foreground = new SolidColorBrush(Colors.Red);
                     charleft.Text = "no text";
+                    inreply = false;
+                    replystatus = null;
                 }
             }
             else
@@ -114,8 +204,9 @@ namespace o3o
 
         }
 
-        public void NaitiveRetweet(string text)
+        public void ReplyTweet(decimal id, string text)
         {
+          
             UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(text);
         }
 
@@ -123,21 +214,16 @@ namespace o3o
         {
 
             dostuffdel = new dostuff(FillHome);
-            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+            maindispatcher.Invoke(dostuffdel, new object[] { status });
 
             dostuffdel = new dostuff(Notification);
-            maindispatcher.Invoke(dostuffdel, new object[] { status.Text, status.User.ScreenName, status.CreatedDate, status.User.ProfileImageLocation, status.Id.ToString() });
+            maindispatcher.Invoke(dostuffdel, new object[] { status });
            
         }
 
-        public void FillHome(string message, string user, DateTime date, string url, string id) 
+        public void FillHome(TwitterStatus status) 
         {
-            TweetElement element = new TweetElement(this);
-            element.Tweet = message;
-            element.name = user;
-            element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
-            element.imagelocation = url;
-            element.ID = id;
+            TweetElement element = new TweetElement(this, status);
             element.polyOpacity = polygonOpacity;
             TweetElements.Items.Insert(0, element);
             if (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
@@ -147,14 +233,9 @@ namespace o3o
             
         }
 
-        public void FillMentions(string message, string user, DateTime date, string url, string id) 
+        public void FillMentions(TwitterStatus status) 
         {
-            TweetElement element = new TweetElement(this);
-            element.Tweet = message;
-            element.name = user;
-            element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
-            element.imagelocation = url;
-            element.ID = id;
+            TweetElement element = new TweetElement(this, status);
             element.polyOpacity = polygonOpacity;
             TweetMentions.Items.Add( element);
             if (TweetMentions.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
@@ -163,15 +244,11 @@ namespace o3o
             }
         }
 
-        public void Notification(string message, string user, DateTime date, string url, string id)
+        public void Notification(TwitterStatus status)
         {
-            notify notification = new notify();
-            TweetElement element = new TweetElement(this);
-            element.Tweet = message;
-            element.name = user;
-            element.Date = date.Month.ToString() + "/" + date.Day.ToString() + " " + date.Hour.ToString() + ":" + date.Minute.ToString();
-            element.imagelocation = url;
-            element.ID = id;
+            notify notification = new notify(this);
+            TweetElement element = new TweetElement(this, status);
+           
             element.polyOpacity = polygonOpacity;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
             notification.content.Items.Add(element);
@@ -266,11 +343,30 @@ namespace o3o
                 textBox1.Visibility = Visibility.Collapsed;
                 charleft.Visibility = Visibility.Collapsed;
                 TweetLbl.Visibility = Visibility.Collapsed;
+                inreply = false;
+                replystatus = null;
             }
 
         }
 
+        public void reply(string inc, TwitterStatus Status)
+        {
+            inreply = true;
+            replystatus = Status;
+            
+            textBox1.Text = inc;
+            if (textBox1.Visibility == Visibility.Collapsed)
+            {
+                testbutton.Content = "Tweet";
+                TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                textBox1.Visibility = Visibility.Visible;
+                charleft.Visibility = Visibility.Visible;
+                TweetLbl.Visibility = Visibility.Visible;
 
+            }
+            textBox1.Focus();
+
+        }
         
         public void tbox(string inc) 
         {
@@ -468,6 +564,8 @@ namespace o3o
                 if (System.Windows.Forms.MessageBox.Show("R U SUR", "Y U DO DIS", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
                     return;
                 UsrDB.WipeUsers();
+                Properties.Settings.Default.Reset();
+                Properties.Settings.Default.Save();
                 System.Diagnostics.Process.Start(System.Windows.Application.ResourceAssembly.Location);
                 System.Windows.Application.Current.Shutdown();
             }
@@ -515,6 +613,21 @@ namespace o3o
                 {
                     TweetElements.Items.RemoveAt(TweetElements.Items.Count - 1);
                 }
+            }
+
+            private void DisplaysComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            {
+                Properties.Settings.Default.DisplayIndex = DisplaysComboBox.SelectedIndex;
+            }
+
+            private void topmostcheckbox_Checked(object sender, RoutedEventArgs e)
+            {
+                Properties.Settings.Default.TopMostNotify = true;
+            }
+
+            private void topmostcheckbox_Unchecked(object sender, RoutedEventArgs e)
+            {
+                Properties.Settings.Default.TopMostNotify = false;
             }
 
            

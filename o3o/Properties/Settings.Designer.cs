@@ -94,5 +94,29 @@ namespace o3o.Properties {
                 this["LastWindowPosition"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DisplayIndex {
+            get {
+                return ((int)(this["DisplayIndex"]));
+            }
+            set {
+                this["DisplayIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TopMostNotify {
+            get {
+                return ((bool)(this["TopMostNotify"]));
+            }
+            set {
+                this["TopMostNotify"] = value;
+            }
+        }
     }
 }

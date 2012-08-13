@@ -22,14 +22,17 @@ namespace o3o
 
         static System.Windows.Forms.Timer Timer = new System.Windows.Forms.Timer();
         float wait = 300;
-        public notify()
+        int ypos;
+        
+        public notify(MainWindow parent)
         {
             InitializeComponent();
-            this.Left = (System.Windows.SystemParameters.PrimaryScreenWidth - this.Width) - 105;
-            this.Top = 0-this.Height;
-            
+            this.Left = ((parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 105;
+            this.Top = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
+            ypos = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
             this.Show();
             this.SetAeroGlass();
+            this.Topmost = Properties.Settings.Default.TopMostNotify;
             Timer.Tick += new EventHandler(timer_Tick);
             Timer.Interval = (1);
             Timer.Start();
@@ -38,14 +41,14 @@ namespace o3o
 
          private void timer_Tick(Object myObject, EventArgs myEventArgs)
          {
-             if (this.Top >= -5 && wait > 0) // waiting
+             if (this.Top >= (ypos-5) && wait > 0) // waiting
              {
                  wait--;
              }
-             else if ( this.Top >= -this.Height && wait <= 0 && !mousehover()) // going up
+             else if ((this.Top >= (ypos - this.Height)) && wait <= 0 && !mousehover()) // going up
              {
                  this.Top -= 5;
-                 if (this.Top == -this.Height && wait <= 0)
+                 if (this.Top == (ypos - this.Height) && wait <= 0)
                  {
                      this.Close();
                  }
