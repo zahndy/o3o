@@ -64,15 +64,17 @@ namespace o3o
             notification.Text = "Stream died! Restarting stream.. Poke a developer if this happens a lot, or get a better connection.";
             notification.User = new TwitterUser();
             notification.User.ScreenName = "Internal message system";
+            NewTweet(notification, privOAuth);
             StartStream(new Twitterizer.Streaming.StreamOptions());
         }
 
-        public delegate void newtweetDel(TwitterStatus status);
+        public delegate void newtweetDel(TwitterStatus status, UserDatabase.User _usr);
         public event newtweetDel NewTweet;
         void StatuscreatedCallback(TwitterStatus status)
         {
+
             if (NewTweet != null)
-                NewTweet(status);
+                NewTweet(status, privOAuth);
         }
 
         public delegate void TweetDeletedDel(Twitterizer.Streaming.TwitterStreamDeletedEvent DeleteReason);
@@ -230,6 +232,7 @@ namespace o3o
             User usr = new User();
             
             usr.AuthenticateTwitter();
+            usr.CreationDate = DateTime.Now;
             
             Users.Add(usr);
             usr.Initialize();
@@ -265,6 +268,8 @@ namespace o3o
                 }
             }
 
+            [XmlElement]
+            public DateTime CreationDate { get; set; }
             [XmlElement]
             public string AccessToken { get; set; }
             [XmlElement]
