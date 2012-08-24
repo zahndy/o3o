@@ -31,9 +31,9 @@ namespace o3o
     public partial class MainWindow : Window
     {
         #region loading stuff
-        public UserDatabase UsrDB = new UserDatabase();
+        public static UserDatabase UsrDB = new UserDatabase();
         System.Windows.Threading.Dispatcher maindispatcher;
-        public delegate void dostuff(TwitterStatus status);
+        public delegate void dostuff(TwitterStatus status, UserDatabase.User _usr);
         public dostuff dostuffdel;
         public Screen[] Displays = System.Windows.Forms.Screen.AllScreens;
 
@@ -151,7 +151,7 @@ namespace o3o
             {
                 if (!String.IsNullOrEmpty(textBox1.Text))
                 {
-                    if (!String.IsNullOrEmpty(replystatus.StringId))
+                    if (replystatus != null && !String.IsNullOrEmpty(replystatus.StringId))
                     {
                         if (inreply && textBox1.Text.StartsWith("@" + replystatus.User.ScreenName))
                         {
@@ -210,18 +210,18 @@ namespace o3o
             UsrDB.Users.Find(u => u.UserDetails.ScreenName == UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(text);
         }
 
-        void o3o_NewTweet(TwitterStatus status)
+        void o3o_NewTweet(TwitterStatus status, UserDatabase.User _usr)
         {
 
             dostuffdel = new dostuff(FillHome);
-            maindispatcher.Invoke(dostuffdel, new object[] { status });
+            maindispatcher.Invoke(dostuffdel, new object[] { status, _usr});
 
             dostuffdel = new dostuff(Notification);
-            maindispatcher.Invoke(dostuffdel, new object[] { status });
+            maindispatcher.Invoke(dostuffdel, new object[] { status,_usr });
            
         }
 
-        public void FillHome(TwitterStatus status) 
+        public void FillHome(TwitterStatus status, UserDatabase.User _usr) 
         {
             TweetElement element = new TweetElement(this, status);
             element.polyOpacity = polygonOpacity;
@@ -233,7 +233,7 @@ namespace o3o
             
         }
 
-        public void FillMentions(TwitterStatus status) 
+        public void FillMentions(TwitterStatus status, UserDatabase.User _usr) 
         {
             TweetElement element = new TweetElement(this, status);
             element.polyOpacity = polygonOpacity;
@@ -244,7 +244,7 @@ namespace o3o
             }
         }
 
-        public void Notification(TwitterStatus status)
+        public void Notification(TwitterStatus status, UserDatabase.User _usr)
         {
             notify notification = new notify(this);
             TweetElement element = new TweetElement(this, status);
@@ -628,6 +628,12 @@ namespace o3o
             private void topmostcheckbox_Unchecked(object sender, RoutedEventArgs e)
             {
                 Properties.Settings.Default.TopMostNotify = false;
+            }
+
+            private void button_Manage_Accounts_Click(object sender, RoutedEventArgs e)
+            {
+                UserAccounts AccountsWindow = new UserAccounts();
+                AccountsWindow.ShowDialog();
             }
 
            

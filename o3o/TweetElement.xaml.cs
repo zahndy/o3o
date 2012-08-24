@@ -304,10 +304,7 @@ namespace o3o
 
         private void naRetweet_Click(object sender, RoutedEventArgs e)
         {
-            if (("RT @" + name + Tweet).Length > 139)
-                parent.ReplyTweet(Status.Id, ("RT @" + name + " " + Tweet).Substring(0, 139));
-            else
-                parent.ReplyTweet(Status.Id, ("RT @" + name + " " + Tweet));
+            //Status.Retweet(
         }
 
         private void tweetImg_ImageFailed(object sender, ExceptionRoutedEventArgs e)

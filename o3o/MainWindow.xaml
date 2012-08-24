@@ -619,6 +619,7 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
+                    <Button Content="Manage Accounts" Height="23" HorizontalAlignment="Left" Margin="155,559,0,0" Name="button_Manage_Accounts" VerticalAlignment="Top" Width="155" Click="button_Manage_Accounts_Click" />
                 </Grid>
             </TabItem>
         </TabControl>
