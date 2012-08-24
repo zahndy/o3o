@@ -47,7 +47,7 @@ namespace o3o
             parent = prnt;
             InitializeComponent();
             MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
-           User = parent.UsrDB.Users[0].tweetStack.Twitter.GetUser(name);
+           User = MainWindow.UsrDB.Users[0].tweetStack.Twitter.GetUser(name);
             
         }
 

@@ -1,6 +1,8 @@
 # Compiled source #
 ###################
-*.exe
+#*.exe
+#We need this to sync ffmpeg and oal installer
+#because it's Really Annoying® to work with different versions of libs
 
 # Packages #
 ############
