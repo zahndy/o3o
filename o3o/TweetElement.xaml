@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300" Loaded="UserControl_Loaded">
+             d:DesignHeight="100" d:DesignWidth="300" Loaded="UserControl_Loaded" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave" >
     <UserControl.Resources>
         <Style TargetType="TextBlock" x:Key="glassText">
             <Setter Property="Foreground" Value="Black" />
@@ -32,35 +32,33 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Width="300" Height="100" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
-            <!--<Rectangle Height="72" HorizontalAlignment="Left" Margin="6,6,0,0" Name="rectangle1" Stroke="Black" VerticalAlignment="Top" Width="235" Fill="Black" />-->
-        
-            <Polygon Name="messagePolygon"
+    <Grid Width="300" Height="100">
+        <Border Name="overlayborder" Width="300" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0" Panel.ZIndex="-1"  />
+        <Polygon Name="messagePolygon"
                 Points="6,6 297,6 297,77 25,77 6,95">
-                <Polygon.Fill>
-                    <SolidColorBrush Color="Black" Opacity="0.4" />
-                </Polygon.Fill>
-            </Polygon>
-            
-            <!--<Image Height="58" HorizontalAlignment="Left" Margin="12,12,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="58" />-->
+            <Polygon.Fill>
+                <SolidColorBrush Color="Black" Opacity="0.4" />
+            </Polygon.Fill>
+        </Polygon>
+        
         <TextBlock MouseRightButtonUp="TweetBlock_MouseRightButtonDown" Name="TweetBlock" Height="66" HorizontalAlignment="Left" Margin="55,8,0,0" Text="text" VerticalAlignment="Top" Width="240" Foreground="White" Background="Transparent" TextWrapping="Wrap">
                   <TextBlock.Effect>
-                <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
-            </TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
+                </TextBlock.Effect>
         </TextBlock>
-        <TextBlock MouseDown="label1_MouseDown" MouseEnter="label1_MouseEnter" MouseLeave="label1_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="29,76,0,0" Name="label1" VerticalAlignment="Top" Foreground="Black" Padding="0" Width="100" />
-        <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="175,76,0,0" Name="datelabel" VerticalAlignment="Top" Foreground="#96000000" Padding="0" Width="67" />
-        <Border Name="imageborder">
-            <Border.Effect>
-                <DropShadowEffect Color="Black" Direction="-45"
-                    ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
-            </Border.Effect>
+        <TextBlock MouseDown="label1_MouseDown" MouseEnter="label1_MouseEnter" MouseLeave="label1_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Left" Margin="29,76,0,0" Name="label1" VerticalAlignment="Top" Foreground="Black" Padding="0" Width="146" >
+            <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
+                </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="Label" Height="18" HorizontalAlignment="Right" Margin="0,76,52,0" Name="datelabel" VerticalAlignment="Top" Foreground="#96000000" Padding="0" Width="73" >
+            <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
+                </TextBlock.Effect>
+        </TextBlock>
 
-            <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,11,0,0" VerticalAlignment="Top" Source="/o3o;component/Images/image_Failed.png" ImageFailed="tweetImg_ImageFailed" />
-            
-        </Border>
-        <Image MouseUp="replyBtn_MouseUp" MouseEnter="replyBtn_MouseEnter" MouseLeave="replyBtn_MouseLeave" MouseDown="replyBtn_MouseDown" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="248,78,0,0" Name="replyBtn" Stretch="Fill" VerticalAlignment="Top" Width="24" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" />
-        <Image MouseUp="menu_MouseDown" MouseLeave="menu_MouseLeave" MouseEnter="menu_MouseEnter" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="274,78,0,0" Name="menu" Stretch="Fill" VerticalAlignment="Top" Width="20" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" >
+        <Image MouseUp="replyBtn_MouseUp" MouseEnter="replyBtn_MouseEnter" MouseLeave="replyBtn_MouseLeave" MouseDown="replyBtn_MouseDown" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="248,78,0,0" Name="replyBtn" Stretch="Fill" VerticalAlignment="Top" Width="26" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" />
+        <Image MouseUp="menu_MouseDown" MouseLeave="menu_MouseLeave" MouseEnter="menu_MouseEnter" Visibility="Visible" Height="20" HorizontalAlignment="Left" Margin="274,78,0,0" Name="menu" Stretch="Fill" VerticalAlignment="Top" Width="23" Source="/o3o;component/Images/reply_empty.png" Cursor="Hand" >
             <Image.ContextMenu>
                 <ContextMenu x:Name="contextmenu">
                     <MenuItem Header="copy" Click="MenuItem_Click"/>
@@ -68,6 +66,15 @@
                 </ContextMenu>
             </Image.ContextMenu>
         </Image>
+
+        <Border Name="imageborder" Width="48" Height="48" Margin="0,11,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="-45"
+                    ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
+            </Border.Effect>
+            <Image Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Source="/o3o;component/Images/image_Failed.png" ImageFailed="tweetImg_ImageFailed" />
+        </Border>
+        
     </Grid>
 
 </UserControl>

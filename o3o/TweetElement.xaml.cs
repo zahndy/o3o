@@ -49,8 +49,8 @@ namespace o3o
         public bool loaded = false;
         TwitterStatus Status;
 
-        private MainWindow parent;
-        public TweetElement(MainWindow prnt, TwitterStatus status)
+        private dynamic parent;
+        public TweetElement(dynamic prnt, TwitterStatus status)
         {
             
             InitializeComponent();
@@ -184,13 +184,9 @@ namespace o3o
                     tweetImg.Source = image;
 
                 }
-                catch
+                catch (Exception err)
                 {
-                    //tweetImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                    //                    System.Drawing.SystemIcons.Error.Handle,
-                    //                    Int32Rect.Empty,
-                    //                    BitmapSizeOptions.FromEmptyOptions());
-                    //tweetImg.Source = Properties.Resources.image_Failed;
+                    tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
                 }
                 loaded = true;
             }
@@ -201,10 +197,7 @@ namespace o3o
         }
         private void label1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Profile userprofile = new Profile(parent,name);
-            userprofile.image = tweetImg.Source;
-            userprofile.Topmost = true;
-            userprofile.Show();
+            System.Diagnostics.Process.Start("http://twitter.com/" + Status.User.ScreenName);
         }
 
         private void label1_MouseEnter(object sender, MouseEventArgs e)
@@ -298,13 +291,13 @@ namespace o3o
 
         private void reply()
         {
-            parent.reply("@" + name + " ",Status);
+            parent.reply("@" + name + " ",Status); 
             
         }
 
         private void naRetweet_Click(object sender, RoutedEventArgs e)
         {
-            //Status.Retweet(
+            //Status.Retweet(  
         }
 
         private void tweetImg_ImageFailed(object sender, ExceptionRoutedEventArgs e)

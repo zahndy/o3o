@@ -5,6 +5,7 @@ using System.Text;
 using Twitterizer;
 using Twitterizer.Core;
 using System.Xml.Serialization;
+using System.Net;
 
 namespace o3o
 {
@@ -72,7 +73,6 @@ namespace o3o
         public event newtweetDel NewTweet;
         void StatuscreatedCallback(TwitterStatus status)
         {
-
             if (NewTweet != null)
                 NewTweet(status, privOAuth);
         }
@@ -112,6 +112,7 @@ namespace o3o
         /// This class contains shit to interact with twitter other than receiving tweets through streaming.
         /// e.g Sending tweets, updating profile, and getting static versions of the current timeline and mentions and such.    
         /// </summary>
+
         public class TwitterInteraction
         {
             UserDatabase.User privOAuth;
@@ -123,9 +124,26 @@ namespace o3o
             public void SendTweet(string tweet)
             {
                 if (tweet.Count() < 140)
-                    Twitterizer.TwitterStatus.Update(privOAuth.GetOAuthToken(), tweet);
+                    try
+                    {
+                        Twitterizer.TwitterResponse<Twitterizer.TwitterStatus> response = Twitterizer.TwitterStatus.Update(privOAuth.GetOAuthToken(), tweet);
+                        if (!(response.Result == RequestResult.Success))
+                        {
+                            System.Windows.Forms.MessageBox.Show("error: " + response.Result, "error", System.Windows.Forms.MessageBoxButtons.OK);
+                        }
+                    }
+                    catch (WebException e)
+                    {
+                        System.Windows.Forms.MessageBox.Show("error: " + e.Message,"error",System.Windows.Forms.MessageBoxButtons.OK);
+                        //TwitterStatus notification = new TwitterStatus();  CED GO FIX THIS 
+                        //notification.Text = "error: "+e.Message;           Error An object reference is required for the non-static field, method, or property 'o3o.TweetStack.NewTweet'	
+                        //notification.User = new TwitterUser();
+                        //notification.User.ScreenName = "Internal message system";
+                        //TweetStack.NewTweet(notification, privOAuth);
+                        
+                    }
                 else
-                    throw new Exception("Status update too long! Make sure it's less than 140 characters!");
+                    throw new Exception("Status update too long! Make sure it's less than 140 characters!"); // also replace this with system message
             }
 
             //This is all deprecated since streaming tweets were introduced.
