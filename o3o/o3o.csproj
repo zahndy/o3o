@@ -257,6 +257,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Images\closedhand.cur" />
+    <EmbeddedResource Include="Images\openhand.cur" />
     <Content Include="Sounds\Bleep.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -32,8 +32,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Width="300" Height="100">
-        <Border Name="overlayborder" Width="300" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0" Panel.ZIndex="-1"  />
+    <Grid Width="300" Height="100" Name="tweetelementgrid" PreviewMouseDown="TweetElements_PreviewMouseDown" PreviewMouseUp="TweetElements_PreviewMouseUp" PreviewMouseMove="TweetElements_PreviewMouseMove" MouseLeave="TweetElements_MouseLeave" MouseEnter="TweetElements_MouseEnter">
         <Polygon Name="messagePolygon"
                 Points="6,6 297,6 297,77 25,77 6,95">
             <Polygon.Fill>

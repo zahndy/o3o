@@ -300,7 +300,9 @@ namespace o3o
 
 
 
-
+        public Point mouseDragStartPoint;
+        public Point scrollStartOffset;
+        public bool isdown = false;
 
 
 

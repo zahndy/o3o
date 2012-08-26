@@ -417,7 +417,7 @@
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid>
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000" >
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000"  >
                         <ListBox.OpacityMask>
                             <LinearGradientBrush StartPoint="1,0">
                                 <GradientStop Color="#FFFFFFFF" Offset="0.95" />
@@ -427,7 +427,6 @@
                             </LinearGradientBrush>
                            
                         </ListBox.OpacityMask>
-               
                     </ListBox>
                     <TextBox Language="en-us" SpellCheck.IsEnabled="True" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="auto" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" Visibility="Collapsed">
                         <TextBox.Style>
