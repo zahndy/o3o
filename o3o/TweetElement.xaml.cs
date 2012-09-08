@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -49,8 +50,8 @@ namespace o3o
         public bool loaded = false;
         TwitterStatus Status;
 
-        private MainWindow parent;
-        public TweetElement(MainWindow prnt, TwitterStatus status)
+        private dynamic parent;
+        public TweetElement(dynamic prnt, TwitterStatus status)
         {
             
             InitializeComponent();
@@ -184,13 +185,9 @@ namespace o3o
                     tweetImg.Source = image;
 
                 }
-                catch
+                catch (Exception err)
                 {
-                    //tweetImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                    //                    System.Drawing.SystemIcons.Error.Handle,
-                    //                    Int32Rect.Empty,
-                    //                    BitmapSizeOptions.FromEmptyOptions());
-                    //tweetImg.Source = Properties.Resources.image_Failed;
+                    tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
                 }
                 loaded = true;
             }
@@ -201,10 +198,7 @@ namespace o3o
         }
         private void label1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Profile userprofile = new Profile(parent,name);
-            userprofile.image = tweetImg.Source;
-            userprofile.Topmost = true;
-            userprofile.Show();
+            System.Diagnostics.Process.Start("http://twitter.com/" + Status.User.ScreenName);
         }
 
         private void label1_MouseEnter(object sender, MouseEventArgs e)
@@ -298,13 +292,13 @@ namespace o3o
 
         private void reply()
         {
-            parent.reply("@" + name + " ",Status);
+            parent.reply("@" + name + " ",Status); 
             
         }
 
         private void naRetweet_Click(object sender, RoutedEventArgs e)
         {
-            //Status.Retweet(
+            //Status.Retweet(  
         }
 
         private void tweetImg_ImageFailed(object sender, ExceptionRoutedEventArgs e)
@@ -313,6 +307,88 @@ namespace o3o
         }
 
 
-    }
+        //  IMPROVE SHIT
+        #region DragScroll
+        //String[] resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+        System.Windows.Input.Cursor HandClosed = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.closedhand.cur"));
+        System.Windows.Input.Cursor HandOpen = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.openhand.cur"));
 
+        public void ScrollToOffset(int offset)
+        {
+            ScrollViewer viewer = GetScrollViewer(parent.TweetElements);
+            viewer.ScrollToHorizontalOffset(offset);
+        }
+
+        public static ScrollViewer GetScrollViewer(System.Windows.Controls.ListBox listBox)
+        {
+            Border scroll_border = VisualTreeHelper.GetChild(listBox, 0) as Border;
+            if (scroll_border is Border)
+            {
+                ScrollViewer scroll = scroll_border.Child as ScrollViewer;
+                if (scroll is ScrollViewer)
+                {
+                    return scroll;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
+        private void TweetElements_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            parent.isdown = true;
+                parent.TweetElements.Cursor = HandClosed;
+                parent.mouseDragStartPoint = e.GetPosition(parent);
+                parent.scrollStartOffset.X = GetScrollViewer(parent.TweetElements).HorizontalOffset;
+                parent.scrollStartOffset.Y = GetScrollViewer(parent.TweetElements).VerticalOffset;
+        }
+
+        private void TweetElements_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            parent.isdown = false;
+            parent.TweetElements.Cursor = HandOpen;
+        }
+
+        
+        private void TweetElements_PreviewMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (parent.isdown)
+            {
+                Point mouseDragCurrentPoint = e.GetPosition(parent);
+
+                Point delta = new Point(
+           (mouseDragCurrentPoint.X > parent.mouseDragStartPoint.X) ?
+           -(mouseDragCurrentPoint.X - parent.mouseDragStartPoint.X) :
+           (parent.mouseDragStartPoint.X - mouseDragCurrentPoint.X),
+           (mouseDragCurrentPoint.Y > parent.mouseDragStartPoint.Y) ?
+           -(mouseDragCurrentPoint.Y - parent.mouseDragStartPoint.Y) :
+           (parent.mouseDragStartPoint.Y - mouseDragCurrentPoint.Y));
+
+                // Scroll to the new position. 
+                GetScrollViewer(parent.TweetElements).ScrollToHorizontalOffset(parent.scrollStartOffset.X + delta.X);
+                GetScrollViewer(parent.TweetElements).ScrollToVerticalOffset(parent.scrollStartOffset.Y + delta.Y);
+            }
+        }
+
+        private void TweetElements_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            parent.isdown = false;
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
+        }
+
+        private void TweetElements_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            parent.TweetElements.Cursor = HandOpen;
+        }
+        #endregion  
+        
+       
+
+    }
 }
