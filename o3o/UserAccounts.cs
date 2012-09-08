@@ -19,7 +19,7 @@ namespace o3o
         void RefreshList()
         {
             listView_accounts.Items.Clear();
-            foreach (UserDatabase.User usr in MainWindow.UsrDB.Users)
+            foreach (UserDatabase.User usr in App.UsrDB.Users)
             {
                 listView_accounts.Items.Add(usr.UserDetails.ScreenName);
             }
@@ -27,13 +27,13 @@ namespace o3o
 
         private void addNewAccountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainWindow.UsrDB.CreateUser();
+            App.UsrDB.CreateUser();
             RefreshList();
         }
 
         private void listView_accounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UserDatabase.User usr = MainWindow.UsrDB.Users.Find(u => u.UserDetails.ScreenName == listView_accounts.FocusedItem.Text);
+            UserDatabase.User usr = App.UsrDB.Users.Find(u => u.UserDetails.ScreenName == listView_accounts.FocusedItem.Text);
             label_AccountInfo.Text =
                 "User info:\n\n" +
                 string.Format("Created on: {0}\n", usr.CreationDate.ToLongDateString()) +

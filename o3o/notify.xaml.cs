@@ -24,12 +24,12 @@ namespace o3o
         float wait = 300;
         int ypos;
         
-        public notify(MainWindow parent)
+        public notify()
         {
             InitializeComponent();
-            this.Left = ((parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 105;
-            this.Top = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
-            ypos = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
+            this.Left = ((((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + ((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 105;
+            this.Top =  ((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
+            ypos = ((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
             this.Show();
             this.SetAeroGlass();
             this.Topmost = Properties.Settings.Default.TopMostNotify;
