@@ -159,6 +159,7 @@ namespace o3o
                     Mainwindow.DisplaysComboBox.Items.Add(entry);
                 }
 
+            }
                 maindispatcher = this.Dispatcher;
                 foreach (UserDatabase.User usr in UsrDB.Users)   // for some reason performs this action 3 times. see output at startup or place breakpoint
                 {
@@ -169,7 +170,7 @@ namespace o3o
 
                 UpdateUserMenu(UsrDB);
 
-            }
+            
         }
 
         public void UpdateUserMenu(UserDatabase usrDB)
