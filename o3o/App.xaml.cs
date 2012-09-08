@@ -161,9 +161,8 @@ namespace o3o
 
             }
                 maindispatcher = this.Dispatcher;
-                foreach (UserDatabase.User usr in UsrDB.Users)   // for some reason performs this action 3 times. see output at startup or place breakpoint
+                foreach (UserDatabase.User usr in UsrDB.Users)  
                 {
-                    Debug.WriteLine("#####  for every user in usrDB");
                     usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
 
                 }
