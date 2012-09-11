@@ -247,8 +247,6 @@
       <DependentUpon>UserAccounts.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -259,6 +257,14 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\closedhand.cur" />
     <EmbeddedResource Include="Images\openhand.cur" />
+    <Resource Include="Images\favorite.png" />
+    <Resource Include="Images\favorite_hover.png" />
+    <Resource Include="Images\favorite_on.png" />
+    <Resource Include="Images\reply_hover.png" />
+    <Resource Include="Images\retweet.png" />
+    <Resource Include="Images\retweet_hover.png" />
+    <Resource Include="Images\retweet_on.png" />
+    <Resource Include="Images\bird_black.png" />
     <Content Include="Sounds\Bleep.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -321,9 +327,7 @@
     <Resource Include="Libs\GettingStarted.txt" />
     <Resource Include="Libs\Json.NET.license.txt" />
     <Resource Include="Images\reply.png" />
-    <Resource Include="Images\reply_onclick.png" />
-    <Resource Include="Images\reply_onhover.png" />
-    <Resource Include="Images\reply_empty.png" />
+    <Resource Include="Images\empty.png" />
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
     <None Include="Libs\CustomColorPicker.dll" />

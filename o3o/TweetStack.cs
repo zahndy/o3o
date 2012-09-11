@@ -77,6 +77,7 @@ namespace o3o
                 NewTweet(status, privOAuth);
         }
 
+
         public delegate void TweetDeletedDel(Twitterizer.Streaming.TwitterStreamDeletedEvent DeleteReason);
         public event TweetDeletedDel TweetDeleted;
         void statusdeletedCallback(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
@@ -174,6 +175,30 @@ namespace o3o
                 return TwitterUser.Show(privOAuth.GetOAuthToken(), _UserName).ResponseObject;
             }
 
+            public void favorite(decimal Id)
+            {
+                StatusUpdateOptions options = new StatusUpdateOptions();
+
+                Twitterizer.TwitterResponse<TwitterStatus> response = Twitterizer.TwitterFavorite.Create(privOAuth.GetOAuthToken(), Id);
+                if (!(response.Result == RequestResult.Success))
+                {
+                    //throw new Exception("fav failed: " + response.ErrorMessage);
+                    System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error, fav failed", System.Windows.Forms.MessageBoxButtons.OK);
+                }
+            }
+
+            public void unfavorite(decimal Id)
+            {
+                StatusUpdateOptions options = new StatusUpdateOptions();
+
+                Twitterizer.TwitterResponse<TwitterStatus> response = Twitterizer.TwitterFavorite.Delete(privOAuth.GetOAuthToken(), Id);
+                if (!(response.Result == RequestResult.Success))
+                {
+                    //throw new Exception("unfav failed: " + response.ErrorMessage);
+                    System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error, unfav failed", System.Windows.Forms.MessageBoxButtons.OK);
+                }
+            }
+
             public void Reply(decimal Id, string tweet)
             {
                 StatusUpdateOptions options = new StatusUpdateOptions();
@@ -181,7 +206,17 @@ namespace o3o
                 Twitterizer.TwitterResponse<TwitterStatus> response = Twitterizer.TwitterStatus.Update(privOAuth.GetOAuthToken(), tweet,options);
                 if (!(response.Result == RequestResult.Success))
                 {
-                    throw new Exception("reply failed: " + response.ErrorMessage);
+                    //throw new Exception("reply failed: " + response.ErrorMessage);
+                    System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error", System.Windows.Forms.MessageBoxButtons.OK);
+                }
+            }
+
+            public void Retweet(decimal id)
+            {
+                Twitterizer.TwitterResponse<TwitterStatus> response = Twitterizer.TwitterStatus.Retweet(privOAuth.GetOAuthToken(), id);
+                if (!(response.Result == RequestResult.Success))
+                {
+                    System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error, retweet failed", System.Windows.Forms.MessageBoxButtons.OK);
                 }
             }
             

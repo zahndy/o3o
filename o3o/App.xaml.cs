@@ -63,8 +63,7 @@ namespace o3o
         public dostuff dostuffdel;
         public Screen[] Displays = System.Windows.Forms.Screen.AllScreens;
         public float polygonOpacity = o3o.Properties.Settings.Default.PolygonOpacity;
-        public bool inreply = false;
-        public TwitterStatus replystatus;
+        
         public bool isloaded = false;
 
         public struct SoundFile
@@ -250,11 +249,7 @@ namespace o3o
 
         }
 
-        public void ReplyTweet(decimal id, string text)
-        {
-          
-            UsrDB.Users.Find(u => u.UserDetails.ScreenName == Mainwindow.UserSelectionMenuCurrentName.Header).tweetStack.Twitter.SendTweet(text);
-        }
+       
 
         void o3o_NewTweet(TwitterStatus status, UserDatabase.User _usr)
         {
@@ -268,7 +263,11 @@ namespace o3o
 
         public void FillHome(TwitterStatus status, UserDatabase.User _usr) 
         {
-            TweetElement element = new TweetElement(Mainwindow, status);
+            if (status.InReplyToScreenName == UsrDB.Users.Find(u => u.UserDetails.ScreenName == _usr.UserDetails.ScreenName).UserDetails.ScreenName)
+            {
+                FillMentions(status, _usr) ;
+            }
+            TweetElement element = new TweetElement(Mainwindow, status, _usr);
             element.polyOpacity = polygonOpacity;
             Mainwindow.TweetElements.Items.Insert(0, element);
             if (Mainwindow.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
@@ -280,7 +279,7 @@ namespace o3o
 
         public void FillMentions(TwitterStatus status, UserDatabase.User _usr) 
         {
-            TweetElement element = new TweetElement(Mainwindow, status);
+            TweetElement element = new TweetElement(Mainwindow, status, _usr);
             element.polyOpacity = polygonOpacity;
             Mainwindow.TweetMentions.Items.Add( element);
             if (Mainwindow.TweetMentions.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
@@ -289,10 +288,21 @@ namespace o3o
             }
         }
 
+        public void FillDm(TwitterStatus status, UserDatabase.User _usr)
+        {
+            TweetElement element = new TweetElement(Mainwindow, status, _usr);
+            element.polyOpacity = polygonOpacity;
+            Mainwindow.TweetMessages.Items.Add(element);
+            if (Mainwindow.TweetMessages.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
+            {
+                Mainwindow.TweetMessages.Items.RemoveAt(Mainwindow.TweetElements.Items.Count);
+            }
+        }
+
         public void Notification(TwitterStatus status, UserDatabase.User _usr)
         {
             notify notification = new notify();
-            TweetElement element = new TweetElement(Mainwindow, status);
+            TweetElement element = new TweetElement(Mainwindow, status, _usr);
            
             element.polyOpacity = polygonOpacity;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
@@ -442,5 +452,22 @@ namespace o3o
         }
        
         #endregion
+
+        public void favoriteTweet(decimal id, string user)
+        {
+            UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.favorite(id);
+        }
+        public void unfavoriteTweet(decimal id, string user)
+        {
+            UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.favorite(id);
+        }
+        public void retweet(decimal id, string user)
+        {
+            UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.Retweet(id);
+
+        }
+
+        public bool inreply = false;
+        public TwitterStatus replystatus;
     }
 }

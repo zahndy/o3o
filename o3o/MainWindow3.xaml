@@ -697,5 +697,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Image Height="16" MouseDown="Twitter_Button_MouseDown" HorizontalAlignment="Right" Margin="0,5,2,0" Name="Twitter_Button" Stretch="Fill" VerticalAlignment="Top" Width="16" Source="/o3o;component/Images/bird_black.png" />
     </Grid>
 </Window>

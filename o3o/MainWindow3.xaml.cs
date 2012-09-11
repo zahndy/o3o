@@ -138,24 +138,7 @@ namespace o3o
 
         }
 
-        public void reply(string inc, TwitterStatus Status)
-        {
-            ((App)System.Windows.Application.Current).inreply = true;
-            ((App)System.Windows.Application.Current).replystatus = Status;
-
-            textBox1.Text = inc;
-            if (textBox1.Visibility == Visibility.Collapsed)
-            {
-                testbutton.Content = "Tweet";
-                TweetElements.Margin = new Thickness(0, 0, 0, 70);
-                textBox1.Visibility = Visibility.Visible;
-                charleft.Visibility = Visibility.Visible;
-                TweetLbl.Visibility = Visibility.Visible;
-
-            }
-            textBox1.Focus();
-
-        }
+       
 
         public void tbox(string inc)
         {
@@ -232,7 +215,7 @@ namespace o3o
         {
             UserAccounts AccountsWindow = new UserAccounts();
             AccountsWindow.ShowDialog();
-            grid1.Children.Clear();
+            //grid1.Children.Clear();
         }
         #endregion
 
@@ -304,8 +287,53 @@ namespace o3o
         public Point scrollStartOffset;
         public bool isdown = false;
 
+        public void favoriteTweet(decimal id, string user)
+        {
+            ((App)System.Windows.Application.Current).favoriteTweet(id, user);
+        }
+        public void unfavoriteTweet(decimal id, string user)
+        {
+            ((App)System.Windows.Application.Current).favoriteTweet(id, user);
+        }
 
+        public void retweet(decimal id, string user)
+        {
+            ((App)System.Windows.Application.Current).retweet(id, user);
+        }
 
+        public void reply(TwitterStatus Status)
+        {
+            ((App)System.Windows.Application.Current).inreply = true;
+            ((App)System.Windows.Application.Current).replystatus = Status;
+
+            textBox1.Text = "@" + Status.User.ScreenName + " ";
+            if (textBox1.Visibility == Visibility.Collapsed)
+            {
+                testbutton.Content = "Tweet";
+                TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                textBox1.Visibility = Visibility.Visible;
+                charleft.Visibility = Visibility.Visible;
+                TweetLbl.Visibility = Visibility.Visible;
+
+            }
+            textBox1.Focus();
+
+        }
+
+        private void Twitter_Button_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://twitter.com/");
+        }
+
+        private void Twitter_Button_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            grid1.Cursor = System.Windows.Input.Cursors.Hand;
+        }
+
+        private void Twitter_Button_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            grid1.Cursor = System.Windows.Input.Cursors.Arrow;
+        }
     }
 
 }
