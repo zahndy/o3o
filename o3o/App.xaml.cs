@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Windows;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +20,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using WMPLib;
 using Twitterizer;
 using OpenAL;
 using Unf;
@@ -324,8 +320,10 @@ namespace o3o
             string[] filenameswav = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Sounds", "*.wav");
             string[] filenamesmp3 = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Sounds", "*.mp3");
 
-            foreach (string Sname in filenamesmp3)
+            for (int o = 0; o < filenamesmp3.Length; o++)
             {
+                string Sname = filenamesmp3[o];
+
                 SoundFile file = new SoundFile();
                 file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
                 ConvertMp3 converter = new ConvertMp3(Sname, Directory.GetCurrentDirectory() + @"\Sounds\" + file.soundname + ".wav", Sname);
@@ -336,8 +334,9 @@ namespace o3o
 
                 sounds.Add(file);
             }
-            foreach (string Sname in filenameswav)
+            for (int d = 0; d < filenameswav.Length; d++)
             {
+                string Sname = filenameswav[d];
                 SoundFile file = new SoundFile();
                 file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
                 file.filepath = Sname;
@@ -346,8 +345,9 @@ namespace o3o
             }
 
 
-            foreach (SoundFile sound in sounds)
+            for (int s = 0; s < sounds.Count; s++)
             {
+                SoundFile sound = sounds[s];
                 System.Windows.Controls.ComboBoxItem SoundMenuItem = new System.Windows.Controls.ComboBoxItem();
                 SoundMenuItem.Content = sound.soundname;
                 Mainwindow.soundselection.Items.Add(SoundMenuItem);

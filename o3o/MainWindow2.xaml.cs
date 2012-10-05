@@ -18,7 +18,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using WMPLib;
 using Twitterizer;
 using OpenAL;
 using Unf;

@@ -32,6 +32,7 @@ namespace o3o
             //If that gone well, and streaming tweets were requested, try initialize streaming tweets.
 
             Twitterizer.Streaming.StreamOptions Streamopts = new Twitterizer.Streaming.StreamOptions();
+            Streamopts.UseCompression = false;
             Streamopts.Count = 0;
             StartStream(Streamopts);
         }
@@ -55,6 +56,7 @@ namespace o3o
         void FriendsCallback(Twitterizer.TwitterIdCollection input)
         {
             //Don't need this yet
+            
         }
 
         void StreamStoppedcallback(Twitterizer.Streaming.StopReasons stopreason)
@@ -174,7 +176,7 @@ namespace o3o
             {
                 return TwitterUser.Show(privOAuth.GetOAuthToken(), _UserName).ResponseObject;
             }
-
+            
             public void favorite(decimal Id)
             {
                 StatusUpdateOptions options = new StatusUpdateOptions();

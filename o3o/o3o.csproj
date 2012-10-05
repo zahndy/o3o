@@ -113,7 +113,7 @@
     <Reference Include="CustomColorPicker">
       <HintPath>Libs\CustomColorPicker.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.3.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -131,11 +131,11 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Twitterizer2, Version=2.4.0.2028, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
+    <Reference Include="Twitterizer2, Version=2.4.1.19063, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Twitterizer2.dll</HintPath>
     </Reference>
-    <Reference Include="Twitterizer2.Streaming, Version=2.4.0.2030, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Twitterizer2.Streaming, Version=2.4.1.22436, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Twitterizer2.Streaming.dll</HintPath>
     </Reference>
@@ -338,17 +338,6 @@
     <Resource Include="Libs\Twitterizer2.license.txt" />
     <Content Include="Libs\Twitterizer2.pdb" />
     <Resource Include="Libs\Twitterizer2.XML" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

@@ -429,6 +429,7 @@
                         </ListBox.OpacityMask>
                     </ListBox>
                     <TextBox Language="en-us" SpellCheck.IsEnabled="True" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="auto" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" Visibility="Collapsed">
+                        
                         <TextBox.Style>
                             <Style>
                                 <Style.Triggers>
@@ -695,7 +696,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Image Height="16" MouseDown="Twitter_Button_MouseDown" MouseEnter="Twitter_Button_MouseEnter" MouseLeave="Twitter_Button_MouseLeave" HorizontalAlignment="Right" Margin="0,5,2,0" Name="Twitter_Button" Stretch="Fill" VerticalAlignment="Top" Width="16" Source="/o3o;component/Images/bird_black.png" />
+        <Image Height="14"  MouseDown="Twitter_Button_MouseDown" MouseEnter="Twitter_Button_MouseEnter" MouseLeave="Twitter_Button_MouseLeave" HorizontalAlignment="Right" Margin="0,5,2,0" Name="Twitter_Button" Stretch="None" VerticalAlignment="Top" Width="14" Source="/o3o;component/Images/bird_black.png" />
 
     </Grid>
 </Window>

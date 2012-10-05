@@ -92,8 +92,9 @@ namespace o3o
             
             TweetBlock.Inlines.Clear();
                 var kaas = Tweet.Split(' ');
-                foreach (string a in kaas)
+                for (int b = 0;b < kaas.Length; b++)
                 {
+                    string a = kaas[b];
                     if (a.Length > 1)
                     {
                         if (a.StartsWith("@"))
@@ -101,7 +102,6 @@ namespace o3o
                             string username = a.Replace("@", "");
                             username.Replace(":", "");
                             Hyperlink uname = new Hyperlink(new Run(a)) { NavigateUri = new Uri("http://twitter.com/" + username) };
-                            //uname.Inlines.Add(a);
                             uname.RequestNavigate += Hyperlink_RequestNavigateEvent;
                             uname.TextDecorations = null;
                             uname.Foreground = color;
@@ -165,37 +165,40 @@ namespace o3o
                     favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/facorite_on.png", UriKind.Relative));
                 }
 
-                try
+                if (imagelocation.Length > 0)
                 {
-                    int BytesToRead = 100;
-                    WebRequest request = WebRequest.Create(new Uri(imagelocation));
-                    request.Timeout = -1;
-                    WebResponse response = request.GetResponse();
-                    Stream responseStream = response.GetResponseStream();
-                    BinaryReader reader = new BinaryReader(responseStream);
-                    MemoryStream memoryStream = new MemoryStream();
-
-                    byte[] bytebuffer = new byte[BytesToRead];
-                    int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-                    while (bytesRead > 0)
+                    try
                     {
-                        memoryStream.Write(bytebuffer, 0, bytesRead);
-                        bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                        int BytesToRead = 100;
+                        WebRequest request = WebRequest.Create(new Uri(imagelocation));
+                        request.Timeout = -1;
+                        WebResponse response = request.GetResponse();
+                        Stream responseStream = response.GetResponseStream();
+                        BinaryReader reader = new BinaryReader(responseStream);
+                        MemoryStream memoryStream = new MemoryStream();
+
+                        byte[] bytebuffer = new byte[BytesToRead];
+                        int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+
+                        while (bytesRead > 0)
+                        {
+                            memoryStream.Write(bytebuffer, 0, bytesRead);
+                            bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                        }
+
+                        image.BeginInit();
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+
+                        image.StreamSource = memoryStream;
+                        image.EndInit();
+
+                        tweetImg.Source = image;
+
                     }
-
-                    image.BeginInit();
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-
-                    image.StreamSource = memoryStream;
-                    image.EndInit();
-
-                    tweetImg.Source = image;
-
-                }
-                catch (Exception err)
-                {
-                    tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                    catch (Exception)
+                    {
+                        tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                    }
                 }
                 loaded = true;
             }
