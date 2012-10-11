@@ -73,34 +73,9 @@ namespace o3o
              WindowState = WindowState.Minimized;
         }
 
-        StackPanel tooltip = new StackPanel();
         private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (grid1.Children.Contains(tooltip))
-            {
-                grid1.Children.Remove(tooltip);
-                tooltip.Children.Clear();
-            }
-            if (textBox1.Text.Length > 0)
-            {
-                string sub = textBox1.Text.Substring(textBox1.Text.Length - 1,1);
-                if (sub == "@")
-                {
-                    //
-                    //this is the test name finder popup, it needs to check if the last word starts with a @ and look for matching names accordingly
-                    //far from finished, but once finished this also needs to be copied to the other interfaces
-                    //
-
-                    tooltip.Width = 50;
-                    tooltip.VerticalAlignment = VerticalAlignment.Bottom;
-                    tooltip.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-                    tooltip.Margin = new Thickness(0, 0, 2, 71);
-                    System.Windows.Controls.Button butt = new System.Windows.Controls.Button();
-                    butt.Content = "test";
-                    tooltip.Children.Add(butt);
-                    grid1.Children.Add(tooltip);
-                }
-            }
+            
             int left = 140 - (textBox1.Text.Length);
             charleft.Text = left.ToString();
             if (left < 0)

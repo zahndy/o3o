@@ -28,7 +28,7 @@ namespace o3o
     /// <summary>
     /// Interaction logic for TweetElement.xaml
     /// </summary>
-    public partial class TweetElement : UserControl
+    public partial class DMElement : TweetElement
     {
         public float PolyOpacity
         {
@@ -40,7 +40,6 @@ namespace o3o
                 messagePolygon.Fill = gBrush; 
             }
         }
-        public TweetElement() { }
 
         public string Tweet;
         public string name;
@@ -49,21 +48,20 @@ namespace o3o
         public string imagelocation;
         public string ID;
         public bool loaded = false;
-        TwitterStatus Status;
+        TwitterDirectMessage DirectMessage;
         UserDatabase.User dbUser;
 
         private dynamic parent;
-        public TweetElement(dynamic prnt, TwitterStatus status, UserDatabase.User usr)
+        public DMElement(dynamic prnt, TwitterDirectMessage DM, UserDatabase.User usr)
         {
-            
             InitializeComponent();
             dbUser = usr;
-            Tweet = status.Text;
-            name = status.User.ScreenName;
-            Date = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString();
-            imagelocation = status.User.ProfileImageLocation;
-            ID = status.Id.ToString();
-            Status = status;
+            Tweet = DM.Text;
+            name = DM.Sender.ScreenName;
+            Date = DM.CreatedDate.Month.ToString() + "/" + DM.CreatedDate.Day.ToString() + " " + DM.CreatedDate.Hour.ToString() + ":" + DM.CreatedDate.Minute.ToString();
+            imagelocation = DM.Sender.ProfileImageLocation;
+            ID = DM.Id.ToString();
+            DirectMessage = DM;
             TweetBlock.Text = Tweet;
             datelabel.Text = Date;
             parent = prnt;
@@ -158,13 +156,9 @@ namespace o3o
 
                 datelabel.Text = Date;
                 label1.Text = dbUser.UserDetails.ScreenName;
-                AtNameLabel.Text = "@"+Status.User.ScreenName;
-                NameLabel.Text = Status.User.Name;
+                AtNameLabel.Text = "@"+DirectMessage.Sender.ScreenName;
+                NameLabel.Text = DirectMessage.Sender.Name;
 
-                if (Status.IsFavorited == true)
-                {
-                    favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/facorite_on.png", UriKind.Relative));
-                }
 
                 if (imagelocation.Length > 0)
                 {
@@ -201,6 +195,10 @@ namespace o3o
                         tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
                     }
                 }
+                replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
+                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
+                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
+
                 loaded = true;
             }
         }
@@ -210,7 +208,7 @@ namespace o3o
         }
         private void AtNameLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://twitter.com/" + Status.User.ScreenName);
+            System.Diagnostics.Process.Start("http://twitter.com/" + DirectMessage.Sender.ScreenName);
         }
 
         //private void AtNameLabel_MouseEnter(object sender, MouseEventArgs e)
@@ -241,52 +239,20 @@ namespace o3o
             System.Diagnostics.Process.Start(target);
         }
 
-        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
-        {
-            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
+        //private void replyBtn_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_hover.png", UriKind.Relative));
+        //}
 
-            if (Status.IsFavorited == true)
-            {
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_on.png", UriKind.Relative));
-            }
-            else
-            {
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite.png", UriKind.Relative));
-            }
+        //private void replyBtn_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
+        //}
 
-            if (Status.Retweeted)
-            {
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_on.png", UriKind.Relative));
-            }
-            else
-            {
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet.png", UriKind.Relative));
-            }
-
-        }
-
-        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
-        {
-            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-            retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-            favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-            
-        }
-
-        private void replyBtn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_hover.png", UriKind.Relative));
-        }
-
-        private void replyBtn_MouseLeave(object sender, MouseEventArgs e)
-        {
-            replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
-        }
-
-        private void replyBtn_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            parent.reply(Status); 
-        }
+        //private void replyBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    parent.reply(DirectMessage); 
+        //}
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -299,10 +265,6 @@ namespace o3o
             contextmenu.IsOpen = true;
         }
 
-        private void naRetweet_Click(object sender, RoutedEventArgs e)
-        {
-            parent.retweet(Status.Id, dbUser); 
-        }
 
         private void tweetImg_ImageFailed(object sender, ExceptionRoutedEventArgs e)
         {
@@ -392,81 +354,6 @@ namespace o3o
         }
         #endregion  
 
-        private void favBtn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (Status.IsFavorited == true)
-            {
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_on.png", UriKind.Relative));
-            }
-            else
-            {
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_hover.png", UriKind.Relative));
-            }
-
-        }
-
-        private void favBtn_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (Status.IsFavorited == true)
-            {
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_on.png", UriKind.Relative));
-            }
-            else
-            {
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite.png", UriKind.Relative));
-            }
-        }
-
-        private void favBtn_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (Status.IsFavorited == true)
-            {
-                parent.unfavoriteTweet(Status.Id, dbUser.UserDetails.ScreenName);
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_hover.png", UriKind.Relative));
-                Status.IsFavorited = false;
-            }
-            else
-            {
-                parent.favoriteTweet(Status.Id, dbUser.UserDetails.ScreenName);
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_on.png", UriKind.Relative));
-                Status.IsFavorited = true;
-            }
-        }
-
-        private void retweetBtn_MouseEnter(object sender, MouseEventArgs e)
-        {
-            if (Status.Retweeted)
-            {
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_on.png", UriKind.Relative));
-            }
-            else
-            {
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_hover.png", UriKind.Relative));
-            }
-        }
-
-        private void retweetBtn_MouseLeave(object sender, MouseEventArgs e)
-        {
-            if (Status.Retweeted)
-            {
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_on.png", UriKind.Relative));
-            }
-            else
-            {
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet.png", UriKind.Relative));
-            }
-        }
-
-        private void retweetBtn_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (!Status.Retweeted)
-            {
-                parent.retweet(Status.Id, dbUser);
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_on.png", UriKind.Relative));
-                Status.Retweeted = true;
-            }
-        }
-
         private void linkMouseEnter(object sender, MouseEventArgs e)
         {
             parent.TweetElements.Cursor = System.Windows.Input.Cursors.Hand;
@@ -476,8 +363,6 @@ namespace o3o
         {
             parent.TweetElements.Cursor = HandOpen;
         }
-        
-       
 
     }
 }

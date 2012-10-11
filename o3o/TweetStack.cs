@@ -46,7 +46,7 @@ namespace o3o
                 new Twitterizer.Streaming.StatusCreatedCallback(StatuscreatedCallback),
                 new Twitterizer.Streaming.StatusDeletedCallback(statusdeletedCallback),
                 new Twitterizer.Streaming.DirectMessageCreatedCallback(DMcreatedCallback),
-                new Twitterizer.Streaming.DirectMessageDeletedCallback(DMDeletectCallback),
+                new Twitterizer.Streaming.DirectMessageDeletedCallback(DMDeletedtCallback),
                 new Twitterizer.Streaming.EventCallback(eventCallback));
         }
 
@@ -88,17 +88,20 @@ namespace o3o
                 TweetDeleted(deletedreason);
         }
 
-        public delegate void DMReceivedDel(TwitterDirectMessage DM);
+        public delegate void DMReceivedDel(TwitterDirectMessage DM, UserDatabase.User _usr);
         public event DMReceivedDel DMReceived;
         void DMcreatedCallback(TwitterDirectMessage incomingDM)
         {
             if(DMReceived != null)
-                DMReceived(incomingDM);
+                DMReceived(incomingDM, privOAuth);
         }
 
-        void DMDeletectCallback(Twitterizer.Streaming.TwitterStreamDeletedEvent DeleteReason)
+        public delegate void DMDeletedDel(Twitterizer.Streaming.TwitterStreamDeletedEvent DR);
+        public event DMDeletedDel DMDeleted;
+        void DMDeletedtCallback(Twitterizer.Streaming.TwitterStreamDeletedEvent DeleteReason)
         {
-            //Don't need this yet
+            if (DMDeleted != null)
+                DMDeleted(DeleteReason);
         }
 
         delegate void twittereventdel(Twitterizer.Streaming.TwitterStreamEvent a);

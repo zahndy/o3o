@@ -161,6 +161,9 @@
     <Compile Include="ConvertMp3.Designer.cs">
       <DependentUpon>ConvertMp3.cs</DependentUpon>
     </Compile>
+    <Compile Include="DMElement.xaml.cs">
+      <DependentUpon>DMElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GetOAuthForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,6 +188,10 @@
     <Compile Include="MainWindow3.xaml.cs">
       <DependentUpon>MainWindow3.xaml</DependentUpon>
     </Compile>
+    <Page Include="DMElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -159,7 +159,7 @@ namespace o3o
                 foreach (UserDatabase.User usr in UsrDB.Users)  
                 {
                     usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
-
+                    usr.tweetStack.DMReceived += new TweetStack.DMReceivedDel(o3o_NewDM);
                 }
 
                 UpdateUserMenu(UsrDB);
@@ -257,6 +257,17 @@ namespace o3o
            
         }
 
+        void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
+        {
+            DMElement element = new DMElement(Mainwindow, DM, _usr); 
+            element.polyOpacity = polygonOpacity;
+            Mainwindow.TweetMessages.Items.Add(element);
+            if (Mainwindow.TweetMessages.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
+            {
+                Mainwindow.TweetMessages.Items.RemoveAt(Mainwindow.TweetElements.Items.Count);
+            }
+        }
+
         public void FillHome(TwitterStatus status, UserDatabase.User _usr) 
         {
             if (status.InReplyToScreenName == UsrDB.Users.Find(u => u.UserDetails.ScreenName == _usr.UserDetails.ScreenName).UserDetails.ScreenName)
@@ -281,17 +292,6 @@ namespace o3o
             if (Mainwindow.TweetMentions.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
                 Mainwindow.TweetMentions.Items.RemoveAt(Mainwindow.TweetElements.Items.Count);
-            }
-        }
-
-        public void FillDm(TwitterStatus status, UserDatabase.User _usr)
-        {
-            TweetElement element = new TweetElement(Mainwindow, status, _usr);
-            element.polyOpacity = polygonOpacity;
-            Mainwindow.TweetMessages.Items.Add(element);
-            if (Mainwindow.TweetMessages.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
-            {
-                Mainwindow.TweetMessages.Items.RemoveAt(Mainwindow.TweetElements.Items.Count);
             }
         }
 
