@@ -18,6 +18,7 @@ using System.Diagnostics;
 using System.Net;
 using System.IO;
 using System.Web;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Twitterizer;
 
@@ -28,7 +29,7 @@ namespace o3o
     /// <summary>
     /// Interaction logic for TweetElement.xaml
     /// </summary>
-    public partial class DMElement : TweetElement
+    public partial class DMElement
     {
         public float PolyOpacity
         {
@@ -155,7 +156,7 @@ namespace o3o
                 }
 
                 datelabel.Text = Date;
-                label1.Text = dbUser.UserDetails.ScreenName;
+                label1.Text = "To: " + dbUser.UserDetails.ScreenName;
                 AtNameLabel.Text = "@"+DirectMessage.Sender.ScreenName;
                 NameLabel.Text = DirectMessage.Sender.Name;
 
@@ -195,13 +196,90 @@ namespace o3o
                         tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
                     }
                 }
-                replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-                retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-                favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-
+                generatePolygonAndMargins(DirectMessage.Text.Length,DirectMessage.Text);
                 loaded = true;
             }
         }
+
+        Polygon messagePolygon = new Polygon();
+        void generatePolygonAndMargins(int charlength, string text)
+        {
+            FormattedText formattedText = new FormattedText(
+            text,
+            CultureInfo.GetCultureInfo("en-us"),
+            FlowDirection.LeftToRight,
+            new Typeface(new FontFamily("Segoe UI"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
+            13,
+            Brushes.Black);
+            formattedText.MaxTextWidth = 346;
+            formattedText.MaxTextHeight = 65;
+            double textheight = formattedText.Height;
+
+            messagePolygon.Name = "messagePolygon";
+            PointCollection points = new PointCollection();
+            if (textheight <= 18) //17.29
+            {
+                points.Add(new Point(10, 6));
+                points.Add(new Point(397, 6));
+                points.Add(new Point(397, 64));
+                points.Add(new Point(25, 64));
+                points.Add(new Point(10, 80));
+
+                tweetelementgrid.Height = 85;
+                DmElement.Height = 85;
+                TweetBlock.Height = 36;
+
+                datelabel.Margin = new Thickness(26, 64, 0, 0);
+                label1.Margin = new Thickness(113, 64, 0, 0);
+            }
+            else if (textheight > 18 && textheight <= 35) //34.58
+            {
+                points.Add(new Point(10, 6));
+                points.Add(new Point(397, 6));
+                points.Add(new Point(397, 74));
+                points.Add(new Point(25, 74));
+                points.Add(new Point(10, 90));
+
+                tweetelementgrid.Height = 95;
+                DmElement.Height = 95;
+                TweetBlock.Height = 50;
+
+                datelabel.Margin = new Thickness(26, 74, 0, 0);
+                label1.Margin = new Thickness(113, 74, 0, 0);
+            }
+            else //(textheight > 35) //51.87
+            {
+
+                points.Add(new Point(10, 6));
+                points.Add(new Point(397, 6));
+                points.Add(new Point(397, 87));
+                points.Add(new Point(25, 87));
+                points.Add(new Point(10, 105));
+
+                tweetelementgrid.Height = 110;
+                DmElement.Height = 110;
+                TweetBlock.Height = 65;
+
+                datelabel.Margin = new Thickness(26, 87, 0, 0);
+                label1.Margin = new Thickness(113, 87, 0, 0);
+            }
+            SolidColorBrush brush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
+            messagePolygon.Fill = brush;
+            messagePolygon.Points = points;
+            tweetelementgrid.Children.Insert(0, messagePolygon);
+            /*
+               <Polygon Name="messagePolygon"
+            Points="10,6 397,6 397,89 25,89 10,105">
+                <Polygon.Fill>
+                    <SolidColorBrush Color="Black" Opacity="0.4" />
+                </Polygon.Fill>
+            </Polygon>
+                 
+             */
+
+        }
+
+
         private void Hyperlink_RequestNavigateEvent(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(e.Uri.ToString());
@@ -274,84 +352,8 @@ namespace o3o
 
         //  IMPROVE SHIT, still very buggy
         #region DragScroll
-        //String[] resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
         System.Windows.Input.Cursor HandClosed = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.closedhand.cur"));
         System.Windows.Input.Cursor HandOpen = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.openhand.cur"));
-
-        public void ScrollToOffset(int offset)
-        {
-            ScrollViewer viewer = GetScrollViewer(parent.TweetElements);
-            viewer.ScrollToHorizontalOffset(offset);
-        }
-
-        public static ScrollViewer GetScrollViewer(System.Windows.Controls.ListBox listBox)
-        {
-            Border scroll_border = VisualTreeHelper.GetChild(listBox, 0) as Border;
-            if (scroll_border is Border)
-            {
-                ScrollViewer scroll = scroll_border.Child as ScrollViewer;
-                if (scroll is ScrollViewer)
-                {
-                    return scroll;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-        Point mouseDragStartPoint;
-        private void TweetElements_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            mouseDragStartPoint = e.GetPosition(parent);
-            parent.isdown = true;
-                parent.TweetElements.Cursor = HandClosed;
-                parent.scrollStartOffset.X = GetScrollViewer(parent.TweetElements).HorizontalOffset;
-                parent.scrollStartOffset.Y = GetScrollViewer(parent.TweetElements).VerticalOffset;
-        }
-
-        private void TweetElements_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            parent.isdown = false;
-            parent.TweetElements.Cursor = HandOpen;
-        }
-
-        
-        private void TweetElements_PreviewMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (parent.isdown)
-            {
-                Point mouseDragCurrentPoint = e.GetPosition(parent);
-
-                Point delta = new Point(
-           (mouseDragCurrentPoint.X > mouseDragStartPoint.X) ?
-           -(mouseDragCurrentPoint.X - mouseDragStartPoint.X) :
-           (mouseDragStartPoint.X - mouseDragCurrentPoint.X),
-           (mouseDragCurrentPoint.Y > mouseDragStartPoint.Y) ?
-           -(mouseDragCurrentPoint.Y - mouseDragStartPoint.Y) :
-           (mouseDragStartPoint.Y - mouseDragCurrentPoint.Y));
-
-                // Scroll to the new position. 
-                GetScrollViewer(parent.TweetElements).ScrollToHorizontalOffset(parent.scrollStartOffset.X + delta.X);
-                GetScrollViewer(parent.TweetElements).ScrollToVerticalOffset(parent.scrollStartOffset.Y + delta.Y);
-                
-            }
-        }
-
-        private void TweetElements_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            parent.isdown = false;
-            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
-        }
-
-        private void TweetElements_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            parent.TweetElements.Cursor = HandOpen;
-        }
         #endregion  
 
         private void linkMouseEnter(object sender, MouseEventArgs e)

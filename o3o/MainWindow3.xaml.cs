@@ -279,13 +279,11 @@ namespace o3o
         }
 
 
+        private void LayoutButton3_Checked(object sender, RoutedEventArgs e)
+        {
+            ((App)System.Windows.Application.Current).setLayOut(3);
 
-
-
-        public Point mouseDragStartPoint;
-        public Point scrollStartOffset;
-        public bool isdown = false;
-
+        }
         public void favoriteTweet(decimal id, string user)
         {
             ((App)System.Windows.Application.Current).favoriteTweet(id, user);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -283,10 +282,6 @@ namespace o3o
                 ((App)System.Windows.Application.Current).setLayOut(3);
                 
             }
-
-            public Point mouseDragStartPoint;
-            public Point scrollStartOffset;
-            public bool isdown = false;
 
             public void favoriteTweet(decimal id, string user)
             {
