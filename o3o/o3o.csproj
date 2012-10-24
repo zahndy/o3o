@@ -272,6 +272,7 @@
     <Resource Include="Images\retweet_hover.png" />
     <Resource Include="Images\retweet_on.png" />
     <Resource Include="Images\bird_black.png" />
+    <Resource Include="Images\Loading.png" />
     <Content Include="Sounds\Bleep.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

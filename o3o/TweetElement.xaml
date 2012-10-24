@@ -86,7 +86,7 @@
                 <DropShadowEffect Color="Black" Direction="-45"
                     ShadowDepth="4" BlurRadius="10" Opacity="0.5"/>
             </Border.Effect>
-            <Image MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Source="/o3o;component/Images/image_Failed.png" ImageFailed="tweetImg_ImageFailed" />
+            <Image MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Height="48"  Name="tweetImg" Stretch="Fill"  Width="48" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Source="/o3o;component/Images/Loading.png" ImageFailed="tweetImg_ImageFailed" />
         </Border>
 
         <TextBlock MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Text="Name" Height="17" HorizontalAlignment="Left" Margin="52,7,0,0" Name="NameLabel" VerticalAlignment="Top" Foreground="White" Padding="0" Width="122" FontStyle="Normal" FontWeight="SemiBold" FontSize="12">

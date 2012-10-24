@@ -160,6 +160,7 @@ namespace o3o
                 {
                     usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
                     usr.tweetStack.DMReceived += new TweetStack.DMReceivedDel(o3o_NewDM);
+                    usr.tweetStack.TweetDeleted +=new TweetStack.TweetDeletedDel(o3o_TweetDeleted);
                 }
 
                 UpdateUserMenu(UsrDB);
@@ -257,6 +258,18 @@ namespace o3o
            
         }
 
+        void o3o_TweetDeleted(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
+        {
+            foreach (TweetElement tweet in Mainwindow.TweetElements.Items)
+            {
+                if (tweet.tweetElement.ID == deletedreason.Id.ToString())
+                {
+                    Mainwindow.TweetElements.Items.Remove(tweet);
+                }
+            }
+
+        }
+
         void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
         {
             DMElement element = new DMElement(Mainwindow, DM, _usr); 
@@ -288,10 +301,10 @@ namespace o3o
         {
             TweetElement element = new TweetElement(Mainwindow, status, _usr);
             element.polyOpacity = polygonOpacity;
-            Mainwindow.TweetMentions.Items.Add( element);
+            Mainwindow.TweetMentions.Items.Add(0, element);
             if (Mainwindow.TweetMentions.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
-                Mainwindow.TweetMentions.Items.RemoveAt(Mainwindow.TweetElements.Items.Count);
+                Mainwindow.TweetMentions.Items.RemoveAt(Mainwindow.TweetElements.Items.Count-1);
             }
         }
 

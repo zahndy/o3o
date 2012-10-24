@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,15 +37,14 @@ namespace o3o
             set
             {
                 polyOpacity = value;
-                SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity*255),0,0,0));
-                messagePolygon.Fill = gBrush; 
+                SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
+                messagePolygon.Fill = gBrush;
             }
         }
         public TweetElement() { }
 
-        public string Tweet;
         public string name;
-        public float  polyOpacity = 0.6f; 
+        public float polyOpacity = 0.6f;
         public string Date;
         public string imagelocation;
         public string ID;
@@ -56,45 +55,44 @@ namespace o3o
         private dynamic parent;
         public TweetElement(dynamic prnt, TwitterStatus status, UserDatabase.User usr)
         {
-            
+
             InitializeComponent();
             dbUser = usr;
-            Tweet = status.Text;
             name = status.User.ScreenName;
             Date = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString();
             imagelocation = status.User.ProfileImageLocation;
             ID = status.Id.ToString();
             Status = status;
-            TweetBlock.Text = Tweet;
             datelabel.Text = Date;
             parent = prnt;
-            SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity*255),0,0,0));
+            SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = gBrush;
         }
 
         BitmapImage image = new BitmapImage();
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             if (loaded == false)
             {
-            SolidColorBrush color;
-            if (Properties.Settings.Default.use_system_color)
-            {
-                color = new SolidColorBrush(
-                    System.Windows.Media.Color.FromArgb(Properties.Settings.Default.system_color.A,
-                                                      Properties.Settings.Default.system_color.R,
-                                                      Properties.Settings.Default.system_color.G,
-                                                      Properties.Settings.Default.system_color.B));
-            }
-            else
-            {
-               color = new SolidColorBrush(Colors.SkyBlue);
-            }
-            
-            TweetBlock.Inlines.Clear();
-                var kaas = Tweet.Split(' ');
-                for (int b = 0;b < kaas.Length; b++)
+                SolidColorBrush color;
+                if (Properties.Settings.Default.use_system_color)
+                {
+                    color = new SolidColorBrush(
+                        System.Windows.Media.Color.FromArgb(Properties.Settings.Default.system_color.A,
+                                                          Properties.Settings.Default.system_color.R,
+                                                          Properties.Settings.Default.system_color.G,
+                                                          Properties.Settings.Default.system_color.B));
+                }
+                else
+                {
+                    color = new SolidColorBrush(Colors.SkyBlue);
+                }
+
+                TweetBlock.Inlines.Clear();
+                string tweet = Status.Text.Trim().Replace(Environment.NewLine, "");
+                string[] kaas = tweet.Split(' ');
+                for (int b = 0; b < kaas.Length; b++)
                 {
                     string a = kaas[b];
                     if (a.Length > 1)
@@ -125,23 +123,23 @@ namespace o3o
                         else if (a.StartsWith("http"))
                         {
 
-                                string url = a.Replace("http://", "");
+                            string url = a.Replace("http://", "");
 
-                                if (a != "http://" && a != "http" && a != "http:" && !String.IsNullOrEmpty(url))
-                                {
-                                    Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
-                                    link.Inlines.Add(url);
-                                    link.RequestNavigate += Hyperlink_RequestNavigateEvent;
-                                    link.TextDecorations = null;
-                                    link.Foreground = color;
-                                    TweetBlock.Inlines.Add(link);
-                                    TweetBlock.Inlines.Add(new Run(" "));
-                                }
-                                else
-                                {
-                                    TweetBlock.Inlines.Add(a);
-                                    TweetBlock.Inlines.Add(new Run(" "));
-                                }
+                            if (a != "http://" && a != "http" && a != "http:" && !String.IsNullOrEmpty(url))
+                            {
+                                Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
+                                link.Inlines.Add(url);
+                                link.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                                link.TextDecorations = null;
+                                link.Foreground = color;
+                                TweetBlock.Inlines.Add(link);
+                                TweetBlock.Inlines.Add(new Run(" "));
+                            }
+                            else
+                            {
+                                TweetBlock.Inlines.Add(a);
+                                TweetBlock.Inlines.Add(new Run(" "));
+                            }
 
                         }
                         else
@@ -158,8 +156,8 @@ namespace o3o
                 }
 
                 datelabel.Text = Date;
-                label1.Text = "To: "+dbUser.UserDetails.ScreenName;
-                AtNameLabel.Text = "@"+Status.User.ScreenName;
+                label1.Text = "To: " + dbUser.UserDetails.ScreenName;
+                AtNameLabel.Text = "@" + Status.User.ScreenName;
                 NameLabel.Text = Status.User.Name;
 
                 if (Status.IsFavorited == true)
@@ -207,7 +205,7 @@ namespace o3o
             }
         }
         Polygon messagePolygon = new Polygon();
-        void generatePolygonAndMargins(int charlength,string text)
+        void generatePolygonAndMargins(int charlength, string text)
         {
             FormattedText formattedText = new FormattedText(
             text,
@@ -280,7 +278,7 @@ namespace o3o
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = brush;
             messagePolygon.Points = points;
-            tweetelementgrid.Children.Insert(0,messagePolygon);
+            tweetelementgrid.Children.Insert(0, messagePolygon);
             /*
                <Polygon Name="messagePolygon"
             Points="10,6 397,6 397,89 25,89 10,105">
@@ -314,8 +312,8 @@ namespace o3o
 
         private void datelabel_MouseLeave(object sender, MouseEventArgs e)
         {
-           datelabel.Foreground = new SolidColorBrush(Color.FromArgb(150,0,0,0));
-           parent.TweetElements.Cursor = HandOpen;
+            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(150, 0, 0, 0));
+            //parent.TweetElements.Cursor = HandOpen;
         }
 
         private void datelabel_MouseEnter(object sender, MouseEventArgs e)
@@ -326,7 +324,7 @@ namespace o3o
 
         private void datelabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            string target = "https://twitter.com/#!/"+name+"/statuses/"+ID;
+            string target = "https://twitter.com/#!/" + name + "/statuses/" + ID;
             System.Diagnostics.Process.Start(target);
         }
 
@@ -359,7 +357,7 @@ namespace o3o
             replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
             retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
             favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/empty.png", UriKind.Relative));
-            
+
         }
 
         private void replyBtn_MouseEnter(object sender, MouseEventArgs e)
@@ -374,12 +372,12 @@ namespace o3o
 
         private void replyBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            parent.reply(Status); 
+            parent.reply(Status);
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(TweetBlock.Text.ToString());
+            Clipboard.SetText(Status.Text);
         }
 
         private void TweetBlock_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -397,9 +395,9 @@ namespace o3o
 
         //  removed dragscroll, laggy and not working
         #region DragScroll
-        System.Windows.Input.Cursor HandClosed = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.closedhand.cur"));
-        System.Windows.Input.Cursor HandOpen = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.openhand.cur"));
-        #endregion  
+        //System.Windows.Input.Cursor HandClosed = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.closedhand.cur"));
+        //System.Windows.Input.Cursor HandOpen = new System.Windows.Input.Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("o3o.Images.openhand.cur"));
+        #endregion
 
         private void favBtn_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -483,10 +481,10 @@ namespace o3o
 
         private void linkMouseLeave(object sender, MouseEventArgs e)
         {
-            parent.TweetElements.Cursor = HandOpen;
+           //parent.TweetElements.Cursor = HandOpen;
         }
-        
-       
+
+
 
     }
 }
