@@ -29,7 +29,7 @@ namespace o3o
     /// <summary>
     /// Interaction logic for TweetElement.xaml
     /// </summary>
-    public partial class TweetElement : UserControl
+    public partial class TweetElement : UserControl, IDisposable
     {
         public float PolyOpacity
         {
@@ -68,6 +68,8 @@ namespace o3o
             SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = gBrush;
         }
+
+       
 
         BitmapImage image = new BitmapImage();
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -194,6 +196,14 @@ namespace o3o
 
                         tweetImg.Source = image;
 
+                        request = null;
+                        response = null;
+                        responseStream = null;
+                        reader = null;
+                        memoryStream = null;
+                        bytebuffer = null;
+                        bytesRead = 0;
+                        BytesToRead = 0;
                     }
                     catch (Exception)
                     {
@@ -202,6 +212,9 @@ namespace o3o
                 }
                 generatePolygonAndMargins(Status.Text.Length, Status.Text);
                 loaded = true;
+
+                image = null;
+                GC.Collect();
             }
         }
         Polygon messagePolygon = new Polygon();
@@ -288,6 +301,11 @@ namespace o3o
             </Polygon>
                  
              */
+
+            formattedText = null;
+            points = null;
+            brush = null;
+            messagePolygon = null;
 
         }
 
@@ -484,7 +502,47 @@ namespace o3o
            //parent.TweetElements.Cursor = HandOpen;
         }
 
+        //public ~TweetElement(){}
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                AtNameLabel = null;
+                datelabel = null;
+                favBtn = null;
+                replyBtn = null;
+                retweetBtn = null;
+                TweetBlock = null;
+                tweetImg = null;
+                contextmenu = null;
+                Date = null;
+                dbUser = null;
+                favimageborder = null;
+                ID = null;
+                image = null;
+                imageborder = null;
+                imagelocation = null;
+                label1 = null;
+                messagePolygon = null;
+                name = null;
+                NameLabel = null;
+                parent = null;
+                polyOpacity = 0;
+                replyBtn = null;
+                replyimageborder = null;
+                retweetBtn = null;
+                retweetimageborder = null;
+                Status = null;
+                tweetelementgrid = null;
+                tweetElement = null;
+            }
+        }
 
     }
 }

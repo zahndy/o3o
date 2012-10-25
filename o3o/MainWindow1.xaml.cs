@@ -60,7 +60,10 @@ namespace o3o
             {
                 ((App)System.Windows.Application.Current).SendTweet();
             }
+           
         }
+
+        
 
         private void closebutton_Click(object sender, RoutedEventArgs e)
         {

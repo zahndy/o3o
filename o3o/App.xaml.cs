@@ -260,13 +260,16 @@ namespace o3o
 
         void o3o_TweetDeleted(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
         {
-            foreach (TweetElement tweet in Mainwindow.TweetElements.Items)
-            {
-                if (tweet.tweetElement.ID == deletedreason.Id.ToString())
-                {
-                    Mainwindow.TweetElements.Items.Remove(tweet);
-                }
-            }
+
+            //The calling thread cannot access this object because a different thread owns it.
+
+            //foreach (TweetElement tweet in Mainwindow.TweetElements.Items)
+            //{
+            //    if (tweet.tweetElement.ID == deletedreason.Id.ToString())
+            //    {
+            //        Mainwindow.TweetElements.Items.Remove(tweet);
+            //    }
+            //}
 
         }
 
@@ -292,7 +295,11 @@ namespace o3o
             Mainwindow.TweetElements.Items.Insert(0, element);
             if (Mainwindow.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
-                Mainwindow.TweetElements.Items.RemoveAt(Mainwindow.TweetElements.Items.Count-1);
+               // Mainwindow.TweetElements.Items[Mainwindow.TweetElements.Items.Count - 1].Dispose();               
+                //Mainwindow.TweetElements.Items.RemoveAt(Mainwindow.TweetElements.Items.Count-1);
+                TweetElement el = Mainwindow.TweetElements.Items[Mainwindow.TweetElements.Items.Count - 1];
+                Mainwindow.TweetElements.Items.Remove(el);
+                el.Dispose();
             }
             
         }
@@ -301,10 +308,13 @@ namespace o3o
         {
             TweetElement element = new TweetElement(Mainwindow, status, _usr);
             element.polyOpacity = polygonOpacity;
-            Mainwindow.TweetMentions.Items.Add(0, element);
+            Mainwindow.TweetMentions.Items.Insert(0, element);
             if (Mainwindow.TweetMentions.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
-                Mainwindow.TweetMentions.Items.RemoveAt(Mainwindow.TweetElements.Items.Count-1);
+                //Mainwindow.TweetMentions.Items.RemoveAt(Mainwindow.TweetElements.Items.Count-1);
+                TweetElement el = Mainwindow.TweetMentions.Items[Mainwindow.TweetElements.Items.Count - 1];
+                Mainwindow.TweetMentions.Items.Remove(el);
+                el.Dispose();
             }
         }
 
