@@ -415,7 +415,8 @@
        
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="auto" Width="auto" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
-                <Grid>
+                <Grid Name="hometabcontent">
+                    <Grid Name="homegrid">
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000"  >
                         <ListBox.OpacityMask>
@@ -501,35 +502,40 @@
                         </MenuItem>
                     </Menu>
                     </Grid>
+                </Grid>
             </TabItem>
             <TabItem Header="Mentions" Name="MentionsTab" BorderBrush="#00000000" Padding="6,0">
-                <Grid>
-                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMentions" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                <Grid Name="mentionstabcontent">
+                    <Grid Name="mentionsgrid">
+                        <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMentions" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Height="Auto">
-                        <ListBox.OpacityMask>
-                            <LinearGradientBrush StartPoint="1,0">
-                                <GradientStop Color="#FFFFFFFF" Offset="0.95" />
-                                <GradientStop Color="#00FFFFFF" Offset="1" />
-                                <GradientStop Color="#FFFFFFFF" Offset="0.01" />
-                                <GradientStop Color="#00FFFFFF" Offset="0" />
-                            </LinearGradientBrush>
-                        </ListBox.OpacityMask>
-                    </ListBox>
+                            <ListBox.OpacityMask>
+                                <LinearGradientBrush StartPoint="1,0">
+                                    <GradientStop Color="#FFFFFFFF" Offset="0.95" />
+                                    <GradientStop Color="#00FFFFFF" Offset="1" />
+                                    <GradientStop Color="#FFFFFFFF" Offset="0.01" />
+                                    <GradientStop Color="#00FFFFFF" Offset="0" />
+                                </LinearGradientBrush>
+                            </ListBox.OpacityMask>
+                        </ListBox>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Messages" Name="MessagesTab" BorderBrush="#00000000" Padding="6,0">
-                <Grid>
-                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMessages" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                <Grid Name="messagestabcontent">
+                    <Grid Name="messagesgrid">
+                        <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMessages" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Height="Auto">
-                        <ListBox.OpacityMask>
-                            <LinearGradientBrush StartPoint="1,0">
-                                <GradientStop Color="#FFFFFFFF" Offset="0.95" />
-                                <GradientStop Color="#00FFFFFF" Offset="1" />
-                                <GradientStop Color="#FFFFFFFF" Offset="0.01" />
-                                <GradientStop Color="#00FFFFFF" Offset="0" />
-                            </LinearGradientBrush>
-                        </ListBox.OpacityMask>
-                    </ListBox>
+                            <ListBox.OpacityMask>
+                                <LinearGradientBrush StartPoint="1,0">
+                                    <GradientStop Color="#FFFFFFFF" Offset="0.95" />
+                                    <GradientStop Color="#00FFFFFF" Offset="1" />
+                                    <GradientStop Color="#FFFFFFFF" Offset="0.01" />
+                                    <GradientStop Color="#00FFFFFF" Offset="0" />
+                                </LinearGradientBrush>
+                            </ListBox.OpacityMask>
+                        </ListBox>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Name="SystemTab" BorderBrush="#00000000" Header="Settings">
@@ -552,53 +558,53 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="210,80,0,0" Name="soundselection" VerticalAlignment="Top" Width="105" SelectionChanged="soundselection_SelectionChanged">
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="210,80,0,0" Name="soundselection" VerticalAlignment="Top" Width="168" SelectionChanged="soundselection_SelectionChanged">
                     </ComboBox>
-                    <Button Content="" Height="23" HorizontalAlignment="Left" Margin="320,80,0,0" Name="playbutton" VerticalAlignment="Top" Width="26" Click="playbutton_Click">
+                    <Button Content="" Height="23" HorizontalAlignment="Left" Margin="384,80,0,0" Name="playbutton" VerticalAlignment="Top" Width="26" Click="playbutton_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="/o3o;component/Images/playback_play.png" />
                         </Button.Background>
                     </Button>
-                    <Button Content="Open File" Height="23" HorizontalAlignment="Left" Margin="210,109,0,0" Name="button1" VerticalAlignment="Top" Width="105" Click="button1_Click" />
-                    <Slider Height="23" HorizontalAlignment="Right" Margin="0,138,37,0" Name="slider1" VerticalAlignment="Top" Width="154" Value="20" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" Maximum="100" />
+                    <Button Content="Open File" Height="23" HorizontalAlignment="Left" Margin="210,109,0,0" Name="button1" VerticalAlignment="Top" Width="168" Click="button1_Click" />
+                    <Slider Height="23" Margin="225,138,0,0" Name="slider1" VerticalAlignment="Top" Value="20" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" Maximum="100" HorizontalAlignment="Left" Width="154" />
                     <Label Content="Volume:" Height="28" HorizontalAlignment="Left" Margin="-1,142,0,0" Name="label4" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Label Content="0" Height="28" HorizontalAlignment="Right" Margin="0,138,195,0" Name="label5" VerticalAlignment="Top" Foreground="White">
+                    <Label Content="0" Height="28" Margin="205,138,0,0" Name="label5" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left" Width="16">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Label Content="100" Height="28" HorizontalAlignment="Right" Margin="284,138,3,0" Name="label6" VerticalAlignment="Top" Foreground="White">
+                    <Label Content="100" Height="28" Margin="384,138,0,0" Name="label6" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left" Width="29">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
                     <Button Content="Clear User Data and Restart" Height="25" HorizontalAlignment="Right" Margin="155,0,0,24" Name="ClearUserDataButton" VerticalAlignment="Bottom" Width="155" Click="ClearUserDataButton_Click" />
-                    <Label Content="Text balloon&#10;        opacity:" Height="34" HorizontalAlignment="Left" Margin="-1,168,0,0" Name="label7" VerticalAlignment="Top" Padding="0" Foreground="White">
+                    <Label Content="Text balloonopacity:" Height="25" HorizontalAlignment="Left" Margin="-1,177,0,0" Name="label7" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="68,177,0,0" Name="opacityLabel" Text="{Binding Path=Value, ElementName=OpacitySlider}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="volumeLabel_TextChanged" Foreground="White">
+                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="119,177,0,0" Name="opacityLabel" Text="{Binding Path=Value, ElementName=OpacitySlider}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="volumeLabel_TextChanged" Foreground="White">
                         <TextBox.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </TextBox.Effect>
                     </TextBox>
-                    <Slider Height="23" HorizontalAlignment="Right" Margin="125,172,37,0" Name="OpacitySlider" VerticalAlignment="Top" Width="154" Value="0.6" Maximum="1" SmallChange="0.01" ValueChanged="OpacitySlider_ValueChanged" TickFrequency="0.1" />
-                    <Label Content="0" Height="28"  HorizontalAlignment="Right" Margin="0,172,195,0" Name="label9" VerticalAlignment="Top" Foreground="White">
+                    <Slider Height="23" Margin="225,172,0,0" Name="OpacitySlider" VerticalAlignment="Top" Value="0.6" Maximum="1" SmallChange="0.01" ValueChanged="OpacitySlider_ValueChanged" TickFrequency="0.1" HorizontalAlignment="Left" Width="154" />
+                    <Label Content="0" Margin="205,172,0,0" Name="label9" Foreground="White" HorizontalAlignment="Left" Width="16" Height="28" VerticalAlignment="Top">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Label Content="1" Height="28" HorizontalAlignment="Right" Margin="0,172,16,0" Name="label10" VerticalAlignment="Top" Foreground="White">
+                    <Label Content="1" Height="28" Margin="384,172,0,0" Name="label10" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left" Width="16">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="48,141,0,0" Name="volumeLabel" Text="{Binding Path=Value, ElementName=slider1}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="volumeLabel_TextChanged" Foreground="White">
+                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="119,141,0,0" Name="volumeLabel" Text="{Binding Path=Value, ElementName=slider1}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="volumeLabel_TextChanged" Foreground="White">
                         <TextBox.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </TextBox.Effect>
@@ -614,7 +620,7 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="210,246,0,0" Name="DisplaysComboBox" VerticalAlignment="Top" Width="200" SelectionChanged="DisplaysComboBox_SelectionChanged" />
+                    <ComboBox Height="23" Margin="210,246,0,0" Name="DisplaysComboBox" VerticalAlignment="Top" SelectionChanged="DisplaysComboBox_SelectionChanged" HorizontalAlignment="Left" Width="200" />
                     <CheckBox Content="" Height="16" HorizontalAlignment="Left" Margin="210,275,0,0" Name="topmostcheckbox" VerticalAlignment="Top" Checked="topmostcheckbox_Checked" Unchecked="topmostcheckbox_Unchecked" />
                     <Label Content="overlap other windows" Height="19" HorizontalAlignment="Left" Margin="226,273,0,0" Name="topmostlbl" VerticalAlignment="Top" Padding="0,2,0,0" Foreground="White"  >
                         <Label.Effect>
@@ -627,7 +633,7 @@
                         </Label.Effect>
                     </Label>
                     <Button Content="Manage Accounts" Height="23" HorizontalAlignment="Right" Margin="155,0,0,55" Name="button_Manage_Accounts" VerticalAlignment="Bottom" Width="155" Click="button_Manage_Accounts_Click" />
-                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="14,344,0,0" Name="LayoutButton1" VerticalAlignment="Top" Width="52"  IsChecked="True">
+                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="14,344,0,0" Name="LayoutButton1" VerticalAlignment="Top" Width="52">
                         <Grid >
                             <Polygon Name="layputpoly1"
                                 Points="6,6 30,6 30,77 6,77 " Height="83" Width="36">
@@ -640,7 +646,7 @@
                             </Polygon>
                         </Grid>
                     </RadioButton>
-                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="92,344,0,0" Name="LayoutButton2" VerticalAlignment="Top" Width="84" Checked="LayoutButton2_Checked">
+                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="92,344,0,0" Name="LayoutButton2" VerticalAlignment="Top" Width="84">
                         <Grid >
                         <Polygon Name="layoutpolys2"
                                 Points="6,6 30,6 30,77 6,77 6,6" Height="83" Width="70">
@@ -662,7 +668,7 @@
                             </Polygon>
                         </Grid>
                     </RadioButton>
-                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="192,344,0,0" Name="LayoutButton3" VerticalAlignment="Top" Width="113" Checked="LayoutButton3_Checked">
+                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="192,344,0,0" Name="LayoutButton3" VerticalAlignment="Top" Width="113">
                         <Grid Width="96">
                             <Polygon Name="layoutpolys3"
                                 Points="6,6 30,6 30,77 6,77 6,6" Height="83" Width="70" HorizontalAlignment="Left">

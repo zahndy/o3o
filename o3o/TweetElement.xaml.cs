@@ -52,8 +52,8 @@ namespace o3o
         TwitterStatus Status;
         UserDatabase.User dbUser;
 
-        private dynamic parent;
-        public TweetElement(dynamic prnt, TwitterStatus status, UserDatabase.User usr)
+        private MainWindow1 parent;
+        public TweetElement(MainWindow1 prnt, TwitterStatus status, UserDatabase.User usr)
         {
 
             InitializeComponent();
@@ -217,6 +217,12 @@ namespace o3o
                 GC.Collect();
             }
         }
+
+        public void setimage(ImageSource _image)
+        {
+            tweetImg.Source = _image;
+        }
+
         Polygon messagePolygon = new Polygon();
         void generatePolygonAndMargins(int charlength, string text)
         {
@@ -527,7 +533,7 @@ namespace o3o
                 ID = null;
                 image = null;
                 imageborder = null;
-                imagelocation = null;
+                //imagelocation = null;
                 label1 = null;
                 messagePolygon = null;
                 name = null;

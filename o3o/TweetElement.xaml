@@ -34,7 +34,7 @@
 
     <Grid Width="400" Height="110" Name="tweetelementgrid">
 
-        <TextBlock MouseRightButtonUp="TweetBlock_MouseRightButtonDown" Name="TweetBlock" Height="65" HorizontalAlignment="Left" Margin="52,24,0,0" Text="test" VerticalAlignment="Top" Width="346" Foreground="White" Background="Transparent" TextWrapping="Wrap" Padding="0" FontSize="13">
+        <TextBlock MouseRightButtonUp="TweetBlock_MouseRightButtonDown" Name="TweetBlock" Height="65" HorizontalAlignment="Left" Margin="52,24,0,0" Text="test" VerticalAlignment="Top" Width="344" Foreground="White" Background="Transparent" TextWrapping="Wrap" Padding="0" FontSize="13">
             <TextBlock.ContextMenu>
                 <ContextMenu x:Name="contextmenu">
             <MenuItem Header="copy" Click="MenuItem_Click"/>
@@ -43,14 +43,8 @@
                 </TextBlock.Effect>
         </TextBlock>
         <TextBlock Text="Label" Height="20" HorizontalAlignment="Left" Margin="113, 87, 0, 0" Name="label1" VerticalAlignment="Top" Foreground="#C2000000" Padding="0,1,0,0" Width="286" ForceCursor="True">
-            <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
-                </TextBlock.Effect>
         </TextBlock>
         <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="Label" Height="20" HorizontalAlignment="Left" Margin="26, 87, 0, 0" Name="datelabel" VerticalAlignment="Top" Foreground="#C2000000" Padding="0,1,0,0" Width="81" >
-            <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
-                </TextBlock.Effect>
         </TextBlock>
 
         
@@ -90,14 +84,8 @@
         </Border>
 
         <TextBlock MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Text="Name" Height="17" HorizontalAlignment="Left" Margin="52,7,0,0" Name="NameLabel" VerticalAlignment="Top" Foreground="White" Padding="0" Width="122" FontStyle="Normal" FontWeight="SemiBold" FontSize="12">
-            <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
-                </TextBlock.Effect>
         </TextBlock>
         <TextBlock MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Text="@name" Height="17" Margin="0,7,12,0" Name="AtNameLabel" VerticalAlignment="Top" Foreground="#E3FFFFFF" Padding="0" HorizontalAlignment="Right" Width="113" FontSize="11">
-            <TextBlock.Effect>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
-                </TextBlock.Effect>
         </TextBlock>
     </Grid>
 

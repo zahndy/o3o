@@ -8,6 +8,7 @@
         xmlns:cp="clr-namespace:DropDownCustomColorPicker;assembly=CustomColorPicker"
         Title="o3o" Height="700" Width="855" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="855" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="855" Closed="Window_Closed">
 
+
     <Window.Resources>
         <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
             <ControlTemplate.Resources>
@@ -24,6 +25,7 @@
             </ControlTemplate.Resources>
             <Border BorderBrush="#8BFFFFFF" BorderThickness="1,1,1,1" CornerRadius="4,4,4,4">
                 <Border x:Name="border" Background="#32000000" BorderBrush="#FF000000" BorderThickness="0" CornerRadius="4,4,4,4">
+
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="0.507*"/>
@@ -33,17 +35,20 @@
                             <Border.Background>
                                 <RadialGradientBrush>
                                     <RadialGradientBrush.RelativeTransform>
+
                                         <TransformGroup>
                                             <ScaleTransform ScaleX="1.702" ScaleY="2.243"/>
                                             <SkewTransform AngleX="0" AngleY="0"/>
                                             <RotateTransform Angle="0"/>
                                             <TranslateTransform X="-0.368" Y="-0.152"/>
+
                                         </TransformGroup>
                                     </RadialGradientBrush.RelativeTransform>
                                     <GradientStop Color="#B23488FF" Offset="0"/>
                                     <GradientStop Color="#008DBDFF" Offset="1"/>
                                 </RadialGradientBrush>
                             </Border.Background>
+
                         </Border>
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Grid.RowSpan="2"/>
                         <Border HorizontalAlignment="Stretch" Margin="0,0,0,0" x:Name="shine" Width="Auto" CornerRadius="4,4,0,0">
@@ -53,6 +58,9 @@
                                     <GradientStop Color="#0DFFFFFF" Offset="1"/>
                                 </LinearGradientBrush>
                             </Border.Background>
+
+
+
                         </Border>
                     </Grid>
                 </Border>
@@ -62,6 +70,7 @@
                     <Setter Property="Opacity" TargetName="shine" Value="0.4"/>
                     <Setter Property="Background" TargetName="border" Value="#8BFFFFFF"/>
                     <Setter Property="Visibility" TargetName="glow" Value="Hidden"/>
+
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Trigger.EnterActions>
@@ -70,6 +79,7 @@
                     <Trigger.ExitActions>
                         <BeginStoryboard x:Name="Timeline2_BeginStoryboard" Storyboard="{StaticResource Timeline2}"/>
                     </Trigger.ExitActions>
+
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -123,6 +133,8 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+
 
 
         <Style TargetType="TextBlock" x:Key="glassLink" BasedOn="{StaticResource glassText}">
@@ -190,6 +202,7 @@
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
+
 
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -337,6 +350,9 @@
 
 
 
+
+
+
         <Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
             <Setter Property="Background" Value="{StaticResource VerticalScrollBarBackground}"/>
             <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
@@ -411,10 +427,13 @@
 
     </Window.Resources>
 
+
     <Grid Name="grid1">
+
 
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="auto" Width="auto" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home &amp; mentions" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
+
                 <Grid Width="auto">
                 <Grid Width="416" HorizontalAlignment="Left">
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
@@ -427,10 +446,12 @@
                                 <GradientStop Color="#00FFFFFF" Offset="0" />
                             </LinearGradientBrush>
 
+
                         </ListBox.OpacityMask>
 
                     </ListBox>
                     <TextBox Language="en-us" SpellCheck.IsEnabled="True" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="auto" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" Visibility="Collapsed">
+
                         <TextBox.Style>
                             <Style>
                                 <Style.Triggers>
@@ -445,10 +466,12 @@
                                         </Trigger.EnterActions>
                                     </Trigger>
 
+
                                 </Style.Triggers>
                             </Style>
                         </TextBox.Style>
                     </TextBox>
+
 
                     <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,0,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Foreground="Black" Visibility="Collapsed">
                     <TextBlock.Effect>
@@ -501,6 +524,10 @@
                             <MenuItem Header="User_B"/>-->
                         </MenuItem>
                     </Menu>
+
+
+
+
                 </Grid>
                 <Grid Width="416" HorizontalAlignment="Right">
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMentions" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
@@ -521,6 +548,7 @@
                
 
             <TabItem Header="Messages" Name="MessagesTab" BorderBrush="#00000000" Padding="6,0">
+
                 <Grid>
                     <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,-1" Name="TweetMessages" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto" Background="#00000000" BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Height="Auto">
@@ -647,12 +675,14 @@
                         <Grid >
                             <Polygon Name="layoutpolys2"
                                 Points="6,6 30,6 30,77 6,77 6,6" Height="83" Width="70">
+
                                 <Polygon.Fill>
                                     <SolidColorBrush Color="Black" Opacity="0.4" />
                                 </Polygon.Fill>
                                 <Polygon.Effect>
                                     <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
                                 </Polygon.Effect>
+
                             </Polygon>
                             <Polygon Name="layoutpolys2_2"
                                 Points="36,6 60,6 60,77 36,77 36,6" Height="83">
@@ -700,5 +730,6 @@
             </TabItem>
         </TabControl>
         <Image Height="16" MouseDown="Twitter_Button_MouseDown" HorizontalAlignment="Right" Margin="0,5,2,0" Name="Twitter_Button" Stretch="Fill" VerticalAlignment="Top" Width="16" Source="/o3o;component/Images/bird_black.png" />
+
     </Grid>
 </Window>

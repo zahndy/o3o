@@ -23,13 +23,15 @@ namespace o3o
         static System.Windows.Forms.Timer Timer = new System.Windows.Forms.Timer();
         float wait = 300;
         int ypos;
+        MainWindow1 parent;
         
-        public notify()
+        public notify(MainWindow1 parentWindow)
         {
+            parent = parentWindow;
             InitializeComponent();
-            this.Left = ((((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + ((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 105;
-            this.Top =  ((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
-            ypos = ((App)System.Windows.Application.Current).Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
+            this.Left = ((parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 105;
+            this.Top =  parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
+            ypos = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
             this.Show();
             this.SetAeroGlass();
             this.Topmost = Properties.Settings.Default.TopMostNotify;

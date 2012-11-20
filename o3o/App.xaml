@@ -1,7 +1,5 @@
 ﻿<Application x:Class="o3o.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             ><!--StartupUri="MainWindow.xaml"-->
-
-
+             StartupUri="MainWindow1.xaml">
 </Application>
