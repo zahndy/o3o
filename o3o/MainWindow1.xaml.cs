@@ -72,6 +72,7 @@ namespace o3o
 
             this.Left = o3o.Properties.Settings.Default.LastWindowPosition.X;
             this.Top = o3o.Properties.Settings.Default.LastWindowPosition.Y;
+            this.Height = o3o.Properties.Settings.Default.LastWindowHeight;
 
             this.SettingsAmountOfTweetsTextb.Text = o3o.Properties.Settings.Default.amountOfTWeetsToDisplay.ToString();
             loadsounds();
@@ -271,6 +272,7 @@ namespace o3o
 
         void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
         {
+            DM.Text = DM.Text.Replace(System.Environment.NewLine, " ");
             DMElement element = new DMElement(this, DM, _usr);
             element.polyOpacity = polygonOpacity;
             this.TweetMessages.Items.Add(element);
@@ -380,6 +382,7 @@ namespace o3o
 
         public void FillHome(TwitterStatus status, UserDatabase.User _usr)
         {
+            status.Text = status.Text.Replace(System.Environment.NewLine, " ");
             if (status.InReplyToScreenName == UsrDB.Users.Find(u => u.UserDetails.ScreenName == _usr.UserDetails.ScreenName).UserDetails.ScreenName)
             {
                 FillMentions(status, _usr);
@@ -412,6 +415,7 @@ namespace o3o
 
         public void FillMentions(TwitterStatus status, UserDatabase.User _usr)
         {
+            status.Text = status.Text.Replace(System.Environment.NewLine, " ");
             TweetElement element = new TweetElement(this, status, _usr);
             element.polyOpacity = polygonOpacity;
             this.TweetMentions.Items.Insert(0, element);
@@ -426,6 +430,7 @@ namespace o3o
 
         public void Notification(TwitterStatus status, UserDatabase.User _usr)
         {
+            status.Text = status.Text.Replace(System.Environment.NewLine, " ");
             notify notification = new notify(this);
             TweetElement element = new TweetElement(this, status, _usr);
 
@@ -781,6 +786,7 @@ namespace o3o
 
             Point WindowPosition = new Point((int)this.Left, (int)this.Top);
             o3o.Properties.Settings.Default.LastWindowPosition = WindowPosition;
+            o3o.Properties.Settings.Default.LastWindowHeight = this.Height;
             o3o.Properties.Settings.Default.Save();
         }
 

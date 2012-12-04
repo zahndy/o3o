@@ -130,5 +130,17 @@ namespace o3o.Properties {
                 this["Layout"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("700")]
+        public double LastWindowHeight {
+            get {
+                return ((double)(this["LastWindowHeight"]));
+            }
+            set {
+                this["LastWindowHeight"] = value;
+            }
+        }
     }
 }

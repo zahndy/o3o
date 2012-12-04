@@ -124,23 +124,62 @@ namespace o3o
                         }
                         else if (a.StartsWith("http"))
                         {
-
-                            string url = a.Replace("http://", "");
-
-                            if (a != "http://" && a != "http" && a != "http:" && !String.IsNullOrEmpty(url))
+                            if (a.StartsWith("https:"))
                             {
-                                Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
-                                link.Inlines.Add(url);
-                                link.RequestNavigate += Hyperlink_RequestNavigateEvent;
-                                link.TextDecorations = null;
-                                link.Foreground = color;
-                                TweetBlock.Inlines.Add(link);
-                                TweetBlock.Inlines.Add(new Run(" "));
+                                string url = a.Replace("https://", "");
+
+                                if (a != "https://" && a != "https" && a != "https:" && !String.IsNullOrEmpty(url))
+                                {
+                                    try
+                                    {
+                                        Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
+                                        link.Inlines.Add(url);
+                                        link.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                                        link.TextDecorations = null;
+                                        link.Foreground = color;
+                                        TweetBlock.Inlines.Add(link);
+                                        TweetBlock.Inlines.Add(new Run(" "));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        TweetBlock.Inlines.Add(a);
+                                        TweetBlock.Inlines.Add(new Run(" "));
+                                    }
+                                }
+                                else
+                                {
+                                    TweetBlock.Inlines.Add(a);
+                                    TweetBlock.Inlines.Add(new Run(" "));
+                                }
+
                             }
-                            else
+                            else if (a.StartsWith("http:"))
                             {
-                                TweetBlock.Inlines.Add(a);
-                                TweetBlock.Inlines.Add(new Run(" "));
+                                string url = a.Replace("http://", "");
+
+                                if (a != "http://" && a != "http" && a != "http:" && !String.IsNullOrEmpty(url))
+                                {
+                                    try
+                                    {
+                                        Hyperlink link = new Hyperlink() { NavigateUri = new Uri(a) };
+                                        link.Inlines.Add(url);
+                                        link.RequestNavigate += Hyperlink_RequestNavigateEvent;
+                                        link.TextDecorations = null;
+                                        link.Foreground = color;
+                                        TweetBlock.Inlines.Add(link);
+                                        TweetBlock.Inlines.Add(new Run(" "));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        TweetBlock.Inlines.Add(a);
+                                        TweetBlock.Inlines.Add(new Run(" "));
+                                    }
+                                }
+                                else
+                                {
+                                    TweetBlock.Inlines.Add(a);
+                                    TweetBlock.Inlines.Add(new Run(" "));
+                                }
                             }
 
                         }
