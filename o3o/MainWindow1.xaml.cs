@@ -312,103 +312,6 @@ namespace o3o
             }
         }
 
-        #region backgroundworker
-
-        //private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        //{
-        //    BackgroundWorker worker = sender as BackgroundWorker;
-        //    Tuple<string, string> parameters = e.Argument as Tuple<string, string>;
-
-        //    ImageSource source;
-
-        //    if (parameters.Item2.Length > 0)
-        //    {
-        //        try
-        //        {
-        //            int BytesToRead = 100;
-        //            WebRequest request = WebRequest.Create(new Uri(parameters.Item2));
-        //            request.Timeout = -1;
-        //            WebResponse response = request.GetResponse();
-        //            Stream responseStream = response.GetResponseStream();
-        //            BinaryReader reader = new BinaryReader(responseStream);
-        //            MemoryStream memoryStream = new MemoryStream();
-
-        //            byte[] bytebuffer = new byte[BytesToRead];
-        //            int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-        //            while (bytesRead > 0)
-        //            {
-        //                memoryStream.Write(bytebuffer, 0, bytesRead);
-        //                bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-        //            }
-        //            BitmapImage image = new BitmapImage();
-        //            image.BeginInit();
-        //            memoryStream.Seek(0, SeekOrigin.Begin);
-
-        //            image.StreamSource = memoryStream;
-        //            image.EndInit();
-
-        //            source = image;
-
-        //            request = null;
-        //            response = null;
-        //            responseStream = null;
-        //            reader = null;
-        //            memoryStream = null;
-        //            bytebuffer = null;
-        //            bytesRead = 0;
-        //            BytesToRead = 0;
-        //        }
-        //        catch (Exception)
-        //        {
-        //            source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
-        //        }
-        //        e.Result = Tuple.Create<string, ImageSource>(parameters.Item1, source);
-        //    }
- 
-        //}
-
-        //private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    if (e.Cancelled == true)
-        //    {
-
-        //    }
-        //    else if (e.Error != null)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        Tuple<string, ImageSource> res = e.Result as Tuple<string, ImageSource>;
-
-        //        if (TweetElements.Dispatcher.CheckAccess())
-        //        {
-        //            setimg(res);
-        //        }
-        //         else
-        //        {
-        //            TweetElements.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new setimgDel(setimg), new object[] {res});
-        //        }
-        //    }
-        //}
-
-        //private delegate void setimgDel(Tuple<string, ImageSource> res);
-        //void setimg(Tuple<string, ImageSource> res)
-        //{
-
-        //    foreach (TweetElement tweet in this.TweetElements.Items)  //The calling thread cannot access this object because a different thread owns it.
-        //    {
-        //            if (tweet.tweetElement.ID == res.Item1.ToString())
-        //            {
-        //                tweet.tweetImg.Source = res.Item2;
-        //            }
-
-        //    }
-           
-        //}
-
-        #endregion
 
         public void FillHome(TwitterStatus status, UserDatabase.User _usr)
         {
@@ -420,19 +323,6 @@ namespace o3o
             TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
             element.polyOpacity = polygonOpacity;
             this.TweetElements.Items.Insert(0, element);
-            
-            //BackgroundWorker backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            //backgroundWorker1.DoWork +=
-            //   new DoWorkEventHandler(backgroundWorker1_DoWork);
-            //backgroundWorker1.RunWorkerCompleted +=
-            //    new RunWorkerCompletedEventHandler(
-            //backgroundWorker1_RunWorkerCompleted);
-
-
-            //Tuple<string, string> _params = Tuple.Create<string, string>(element.ID, status.User.ProfileImageLocation);
-
-            //backgroundWorker1.RunWorkerAsync(_params);
-
 
             if (this.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
