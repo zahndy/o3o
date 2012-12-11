@@ -59,7 +59,10 @@ namespace o3o
             tweetImg.Source = Imagesource;
             ID = status.Id.ToString();
             Status = status;
-            
+
+            //remove following line if you fixed the timer in mainwindow
+            datelabel.Text = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString(); 
+
             parent = prnt;
             SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = gBrush;
