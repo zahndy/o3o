@@ -91,7 +91,8 @@ namespace o3o
             }
             
             TweetBlock.Inlines.Clear();
-                var kaas = Tweet.Split(' ');
+            string tweet = Tweet.Trim().Replace("\n", " ");
+                var kaas = tweet.Split(' ');
                 for (int b = 0;b < kaas.Length; b++)
                 {
                     string a = kaas[b];

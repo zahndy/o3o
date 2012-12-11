@@ -110,17 +110,16 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomColorPicker">
-      <HintPath>Libs\CustomColorPicker.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Royale" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -139,6 +138,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Twitterizer2.Streaming.dll</HintPath>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -161,6 +162,12 @@
     <Compile Include="ConvertMp3.Designer.cs">
       <DependentUpon>ConvertMp3.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomColorPicker.xaml.cs">
+      <DependentUpon>CustomColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomColorSelector.xaml.cs">
+      <DependentUpon>CustomColorSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DMElement.xaml.cs">
       <DependentUpon>DMElement.xaml</DependentUpon>
     </Compile>
@@ -171,6 +178,7 @@
       <DependentUpon>GetOAuthForm.cs</DependentUpon>
     </Compile>
     <Compile Include="glass.cs" />
+    <Compile Include="ImageHandler.cs" />
     <Compile Include="OpenAl.cs" />
     <Compile Include="TweetElement.xaml.cs">
       <DependentUpon>TweetElement.xaml</DependentUpon>
@@ -182,6 +190,14 @@
     <Compile Include="UserAccounts.Designer.cs">
       <DependentUpon>UserAccounts.cs</DependentUpon>
     </Compile>
+    <Page Include="CustomColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomColorSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DMElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -259,6 +275,7 @@
     <Resource Include="Images\retweet_on.png" />
     <Resource Include="Images\bird_black.png" />
     <Resource Include="Images\Loading.png" />
+    <Resource Include="Resources\image.png" />
     <Content Include="Sounds\Bleep.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -324,7 +341,6 @@
     <Resource Include="Images\empty.png" />
     <Resource Include="Images\gear.png" />
     <Resource Include="Images\gear_selected.png" />
-    <None Include="Libs\CustomColorPicker.dll" />
     <None Include="Libs\Newtonsoft.Json.dll" />
     <Content Include="Libs\Newtonsoft.Json.pdb" />
     <Resource Include="Libs\Newtonsoft.Json.xml" />

@@ -1,5 +1,20 @@
 o3o is a C# WPF Twitter client
 
-as of now it works but still needs a lot of tweaks and features added.
+as of now it works but still needs a lot of tweaks, refactoring and features added.
 
 you need to have OpenAL installed and ffmpeg.exe needs to be present in o3o's directory
+
+some of its features:
+- multi user support(single timeline for multiple users).
+- simple changable layout.
+- BLAZING FAST, tweets are streamed, meaning twitter pushes them to the client, when you post something on the website, it should appear in the client under a second.
+- aero based, transparent aero like ui.
+- customisations, you can change the color of links, the opaciity of the tweet background etc.
+- image caching.
+- spellcheck.
+- single click retweet
+- remembers where you placed the window the last time you used it( if it ever goes offscreen just select it from the taskbar and use win+arrow to move it in view)
+- you can select where you want the notofication to show up.
+- you can load your own notification sound
+
+currently the amount of tweets displayed at the same time is limted to 200, to keep memory and performance in sane regions.

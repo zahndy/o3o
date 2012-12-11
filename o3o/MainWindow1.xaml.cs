@@ -53,6 +53,8 @@ namespace o3o
         public int FBuffer;
         public int FSource;
         public ContextAL FContext;
+        ImageHandler ImageCache = new ImageHandler();
+        System.Timers.Timer _timer;
 
         #region loading stuff
        
@@ -74,7 +76,7 @@ namespace o3o
             this.Top = o3o.Properties.Settings.Default.LastWindowPosition.Y;
             this.Height = o3o.Properties.Settings.Default.LastWindowHeight;
 
-            this.SettingsAmountOfTweetsTextb.Text = o3o.Properties.Settings.Default.amountOfTWeetsToDisplay.ToString();
+            this.TweetsDisplaySlider.Value = o3o.Properties.Settings.Default.amountOfTWeetsToDisplay;
             loadsounds();
 
             if (o3o.Properties.Settings.Default.use_system_color == true)
@@ -86,6 +88,7 @@ namespace o3o
                 UsrDB.CreateUser();
             this.UserSelectionMenuCurrentName.Header = UsrDB.Users[0].UserDetails.ScreenName;
 
+            #region displaystuff
             this.DisplaysComboBox.SelectedIndex = o3o.Properties.Settings.Default.DisplayIndex;
             int dex;
             int upperBound = Displays.GetUpperBound(0);
@@ -148,6 +151,7 @@ namespace o3o
                 }
 
             }
+            #endregion
             maindispatcher = this.Dispatcher;
             foreach (UserDatabase.User usr in UsrDB.Users)
             {
@@ -157,9 +161,36 @@ namespace o3o
             }
 
             UpdateUserMenu(UsrDB);
-            
+
+            //_timer = new System.Timers.Timer(5);
+            //_timer.Enabled = true;
+            //_timer.AutoReset = true;
+            //_timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            //_timer.Start();
 
         }
+
+        //delegate void sausages(object sender, System.Timers.ElapsedEventArgs e);
+        //void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        //{
+        //    foreach (TweetElement tweet in this.TweetElements.Items)  
+        //    {
+        //        TimeSpan Difference = DateTime.Now.Subtract(tweet.Status.CreatedDate);
+
+        //        if(Difference.Hours > 0)
+        //        {
+        //            tweet.datelabel.Text = Difference.Hours.ToString() + "h";
+        //        }
+        //        else if (Difference.Hours < 1 && Difference.Minutes > 1)
+        //        {
+        //            tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
+        //        }
+        //        else if (Difference.Minutes < 1)
+        //        {
+        //            tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
+        //        }
+        //    }
+        //}
 
         public void UpdateUserMenu(UserDatabase usrDB)
         {
@@ -272,7 +303,6 @@ namespace o3o
 
         void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
         {
-            DM.Text = DM.Text.Replace(System.Environment.NewLine, " ");
             DMElement element = new DMElement(this, DM, _usr);
             element.polyOpacity = polygonOpacity;
             this.TweetMessages.Items.Add(element);
@@ -382,12 +412,12 @@ namespace o3o
 
         public void FillHome(TwitterStatus status, UserDatabase.User _usr)
         {
-            status.Text = status.Text.Replace(System.Environment.NewLine, " ");
             if (status.InReplyToScreenName == UsrDB.Users.Find(u => u.UserDetails.ScreenName == _usr.UserDetails.ScreenName).UserDetails.ScreenName)
             {
                 FillMentions(status, _usr);
             }
-            TweetElement element = new TweetElement(this, status, _usr);
+            
+            TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
             element.polyOpacity = polygonOpacity;
             this.TweetElements.Items.Insert(0, element);
             
@@ -415,8 +445,7 @@ namespace o3o
 
         public void FillMentions(TwitterStatus status, UserDatabase.User _usr)
         {
-            status.Text = status.Text.Replace(System.Environment.NewLine, " ");
-            TweetElement element = new TweetElement(this, status, _usr);
+            TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
             element.polyOpacity = polygonOpacity;
             this.TweetMentions.Items.Insert(0, element);
             if (this.TweetMentions.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
@@ -430,9 +459,8 @@ namespace o3o
 
         public void Notification(TwitterStatus status, UserDatabase.User _usr)
         {
-            status.Text = status.Text.Replace(System.Environment.NewLine, " ");
             notify notification = new notify(this);
-            TweetElement element = new TweetElement(this, status, _usr);
+            TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
 
             element.polyOpacity = polygonOpacity;
             element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
@@ -623,16 +651,6 @@ namespace o3o
         }
 
 
-
-        private void SettingsAmountOfTweetsTextb_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Properties.Settings.Default.amountOfTWeetsToDisplay = Convert.ToInt32(SettingsAmountOfTweetsTextb.Text);
-            while (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
-            {
-                TweetElements.Items.RemoveAt(TweetElements.Items.Count - 1);
-            }
-        }
-
         private void DisplaysComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Properties.Settings.Default.DisplayIndex = DisplaysComboBox.SelectedIndex;
@@ -783,7 +801,7 @@ namespace o3o
             al.DeleteSources(1, new int[1] { FSource });
             al.DeleteBuffers(1, new int[1] { FBuffer });
             FContext.Dispose();
-
+            ImageCache.SaveCache();
             Point WindowPosition = new Point((int)this.Left, (int)this.Top);
             o3o.Properties.Settings.Default.LastWindowPosition = WindowPosition;
             o3o.Properties.Settings.Default.LastWindowHeight = this.Height;
@@ -951,6 +969,15 @@ namespace o3o
                 al.Sourcef(FSource, al.GAIN, newvol);
             }
         #endregion
+
+            private void TweetsDisplaySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+            {
+                Properties.Settings.Default.amountOfTWeetsToDisplay = Convert.ToInt32(TweetsDisplaySlider.Value);
+                while (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
+                {
+                    TweetElements.Items.RemoveAt(TweetElements.Items.Count - 1);
+                }
+            }
 
 
     

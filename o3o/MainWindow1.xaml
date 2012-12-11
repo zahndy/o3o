@@ -5,7 +5,7 @@
         xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:l="clr-namespace:o3o"
         xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
-        xmlns:cp="clr-namespace:DropDownCustomColorPicker;assembly=CustomColorPicker"
+        xmlns:cp="clr-namespace:DropDownCustomColorPicker"
         Title="o3o" Height="700" Width="440" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="440" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="440" Closed="Window_Closed">
     
         <Window.Resources>
@@ -541,7 +541,7 @@
             <TabItem Name="SystemTab" BorderBrush="#00000000" Header="Settings">
                 <Grid >
                     <Button HorizontalAlignment="Left" Width="90" Height="25" Content="About o3o" Margin="6,0,0,24" VerticalAlignment="Bottom" Click="Button_Click" />
-                    <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,45,0,0"></cp:CustomColorPicker>
+                    <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" x:Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="210,45,0,0"></cp:CustomColorPicker>
                     <Label Content="color for links(requires restart):" Height="18" HorizontalAlignment="Left" Margin="-1,45,0,0" Name="label1" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
@@ -614,7 +614,24 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <TextBox Height="23" HorizontalAlignment="Left" Margin="210,206,0,0" Name="SettingsAmountOfTweetsTextb" VerticalAlignment="Top" Width="40" TextChanged="SettingsAmountOfTweetsTextb_TextChanged" />
+
+                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="159,208,0,0" Name="tweetsdisplayLabel" Text="{Binding Path=Value, ElementName=TweetsDisplaySlider}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="volumeLabel_TextChanged" Foreground="White">
+                        <TextBox.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
+                        </TextBox.Effect>
+                    </TextBox>
+                    <Slider Height="23" Margin="225,206,0,0" Name="TweetsDisplaySlider" VerticalAlignment="Top" Value="40" Maximum="200" SmallChange="1" TickFrequency="2" HorizontalAlignment="Left" Width="154" ValueChanged="TweetsDisplaySlider_ValueChanged" />
+                    <Label Content="0" Margin="205,206,0,0" Name="TweetsDisplayLabelLeft" Foreground="White" HorizontalAlignment="Left" Width="16" Height="28" VerticalAlignment="Top">
+                        <Label.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
+                        </Label.Effect>
+                    </Label>
+                    <Label Content="200" Height="28" Margin="384,206,0,0" Name="TweetsDisplayLabelRight" VerticalAlignment="Top" Foreground="White" HorizontalAlignment="Left" Width="29">
+                        <Label.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
+                        </Label.Effect>
+                    </Label>
+                    
                     <Label Content="Display for notification:" Height="19" HorizontalAlignment="Left" Margin="-1,246,0,0" Name="displLbl" VerticalAlignment="Top" Padding="0,2,0,0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />

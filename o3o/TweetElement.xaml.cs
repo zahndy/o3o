@@ -15,12 +15,10 @@ using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Diagnostics;
-using System.Net;
-using System.IO;
 using System.Web;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using Twitterizer;
+using System.Timers;
 
 namespace o3o
 {
@@ -41,29 +39,27 @@ namespace o3o
                 messagePolygon.Fill = gBrush;
             }
         }
-        public TweetElement() { }
-
+        //public TweetElement() { }
+        
         public string name;
         public float polyOpacity = 0.6f;
-        public string Date;
         public string imagelocation;
         public string ID;
         public bool loaded = false;
-        TwitterStatus Status;
+        public TwitterStatus Status;
         UserDatabase.User dbUser;
 
         private MainWindow1 parent;
-        public TweetElement(MainWindow1 prnt, TwitterStatus status, UserDatabase.User usr)
+        public TweetElement(MainWindow1 prnt, TwitterStatus status, UserDatabase.User usr, ImageSource Imagesource)
         {
 
             InitializeComponent();
             dbUser = usr;
             name = status.User.ScreenName;
-            Date = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString();
-            imagelocation = status.User.ProfileImageLocation;
+            tweetImg.Source = Imagesource;
             ID = status.Id.ToString();
             Status = status;
-            datelabel.Text = Date;
+            
             parent = prnt;
             SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = gBrush;
@@ -71,7 +67,7 @@ namespace o3o
 
        
 
-        BitmapImage image = new BitmapImage();
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -92,8 +88,9 @@ namespace o3o
                 }
 
                 TweetBlock.Inlines.Clear();
-                string tweet = Status.Text.Trim().Replace(Environment.NewLine, "");
+                string tweet = Status.Text.Trim().Replace("\n", " ");
                 string[] kaas = tweet.Split(' ');
+                #region textprocessing
                 for (int b = 0; b < kaas.Length; b++)
                 {
                     string a = kaas[b];
@@ -195,8 +192,7 @@ namespace o3o
                         TweetBlock.Inlines.Add(new Run(" "));
                     }
                 }
-
-                datelabel.Text = Date;
+                #endregion
                 label1.Text = "To: " + dbUser.UserDetails.ScreenName;
                 AtNameLabel.Text = "@" + Status.User.ScreenName;
                 NameLabel.Text = Status.User.Name;
@@ -206,56 +202,14 @@ namespace o3o
                     favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/facorite_on.png", UriKind.Relative));
                 }
 
-                if (imagelocation.Length > 0)
-                {
-                    try
-                    {
-                        int BytesToRead = 100;
-                        WebRequest request = WebRequest.Create(new Uri(imagelocation));
-                        request.Timeout = -1;
-                        WebResponse response = request.GetResponse();
-                        Stream responseStream = response.GetResponseStream();
-                        BinaryReader reader = new BinaryReader(responseStream);
-                        MemoryStream memoryStream = new MemoryStream();
-
-                        byte[] bytebuffer = new byte[BytesToRead];
-                        int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-                        while (bytesRead > 0)
-                        {
-                            memoryStream.Write(bytebuffer, 0, bytesRead);
-                            bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-                        }
-
-                        image.BeginInit();
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        image.StreamSource = memoryStream;
-                        image.EndInit();
-
-                        tweetImg.Source = image;
-
-                        request = null;
-                        response = null;
-                        responseStream = null;
-                        reader = null;
-                        memoryStream = null;
-                        bytebuffer = null;
-                        bytesRead = 0;
-                        BytesToRead = 0;
-                    }
-                    catch (Exception)
-                    {
-                        tweetImg.Source = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
-                    }
-                }
-                generatePolygonAndMargins(Status.Text.Length, Status.Text);
+               
+                generatePolygonAndMargins(Status.Text.Length, Status.Text.Trim().Replace("\n", " "));
                 loaded = true;
 
-                image = null;
                 GC.Collect();
+         
             }
-        }
+        }  
 
         public void setimage(ImageSource _image)
         {
@@ -337,15 +291,6 @@ namespace o3o
             messagePolygon.Fill = brush;
             messagePolygon.Points = points;
             tweetelementgrid.Children.Insert(0, messagePolygon);
-            /*
-               <Polygon Name="messagePolygon"
-            Points="10,6 397,6 397,89 25,89 10,105">
-                <Polygon.Fill>
-                    <SolidColorBrush Color="Black" Opacity="0.4" />
-                </Polygon.Fill>
-            </Polygon>
-                 
-             */
 
             formattedText = null;
             points = null;
@@ -566,13 +511,10 @@ namespace o3o
                 TweetBlock = null;
                 tweetImg = null;
                 contextmenu = null;
-                Date = null;
                 dbUser = null;
                 favimageborder = null;
                 ID = null;
-                image = null;
                 imageborder = null;
-                //imagelocation = null;
                 label1 = null;
                 messagePolygon = null;
                 name = null;

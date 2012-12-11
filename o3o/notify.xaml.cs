@@ -79,5 +79,10 @@ namespace o3o
          {
              this.Close();
          }
+
+         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+         {
+             parent.Activate();
+         }
     }
 }
