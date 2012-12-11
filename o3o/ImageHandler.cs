@@ -14,19 +14,8 @@ namespace o3o
 {
     class ImageHandler
     {
-
-        //[Serializable]
-        //public class image
-        //{
-        //    public string ImageLoc;
-        //    public image(string Imagelocation)
-        //    {
-        //        ImageLoc = Imagelocation;
-        //    }
-        //}
-
         public Dictionary<decimal, string> ImageCache;
-
+        public Dictionary<decimal, BitmapImage> MemoryCache = new Dictionary<decimal, BitmapImage>();
 
         public ImageHandler()
         {
@@ -81,76 +70,92 @@ namespace o3o
             }
         }
 
-        public ImageSource FetchImage(string imageloc)
+        public ImageSource FetchImage(string imageloc, decimal id)
         {
-            //FileStream str = File.Open(imageloc, FileMode.Open);
-            return (ImageSource)new BitmapImage(new Uri(imageloc));
+            BitmapImage bit = new BitmapImage(new Uri(imageloc));
+            MemoryCache.Add(id, bit);
+            return (ImageSource)bit;
         }
 
         public ImageSource GetImage(decimal UserId, string ImageLocation)
         {
-            if (ImageCache.ContainsKey(UserId))
+            if (MemoryCache.ContainsKey(UserId))
             {
-                string Imagelocation = ImageCache[UserId];
-                return FetchImage(Imagelocation);
+                return MemoryCache[UserId];
             }
             else
             {
-                BitmapImage newimage;
-
-                if (ImageLocation.Length > 0)
+                if (ImageCache.ContainsKey(UserId))
                 {
-                    try
-                    {
-                        int BytesToRead = 100;
-                        WebRequest request = WebRequest.Create(new Uri(ImageLocation));
-                        request.Timeout = -1;
-                        WebResponse response = request.GetResponse();
-                        Stream responseStream = response.GetResponseStream();
-                        BinaryReader reader = new BinaryReader(responseStream);
-                        MemoryStream memoryStream = new MemoryStream();
-
-                        byte[] bytebuffer = new byte[BytesToRead];
-                        int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-                        while (bytesRead > 0)
-                        {
-                            memoryStream.Write(bytebuffer, 0, bytesRead);
-                            bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-                        }
-                        BitmapImage _image = new BitmapImage();
-                        _image.BeginInit();
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-
-                        _image.StreamSource = memoryStream;
-                        _image.EndInit();
-
-                        
-
-                        newimage = _image;
-
-                        request = null;
-                        response = null;
-                        responseStream = null;
-                        reader = null;
-                        memoryStream = null;
-                        bytebuffer = null;
-                        bytesRead = 0;
-                        BytesToRead = 0;
-                    }
-                    catch (Exception)
-                    {
-                        newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
-                    }
+                    string Imagelocation = ImageCache[UserId];
+                    return FetchImage(Imagelocation, UserId);
                 }
                 else
                 {
-                    newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
-                }
+                    BitmapImage newimage;
 
-                StoreImage(newimage, UserId.ToString(), UserId);
-               return (ImageSource)newimage;
+                    if (ImageLocation.Length > 0)
+                    {
+                        try
+                        {
+                            int BytesToRead = 100;
+                            WebRequest request = WebRequest.Create(new Uri(ImageLocation));
+                            request.Timeout = -1;
+                            WebResponse response = request.GetResponse();
+                            Stream responseStream = response.GetResponseStream();
+                            BinaryReader reader = new BinaryReader(responseStream);
+                            MemoryStream memoryStream = new MemoryStream();
+
+                            byte[] bytebuffer = new byte[BytesToRead];
+                            int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+
+                            while (bytesRead > 0)
+                            {
+                                memoryStream.Write(bytebuffer, 0, bytesRead);
+                                bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                            }
+                            BitmapImage _image = new BitmapImage();
+                            _image.BeginInit();
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+
+                            _image.StreamSource = memoryStream;
+                            _image.EndInit();
+
+
+
+                            newimage = _image;
+
+                            request = null;
+                            response = null;
+                            responseStream = null;
+                            reader = null;
+                            memoryStream = null;
+                            bytebuffer = null;
+                            bytesRead = 0;
+                            BytesToRead = 0;
+                        }
+                        catch (Exception)
+                        {
+                            newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                        }
+                    }
+                    else
+                    {
+                        newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                    }
+                    StoreImage(newimage, UserId.ToString(), UserId);
+                    MemoryCache.Add(UserId, newimage);
+                    return (ImageSource)newimage;
+                }
+                
             }
+
+
+
+
+
+
+
         }
 
     }

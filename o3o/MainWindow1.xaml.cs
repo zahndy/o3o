@@ -798,10 +798,10 @@ namespace o3o
 
         public void Window_Closed(object sender, EventArgs e)
         {
+            ImageCache.SaveCache();
             al.DeleteSources(1, new int[1] { FSource });
             al.DeleteBuffers(1, new int[1] { FBuffer });
             FContext.Dispose();
-            ImageCache.SaveCache();
             Point WindowPosition = new Point((int)this.Left, (int)this.Top);
             o3o.Properties.Settings.Default.LastWindowPosition = WindowPosition;
             o3o.Properties.Settings.Default.LastWindowHeight = this.Height;
