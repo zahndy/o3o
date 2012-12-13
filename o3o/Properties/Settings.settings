@@ -32,5 +32,11 @@
     <Setting Name="LastWindowHeight" Type="System.Double" Scope="User">
       <Value Profile="(Default)">700</Value>
     </Setting>
+    <Setting Name="ShowNotificationPopup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PlayNotificationSound" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

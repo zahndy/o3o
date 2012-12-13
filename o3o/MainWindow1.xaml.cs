@@ -79,9 +79,19 @@ namespace o3o
             this.TweetsDisplaySlider.Value = o3o.Properties.Settings.Default.amountOfTWeetsToDisplay;
             loadsounds();
 
-            if (o3o.Properties.Settings.Default.use_system_color == true)
+            if (o3o.Properties.Settings.Default.use_system_color)
             {
                 this.checkBox1.IsChecked = true;
+            }
+
+            if (o3o.Properties.Settings.Default.PlayNotificationSound)
+            {
+                this.SoundCheckBox.IsChecked = true;
+            }
+
+            if (o3o.Properties.Settings.Default.ShowNotificationPopup)
+            {
+                this.PopupCheckBox.IsChecked = true;
             }
 
             if (UsrDB.load() == false || UsrDB.Users.Count == 0)
@@ -349,13 +359,16 @@ namespace o3o
 
         public void Notification(TwitterStatus status, UserDatabase.User _usr)
         {
-            notify notification = new notify(this);
-            TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+            if (o3o.Properties.Settings.Default.ShowNotificationPopup == true)
+            {
+                notify notification = new notify(this);
+                TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
 
-            element.polyOpacity = polygonOpacity;
-            element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
-            notification.content.Items.Add(element);
-            playsound();
+                element.polyOpacity = polygonOpacity;
+                element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
+                notification.content.Items.Add(element);
+                playsound();
+            }
         }
 
         public void reply(TwitterStatus Status)
@@ -394,6 +407,8 @@ namespace o3o
         #endregion
 
         #region UI interactions
+
+
 
 
         private void testbutton_Click(object sender, RoutedEventArgs e)
@@ -557,6 +572,35 @@ namespace o3o
             Properties.Settings.Default.TopMostNotify = false;
         }
 
+        private void TweetsDisplaySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Properties.Settings.Default.amountOfTWeetsToDisplay = Convert.ToInt32(TweetsDisplaySlider.Value);
+            while (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
+            {
+                TweetElements.Items.RemoveAt(TweetElements.Items.Count - 1);
+            }
+        }
+
+        private void PopupCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            o3o.Properties.Settings.Default.ShowNotificationPopup = true;
+        }
+
+        private void SoundCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            o3o.Properties.Settings.Default.ShowNotificationPopup = false;
+        }
+
+        private void PopupCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            o3o.Properties.Settings.Default.PlayNotificationSound = true;
+        }
+
+        private void SoundCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            o3o.Properties.Settings.Default.PlayNotificationSound = false;
+        }
+
         private void button_Manage_Accounts_Click(object sender, RoutedEventArgs e)
         {
             UserAccounts AccountsWindow = new UserAccounts(UsrDB);
@@ -579,9 +623,9 @@ namespace o3o
                 LayoutButton2.IsChecked = true;
                 LayoutButton3.Checked += new RoutedEventHandler(LayoutButton3_Checked);
 
-                this.Width = 855;
-                this.MinWidth = 855;
-                this.MaxWidth = 855;
+                this.Width = 775;
+                this.MinWidth = 775;
+                this.MaxWidth = 775;
 
                 Grid men = mentionsgrid;
 
@@ -591,10 +635,10 @@ namespace o3o
                 MentionsTab.Content = null;
                 MentionsTab = null;
 
-                men.Width = 416;
+                men.Width = 376;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 416;
+                homegrid.Width = 376;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
@@ -606,9 +650,9 @@ namespace o3o
                 LayoutButton2.Checked += new RoutedEventHandler(LayoutButton2_Checked);
                 LayoutButton3.IsChecked = true;
 
-                this.Width = 1271;
-                this.MinWidth = 1271;
-                this.MaxWidth = 1271;
+                this.Width = 1151;
+                this.MinWidth = 1151;
+                this.MaxWidth = 1151;
 
                 Grid men = mentionsgrid;
                 Grid mesg = messagesgrid;
@@ -624,13 +668,13 @@ namespace o3o
                 MessagesTab.Content = null;
                 MessagesTab = null;
 
-                men.Width = 416;
+                men.Width = 376;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
-                mesg.Width = 416;
+                mesg.Width = 376;
                 mesg.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 416;
+                homegrid.Width = 376;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
@@ -727,7 +771,10 @@ namespace o3o
 
         public void playsound()
         {
-            al.SourcePlay(FSource);
+            if (o3o.Properties.Settings.Default.PlayNotificationSound)
+            {
+                al.SourcePlay(FSource);
+            }
         }
 
         void loadsounds()
@@ -860,14 +907,7 @@ namespace o3o
             }
         #endregion
 
-            private void TweetsDisplaySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-            {
-                Properties.Settings.Default.amountOfTWeetsToDisplay = Convert.ToInt32(TweetsDisplaySlider.Value);
-                while (TweetElements.Items.Count > Properties.Settings.Default.amountOfTWeetsToDisplay)
-                {
-                    TweetElements.Items.RemoveAt(TweetElements.Items.Count - 1);
-                }
-            }
+           
 
 
     

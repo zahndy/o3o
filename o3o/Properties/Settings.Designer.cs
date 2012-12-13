@@ -142,5 +142,29 @@ namespace o3o.Properties {
                 this["LastWindowHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowNotificationPopup {
+            get {
+                return ((bool)(this["ShowNotificationPopup"]));
+            }
+            set {
+                this["ShowNotificationPopup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PlayNotificationSound {
+            get {
+                return ((bool)(this["PlayNotificationSound"]));
+            }
+            set {
+                this["PlayNotificationSound"] = value;
+            }
+        }
     }
 }

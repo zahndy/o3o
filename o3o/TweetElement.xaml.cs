@@ -229,7 +229,7 @@ namespace o3o
             new Typeface(new FontFamily("Segoe UI"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
             13,
             Brushes.Black);
-            formattedText.MaxTextWidth = 346;
+            formattedText.MaxTextWidth = 304;
             formattedText.MaxTextHeight = 65;
             double textheight = formattedText.Height;
 
@@ -238,8 +238,8 @@ namespace o3o
             if (textheight <= 18) //17.29
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(397, 6));
-                points.Add(new Point(397, 64));
+                points.Add(new Point(357, 6));
+                points.Add(new Point(357, 64));
                 points.Add(new Point(25, 64));
                 points.Add(new Point(10, 80));
 
@@ -256,8 +256,8 @@ namespace o3o
             else if ((textheight > 18 && textheight <= 35) && charlength <= 113) //34.58
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(397, 6));
-                points.Add(new Point(397, 74));
+                points.Add(new Point(357, 6));
+                points.Add(new Point(357, 74));
                 points.Add(new Point(25, 74));
                 points.Add(new Point(10, 90));
 
@@ -275,8 +275,8 @@ namespace o3o
             {
 
                 points.Add(new Point(10, 6));
-                points.Add(new Point(397, 6));
-                points.Add(new Point(397, 87));
+                points.Add(new Point(357, 6));
+                points.Add(new Point(357, 87));
                 points.Add(new Point(25, 87));
                 points.Add(new Point(10, 105));
 

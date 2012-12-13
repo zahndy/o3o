@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Net;
+using System.Drawing;
 
 namespace o3o
 {
@@ -136,12 +137,13 @@ namespace o3o
                         }
                         catch (Exception)
                         {
-                            newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                            //newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                            newimage = tobitmapimage( new Bitmap(o3o.Properties.Resources.image_Failed) );
                         }
                     }
                     else
                     {
-                        newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                        newimage = tobitmapimage(new Bitmap(o3o.Properties.Resources.image_Failed));
                     }
                     StoreImage(newimage, UserId.ToString(), UserId);
                     MemoryCache.Add(UserId, newimage);
@@ -151,11 +153,17 @@ namespace o3o
             }
 
 
+        }
 
-
-
-
-
+        private BitmapImage tobitmapimage(System.Drawing.Image img)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            BitmapImage newim = new BitmapImage();
+            img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+            newim.BeginInit();
+            newim.StreamSource = memoryStream;
+            newim.EndInit();
+            return newim;
         }
 
     }
