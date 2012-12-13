@@ -588,12 +588,12 @@ namespace o3o
 
         private void SoundCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            o3o.Properties.Settings.Default.ShowNotificationPopup = false;
+            o3o.Properties.Settings.Default.ShowNotificationPopup = true;
         }
 
         private void PopupCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            o3o.Properties.Settings.Default.PlayNotificationSound = true;
+            o3o.Properties.Settings.Default.PlayNotificationSound = false;
         }
 
         private void SoundCheckBox_Unchecked(object sender, RoutedEventArgs e)
