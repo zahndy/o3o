@@ -129,7 +129,7 @@ namespace o3o
 
             public void SendTweet(string tweet)
             {
-                if (tweet.Count() < 140)
+                if (tweet.Count() <= 140)
                     try
                     {
                         Twitterizer.TwitterResponse<Twitterizer.TwitterStatus> response = Twitterizer.TwitterStatus.Update(privOAuth.GetOAuthToken(), tweet);

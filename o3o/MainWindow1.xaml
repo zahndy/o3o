@@ -6,7 +6,7 @@
         xmlns:l="clr-namespace:o3o"
         xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
         xmlns:cp="clr-namespace:DropDownCustomColorPicker"
-        Title="o3o" Height="700" Width="400" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="400" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="400" Closed="Window_Closed">
+        Title="o3o" Height="700" Width="393" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="393" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="393" Closed="Window_Closed">
     
         <Window.Resources>
         <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">

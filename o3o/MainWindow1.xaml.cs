@@ -94,6 +94,11 @@ namespace o3o
                 this.PopupCheckBox.IsChecked = true;
             }
 
+            if (Properties.Settings.Default.TopMostNotify)
+            {
+                this.topmostcheckbox.IsChecked = true;
+            }
+
             if (UsrDB.load() == false || UsrDB.Users.Count == 0)
                 UsrDB.CreateUser();
             this.UserSelectionMenuCurrentName.Header = UsrDB.Users[0].UserDetails.ScreenName;
@@ -168,6 +173,26 @@ namespace o3o
                 usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
                 usr.tweetStack.DMReceived += new TweetStack.DMReceivedDel(o3o_NewDM);
                 usr.tweetStack.TweetDeleted += new TweetStack.TweetDeletedDel(o3o_TweetDeleted);
+                TwitterStatusCollection prefetch = usr.tweetStack.Twitter.GetTweets();
+                foreach (TwitterStatus status in prefetch)
+                {
+                    if (status.InReplyToScreenName == UsrDB.Users.Find(u => u.UserDetails.ScreenName == usr.UserDetails.ScreenName).UserDetails.ScreenName)
+                    {
+                        FillMentions(status, usr);
+                    }
+
+                    TweetElement element = new TweetElement(this, status, usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+                    element.polyOpacity = polygonOpacity;
+                    this.TweetElements.Items.Add(element);
+
+                    if (this.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
+                    {
+                        TweetElement el = (TweetElement)this.TweetElements.Items[this.TweetElements.Items.Count - 1];
+                        this.TweetElements.Items.Remove(el);
+                        el.Dispose();
+                    }
+                }
+
             }
 
             UpdateUserMenu(UsrDB);
@@ -289,7 +314,7 @@ namespace o3o
         void o3o_NewTweet(TwitterStatus status, UserDatabase.User _usr)
         {
             dostuffdel = new dostuff(FillHome);
-            maindispatcher.Invoke(dostuffdel, new object[] { status, _usr });
+            maindispatcher.Invoke(dostuffdel, new object[] { status, _usr});
 
             dostuffdel = new dostuff(Notification);
             maindispatcher.Invoke(dostuffdel, new object[] { status, _usr });
@@ -332,7 +357,7 @@ namespace o3o
             
             TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
             element.polyOpacity = polygonOpacity;
-            this.TweetElements.Items.Insert(0, element);
+              this.TweetElements.Items.Insert(0, element); 
 
             if (this.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
@@ -623,9 +648,9 @@ namespace o3o
                 LayoutButton2.IsChecked = true;
                 LayoutButton3.Checked += new RoutedEventHandler(LayoutButton3_Checked);
 
-                this.Width = 775;
-                this.MinWidth = 775;
-                this.MaxWidth = 775;
+                this.Width = 761;
+                this.MinWidth = 761;
+                this.MaxWidth = 761;
 
                 Grid men = mentionsgrid;
 
@@ -635,10 +660,10 @@ namespace o3o
                 MentionsTab.Content = null;
                 MentionsTab = null;
 
-                men.Width = 376;
+                men.Width = 361;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 376;
+                homegrid.Width = 361;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
@@ -650,9 +675,9 @@ namespace o3o
                 LayoutButton2.Checked += new RoutedEventHandler(LayoutButton2_Checked);
                 LayoutButton3.IsChecked = true;
 
-                this.Width = 1151;
-                this.MinWidth = 1151;
-                this.MaxWidth = 1151;
+                this.Width = 1130;
+                this.MinWidth = 1130;
+                this.MaxWidth = 1130;
 
                 Grid men = mentionsgrid;
                 Grid mesg = messagesgrid;
@@ -668,13 +693,13 @@ namespace o3o
                 MessagesTab.Content = null;
                 MessagesTab = null;
 
-                men.Width = 376;
+                men.Width = 361;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
-                mesg.Width = 376;
+                mesg.Width = 361;
                 mesg.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 376;
+                homegrid.Width = 361;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);

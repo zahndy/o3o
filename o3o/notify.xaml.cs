@@ -24,6 +24,7 @@ namespace o3o
         float wait = 300;
         int ypos;
         MainWindow1 parent;
+        bool BringToFrontOnce = true;
         
         public notify(MainWindow1 parentWindow)
         {
@@ -34,6 +35,7 @@ namespace o3o
             ypos = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
             this.Show();
             this.SetAeroGlass();
+           
             this.Topmost = Properties.Settings.Default.TopMostNotify;
             Timer.Tick += new EventHandler(timer_Tick);
             Timer.Interval = (1);
@@ -80,9 +82,17 @@ namespace o3o
              this.Close();
          }
 
-         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+         private void Window_Activated(object sender, EventArgs e)
          {
-             parent.Activate();
+             if (BringToFrontOnce)
+             {
+                 parent.Activate();
+                 parent.Topmost = true;
+                 parent.Topmost = false;
+                 parent.Focus();
+                 BringToFrontOnce = false;
+             }
          }
+
     }
 }

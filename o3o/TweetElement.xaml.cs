@@ -59,6 +59,14 @@ namespace o3o
             tweetImg.Source = Imagesource;
             ID = status.Id.ToString();
             Status = status;
+            if (status.IsFavorited != true)
+            {
+                favBtn.MouseDown += new MouseButtonEventHandler(favBtn_MouseDown);
+            }
+            if (status.Retweeted != true)
+            {
+                retweetBtn.MouseDown += new MouseButtonEventHandler(retweetBtn_MouseDown);
+            }
 
             //remove following line if you fixed the timer in mainwindow
             datelabel.Text = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString(); 
@@ -124,7 +132,7 @@ namespace o3o
                         }
                         else if (a.StartsWith("http"))
                         {
-                            if (a.StartsWith("https:"))
+                            if (a.StartsWith("https://"))
                             {
                                 string url = a.Replace("https://", "");
 
@@ -153,7 +161,7 @@ namespace o3o
                                 }
 
                             }
-                            else if (a.StartsWith("http:"))
+                            else if (a.StartsWith("http://"))
                             {
                                 string url = a.Replace("http://", "");
 
@@ -229,8 +237,9 @@ namespace o3o
             new Typeface(new FontFamily("Segoe UI"), FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
             13,
             Brushes.Black);
+
             formattedText.MaxTextWidth = 304;
-            formattedText.MaxTextHeight = 65;
+            formattedText.MaxTextHeight = 75;
             double textheight = formattedText.Height;
 
             messagePolygon.Name = "messagePolygon";
@@ -249,11 +258,11 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 64, 0, 0);
                 label1.Margin = new Thickness(113, 64, 0, 0);
-                replyimageborder.Margin = new Thickness(337, 65, 0, 0);
-                retweetimageborder.Margin = new Thickness(359, 65, 0, 0);
-                favimageborder.Margin = new Thickness(381, 65, 0, 0);
+                replyimageborder.Margin = new Thickness(297, 65, 0, 0);
+                retweetimageborder.Margin = new Thickness(319, 65, 0, 0);
+                favimageborder.Margin = new Thickness(341, 65, 0, 0);
             }
-            else if ((textheight > 18 && textheight <= 35) && charlength <= 113) //34.58
+            else if (textheight > 18 && textheight <= 35) //34.58
             {
                 points.Add(new Point(10, 6));
                 points.Add(new Point(357, 6));
@@ -267,13 +276,12 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 74, 0, 0);
                 label1.Margin = new Thickness(113, 74, 0, 0);
-                replyimageborder.Margin = new Thickness(337, 75, 0, 0);
-                retweetimageborder.Margin = new Thickness(359, 75, 0, 0);
-                favimageborder.Margin = new Thickness(381, 75, 0, 0);
+                replyimageborder.Margin = new Thickness(297, 75, 0, 0);
+                retweetimageborder.Margin = new Thickness(319, 75, 0, 0);
+                favimageborder.Margin = new Thickness(341, 75, 0, 0);
             }
-            else  //(textheight > 35) //51.87
+            else if (textheight > 35 && textheight <= 52)  //51.87
             {
-
                 points.Add(new Point(10, 6));
                 points.Add(new Point(357, 6));
                 points.Add(new Point(357, 87));
@@ -286,9 +294,28 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 87, 0, 0);
                 label1.Margin = new Thickness(113, 87, 0, 0);
-                replyimageborder.Margin = new Thickness(337, 90, 0, 0);
-                retweetimageborder.Margin = new Thickness(359, 90, 0, 0);
-                favimageborder.Margin = new Thickness(381, 90, 0, 0);
+                replyimageborder.Margin = new Thickness(297, 90, 0, 0);
+                retweetimageborder.Margin = new Thickness(319, 90, 0, 0);
+                favimageborder.Margin = new Thickness(341, 90, 0, 0);
+            }
+            else // > 69.16
+            {
+                points.Add(new Point(10, 6));
+                points.Add(new Point(357, 6));
+                points.Add(new Point(357, 100));
+                points.Add(new Point(25, 100));
+                points.Add(new Point(10, 118));
+
+                tweetelementgrid.Height = 125;
+                tweetElement.Height = 125;
+                TweetBlock.Height = 75;
+
+                datelabel.Margin = new Thickness(26, 100, 0, 0);
+                label1.Margin = new Thickness(113, 100, 0, 0);
+                replyimageborder.Margin = new Thickness(297, 100, 0, 0);
+                retweetimageborder.Margin = new Thickness(319, 100, 0, 0);
+                favimageborder.Margin = new Thickness(341, 100, 0, 0);
+
             }
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = brush;
@@ -341,6 +368,8 @@ namespace o3o
 
         private void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
+
             replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
 
             if (Status.IsFavorited == true)
@@ -374,6 +403,7 @@ namespace o3o
         private void replyBtn_MouseEnter(object sender, MouseEventArgs e)
         {
             replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply_hover.png", UriKind.Relative));
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Hand;
         }
 
         private void replyBtn_MouseLeave(object sender, MouseEventArgs e)
@@ -412,6 +442,7 @@ namespace o3o
 
         private void favBtn_MouseEnter(object sender, MouseEventArgs e)
         {
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Hand;
             if (Status.IsFavorited == true)
             {
                 favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_on.png", UriKind.Relative));
@@ -425,6 +456,7 @@ namespace o3o
 
         private void favBtn_MouseLeave(object sender, MouseEventArgs e)
         {
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
             if (Status.IsFavorited == true)
             {
                 favBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/favorite_on.png", UriKind.Relative));
@@ -453,6 +485,7 @@ namespace o3o
 
         private void retweetBtn_MouseEnter(object sender, MouseEventArgs e)
         {
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Hand;
             if (Status.Retweeted)
             {
                 retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_on.png", UriKind.Relative));
@@ -465,6 +498,7 @@ namespace o3o
 
         private void retweetBtn_MouseLeave(object sender, MouseEventArgs e)
         {
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
             if (Status.Retweeted)
             {
                 retweetBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/retweet_on.png", UriKind.Relative));
