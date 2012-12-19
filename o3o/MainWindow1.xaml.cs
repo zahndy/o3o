@@ -105,7 +105,15 @@ namespace o3o
 
             if (UsrDB.load() == false || UsrDB.Users.Count == 0)
                 UsrDB.CreateUser();
+            if (UsrDB.Users[0].UserDetails != null)
+            {
             this.UserSelectionMenuCurrentName.Header = UsrDB.Users[0].UserDetails.ScreenName;
+            }
+            else
+            {
+                UsrDB.WipeUsers();
+                System.Windows.Application.Current.Shutdown();
+            }
 
             #region displaystuff
             this.DisplaysComboBox.SelectedIndex = o3o.Properties.Settings.Default.DisplayIndex;

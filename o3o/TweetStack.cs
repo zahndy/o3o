@@ -294,7 +294,9 @@ namespace o3o
             
             Users.Add(usr);
             usr.Initialize();
+
             save();
+            
         }
 
         [Serializable]
@@ -323,6 +325,10 @@ namespace o3o
                     AccessToken = f.OAuthTokenResponse.Token;
                     AccessTokenSecret = f.OAuthTokenResponse.TokenSecret;
                     UserDetails = f.OAuthTokenResponse;
+                }
+                else
+                {
+                    System.Windows.Application.Current.Shutdown();
                 }
             }
 
