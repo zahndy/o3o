@@ -68,9 +68,6 @@ namespace o3o
                 retweetBtn.MouseDown += new MouseButtonEventHandler(retweetBtn_MouseDown);
             }
 
-            //remove following line if you fixed the timer in mainwindow
-            datelabel.Text = status.CreatedDate.Month.ToString() + "/" + status.CreatedDate.Day.ToString() + " " + status.CreatedDate.Hour.ToString() + ":" + status.CreatedDate.Minute.ToString(); 
-
             parent = prnt;
             SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = gBrush;
@@ -257,7 +254,7 @@ namespace o3o
                 TweetBlock.Height = 36;
 
                 datelabel.Margin = new Thickness(26, 64, 0, 0);
-                label1.Margin = new Thickness(113, 64, 0, 0);
+                label1.Margin = new Thickness(60, 64, 0, 0);
                 replyimageborder.Margin = new Thickness(297, 65, 0, 0);
                 retweetimageborder.Margin = new Thickness(319, 65, 0, 0);
                 favimageborder.Margin = new Thickness(341, 65, 0, 0);
@@ -275,7 +272,7 @@ namespace o3o
                 TweetBlock.Height = 50;
 
                 datelabel.Margin = new Thickness(26, 74, 0, 0);
-                label1.Margin = new Thickness(113, 74, 0, 0);
+                label1.Margin = new Thickness(60, 74, 0, 0);
                 replyimageborder.Margin = new Thickness(297, 75, 0, 0);
                 retweetimageborder.Margin = new Thickness(319, 75, 0, 0);
                 favimageborder.Margin = new Thickness(341, 75, 0, 0);
@@ -293,7 +290,7 @@ namespace o3o
                 TweetBlock.Height = 65;
 
                 datelabel.Margin = new Thickness(26, 87, 0, 0);
-                label1.Margin = new Thickness(113, 87, 0, 0);
+                label1.Margin = new Thickness(60, 87, 0, 0);
                 replyimageborder.Margin = new Thickness(297, 90, 0, 0);
                 retweetimageborder.Margin = new Thickness(319, 90, 0, 0);
                 favimageborder.Margin = new Thickness(341, 90, 0, 0);
@@ -337,16 +334,6 @@ namespace o3o
         {
             System.Diagnostics.Process.Start("http://twitter.com/" + Status.User.ScreenName);
         }
-
-        //private void AtNameLabel_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    label1.Foreground = new SolidColorBrush(Colors.SkyBlue); 
-        //}
-
-        //private void AtNameLabel_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    label1.Foreground = new SolidColorBrush(Colors.Black);
-        //}
 
         private void datelabel_MouseLeave(object sender, MouseEventArgs e)
         {

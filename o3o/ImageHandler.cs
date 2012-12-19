@@ -20,7 +20,12 @@ namespace o3o
 
         public ImageHandler()
         {
-            if (File.Exists("ImageCache.bin"))
+            if (!Directory.Exists("Cache"))
+            {
+                Directory.CreateDirectory("Cache");
+            }
+
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Cache\\ImageCache.bin"))
             {
                 LoadCache();
             }
@@ -29,10 +34,7 @@ namespace o3o
                 ImageCache = new Dictionary<decimal, string>();
             }
 
-            if(!Directory.Exists("Cache"))
-            {
-                Directory.CreateDirectory("Cache");
-            }
+            
            
         }
 
@@ -44,7 +46,7 @@ namespace o3o
 
         public void LoadCache()
         {
-            Stream s = File.Open("ImageCache.bin", FileMode.Open);
+            Stream s = File.Open(Directory.GetCurrentDirectory() + "\\Cache\\ImageCache.bin", FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             ImageCache = (Dictionary<decimal, string>)bf.Deserialize(s);
             s.Close();
@@ -53,7 +55,7 @@ namespace o3o
         public void SaveCache()
         {
             BinaryFormatter bf = new BinaryFormatter();
-            Stream s = File.Open("ImageCache.bin", FileMode.Create);
+            Stream s = File.Open(Directory.GetCurrentDirectory() + "\\Cache\\ImageCache.bin", FileMode.Create);
             bf.Serialize(s, ImageCache);
             s.Close();
         }

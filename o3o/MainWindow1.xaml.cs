@@ -37,6 +37,10 @@ namespace o3o
         public static UserDatabase UsrDB = new UserDatabase();
         public delegate void dostuff(TwitterStatus status, UserDatabase.User _usr);
         public dostuff dostuffdel;
+        public delegate void DelTweetDelegate(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason);
+        public DelTweetDelegate cheese;
+        public delegate void SetTime();
+        public SetTime derp;
         public Screen[] Displays = System.Windows.Forms.Screen.AllScreens;
         public float polygonOpacity = o3o.Properties.Settings.Default.PolygonOpacity;
         public bool isloaded = false;
@@ -173,59 +177,99 @@ namespace o3o
                 usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
                 usr.tweetStack.DMReceived += new TweetStack.DMReceivedDel(o3o_NewDM);
                 usr.tweetStack.TweetDeleted += new TweetStack.TweetDeletedDel(o3o_TweetDeleted);
-                TwitterStatusCollection prefetch = usr.tweetStack.Twitter.GetTweets();
-                foreach (TwitterStatus status in prefetch)
-                {
-                    if (status.InReplyToScreenName == UsrDB.Users.Find(u => u.UserDetails.ScreenName == usr.UserDetails.ScreenName).UserDetails.ScreenName)
-                    {
-                        FillMentions(status, usr);
-                    }
-
-                    TweetElement element = new TweetElement(this, status, usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
-                    element.polyOpacity = polygonOpacity;
-                    this.TweetElements.Items.Add(element);
-
-                    if (this.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
-                    {
-                        TweetElement el = (TweetElement)this.TweetElements.Items[this.TweetElements.Items.Count - 1];
-                        this.TweetElements.Items.Remove(el);
-                        el.Dispose();
-                    }
-                }
-
+                prefetch(usr);
             }
 
             UpdateUserMenu(UsrDB);
 
-            //_timer = new System.Timers.Timer(5);
-            //_timer.Enabled = true;
-            //_timer.AutoReset = true;
-            //_timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
-            //_timer.Start();
+            _timer = new System.Timers.Timer(2000);
+            _timer.Enabled = true;
+            _timer.AutoReset = true;
+            _timer.Elapsed += new System.Timers.ElapsedEventHandler(_timer_Elapsed);
+            _timer.Start();
 
         }
 
-        //delegate void sausages(object sender, System.Timers.ElapsedEventArgs e);
-        //void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        //{
-        //    foreach (TweetElement tweet in this.TweetElements.Items)  
-        //    {
-        //        TimeSpan Difference = DateTime.Now.Subtract(tweet.Status.CreatedDate);
+        
+        void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            derp = new SetTime(settime);
+            maindispatcher.Invoke(derp);
+        }
+        
+        public void settime()
+        {
+            foreach (TweetElement tweet in this.TweetElements.Items)
+            {
+                TimeSpan Difference = DateTime.Now.Subtract(tweet.Status.CreatedDate);
 
-        //        if(Difference.Hours > 0)
-        //        {
-        //            tweet.datelabel.Text = Difference.Hours.ToString() + "h";
-        //        }
-        //        else if (Difference.Hours < 1 && Difference.Minutes > 1)
-        //        {
-        //            tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
-        //        }
-        //        else if (Difference.Minutes < 1)
-        //        {
-        //            tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
-        //        }
-        //    }
-        //}
+                if (Difference.Hours > 0)
+                {
+                    tweet.datelabel.Text = Difference.Hours.ToString() + "h";
+                }
+                else if (Difference.Hours <= 1 && Difference.Minutes >= 1)
+                {
+                    tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
+                }
+                else if (Difference.Minutes < 1)
+                {
+                    tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
+                }
+            }
+            foreach (TweetElement tweet in this.TweetMentions.Items)
+            {
+                TimeSpan Difference = DateTime.Now.Subtract(tweet.Status.CreatedDate);
+
+                if (Difference.Hours > 0)
+                {
+                    tweet.datelabel.Text = Difference.Hours.ToString() + "h";
+                }
+                else if (Difference.Hours <= 1 && Difference.Minutes >= 1)
+                {
+                    tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
+                }
+                else if (Difference.Minutes < 1)
+                {
+                    tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
+                }
+            }
+        }
+
+        private void prefetch(UserDatabase.User usr)
+        {
+            TwitterStatusCollection prefetch = usr.tweetStack.Twitter.GetTweets();
+            foreach (TwitterStatus status in prefetch)
+            {
+
+                TweetElement element = new TweetElement(this, status, usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+                element.polyOpacity = polygonOpacity;
+                this.TweetElements.Items.Add(element);
+
+                if (this.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
+                {
+                    TweetElement el = (TweetElement)this.TweetElements.Items[this.TweetElements.Items.Count - 1];
+                    this.TweetElements.Items.Remove(el);
+                    el.Dispose();
+                }
+            }
+
+            TwitterStatusCollection prefetchMentions = usr.tweetStack.Twitter.GetMentions();
+
+            foreach (TwitterStatus status in prefetchMentions)
+            {
+
+                TweetElement element = new TweetElement(this, status, usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+                element.polyOpacity = polygonOpacity;
+                this.TweetMentions.Items.Add(element);
+
+                if (this.TweetElements.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
+                {
+                    TweetElement el = (TweetElement)this.TweetMentions.Items[this.TweetMentions.Items.Count - 1];
+                    this.TweetMentions.Items.Remove(el);
+                    el.Dispose();
+                }
+            }
+        }
 
         public void UpdateUserMenu(UserDatabase usrDB)
         {
@@ -323,19 +367,22 @@ namespace o3o
 
         void o3o_TweetDeleted(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
         {
-
-            //The calling thread cannot access this object because a different thread owns it.
-
-            //foreach (TweetElement tweet in this.TweetElements.Items)
-            //{
-            //    if (tweet.tweetElement.ID == deletedreason.Id.ToString())
-            //    {
-            //        this.TweetElements.Items.Remove(tweet);
-            //    }
-            //}
-
+            cheese = new DelTweetDelegate(deleteTweet);
+            maindispatcher.Invoke(cheese, new object[] { deletedreason });
         }
-
+        
+        public void deleteTweet(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
+        {
+            foreach (TweetElement tweet in this.TweetElements.Items)
+            {
+                if (tweet.tweetElement.ID == deletedreason.Id.ToString())
+                {
+                    this.TweetElements.Items.Remove(tweet);
+                    break;
+                }
+            }
+        }
+        
         void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
         {
             DMElement element = new DMElement(this, DM, _usr);
@@ -384,7 +431,7 @@ namespace o3o
 
         public void Notification(TwitterStatus status, UserDatabase.User _usr)
         {
-            if (o3o.Properties.Settings.Default.ShowNotificationPopup == true)
+            if (o3o.Properties.Settings.Default.ShowNotificationPopup)
             {
                 notify notification = new notify(this);
                 TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
@@ -613,12 +660,12 @@ namespace o3o
 
         private void SoundCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            o3o.Properties.Settings.Default.ShowNotificationPopup = true;
+            o3o.Properties.Settings.Default.PlayNotificationSound = true;
         }
 
         private void PopupCheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            o3o.Properties.Settings.Default.PlayNotificationSound = false;
+            o3o.Properties.Settings.Default.ShowNotificationPopup = false;
         }
 
         private void SoundCheckBox_Unchecked(object sender, RoutedEventArgs e)
