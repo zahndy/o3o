@@ -243,14 +243,14 @@ namespace o3o
     public class UserDatabase
     {
         public List<User> Users = new List<User>();
-        string filename = "Users.xml";
+        string filename = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\o3o\\" + "Users.xml";
 
         public void WipeUsers()
         {
             Users.Clear();
 
             //save(); // why do you rely on if (!System.IO.File.Exists(_filename)) when you are saving a empty xml
-            System.IO.File.Delete(System.IO.Directory.GetCurrentDirectory() + "\\Users.xml");
+            System.IO.File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)+ "\\o3o\\" + "\\Users.xml");
 
         }
         public  bool save(string _filename = null)

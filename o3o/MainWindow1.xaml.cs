@@ -58,6 +58,7 @@ namespace o3o
         public int FSource;
         public ContextAL FContext;
         ImageHandler ImageCache = new ImageHandler();
+        string AppData = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "o3o");
         System.Timers.Timer _timer;
 
         #region loading stuff
@@ -856,21 +857,28 @@ namespace o3o
                 al.SourcePlay(FSource);
             }
         }
-
+        
         void loadsounds()
         {
+            
+
+            if (!Directory.Exists(System.IO.Path.Combine(AppData, "Sounds")))
+            {
+                Directory.CreateDirectory(System.IO.Path.Combine(AppData, "Sounds"));
+            }
 
             string path = Directory.GetCurrentDirectory();
             string[] filenameswav = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Sounds", "*.wav");
             string[] filenamesmp3 = Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Sounds", "*.mp3");
-
+            string[] AppDatafilenameswav = Directory.GetFiles(AppData + "\\Sounds", "*.wav");
+            string[] AppDatafilenamesmp3 = Directory.GetFiles(AppData + "\\Sounds", "*.mp3");
             for (int o = 0; o < filenamesmp3.Length; o++)
             {
                 string Sname = filenamesmp3[o];
 
                 SoundFile file = new SoundFile();
                 file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
-                ConvertMp3 converter = new ConvertMp3(Sname, Directory.GetCurrentDirectory() + @"\Sounds\" + file.soundname + ".wav", Sname);
+                ConvertMp3 converter = new ConvertMp3(Sname, AppData + @"\Sounds\" + file.soundname + ".wav", Sname);
                 converter.ShowDialog();
 
                 file.filepath = Directory.GetCurrentDirectory() + @"\Sounds\" + file.soundname + ".wav";
@@ -878,6 +886,7 @@ namespace o3o
 
                 sounds.Add(file);
             }
+
             for (int d = 0; d < filenameswav.Length; d++)
             {
                 string Sname = filenameswav[d];
@@ -889,6 +898,34 @@ namespace o3o
             }
 
 
+
+            for (int e = 0; e < AppDatafilenamesmp3.Length; e++)
+            {
+                string Sname = filenamesmp3[e];
+
+                SoundFile file = new SoundFile();
+                file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
+                ConvertMp3 converter = new ConvertMp3(Sname, AppData + @"\Sounds\" + file.soundname + ".wav", Sname);
+                converter.ShowDialog();
+
+                file.filepath = AppData + @"\Sounds\" + file.soundname + ".wav";
+                file.extension = "wav";
+
+                sounds.Add(file);
+            }
+
+            for (int n = 0; n < AppDatafilenameswav.Length; n++)
+            {
+                string Sname = filenameswav[n];
+                SoundFile file = new SoundFile();
+                file.soundname = System.IO.Path.GetFileNameWithoutExtension(Sname);
+                file.filepath = Sname;
+                file.extension = "wav";
+                sounds.Add(file);
+            }
+
+
+
             for (int s = 0; s < sounds.Count; s++)
             {
                 SoundFile sound = sounds[s];
@@ -896,6 +933,8 @@ namespace o3o
                 SoundMenuItem.Content = sound.soundname;
                 this.soundselection.Items.Add(SoundMenuItem);
             }
+
+
 
             CurrentSelectedSound = sounds[0]; // Bleep.mp3 will be the default sound, unless the user picked a different one previously
             this.soundselection.SelectedIndex = 0;
@@ -944,16 +983,16 @@ namespace o3o
 
                 if (System.IO.Path.GetExtension(dialog.FileName) == ".wav")
                 {
-                    File.Copy(dialog.FileName, Directory.GetCurrentDirectory() + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName), true);
+                    File.Copy(dialog.FileName, AppData + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName), true);
                     file.extension = "wav";
                 }
                 else if (System.IO.Path.GetExtension(dialog.FileName) == ".mp3")
                 {
-                    ConvertMp3 converter = new ConvertMp3(dialog.FileName, Directory.GetCurrentDirectory() + "\\Sounds\\" + file.soundname + ".wav");
+                    ConvertMp3 converter = new ConvertMp3(dialog.FileName, AppData + "\\Sounds\\" + file.soundname + ".wav");
                     converter.ShowDialog();
                     file.extension = "mp3";
                 }
-                file.filepath = Directory.GetCurrentDirectory() + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName);
+                file.filepath = AppData + "\\Sounds\\" + System.IO.Path.GetFileName(dialog.FileName);
                 sounds.Add(file);
 
                 System.Windows.Controls.ComboBoxItem SoundMenuItem = new System.Windows.Controls.ComboBoxItem();

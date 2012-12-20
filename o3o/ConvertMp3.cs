@@ -71,7 +71,7 @@ namespace o3o
             if (FileToDelte != null)
             {
                 try { File.Delete(FileToDelte); }
-                catch { }
+                catch(Exception) { }
             }
             this.Close();
         }
@@ -80,7 +80,7 @@ namespace o3o
             if (FileToDelte != null)
             {
                 try { File.Delete(FileToDelte); }
-                catch { }
+                catch (Exception) { }
             }
             this.Close();
         }

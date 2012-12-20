@@ -17,15 +17,22 @@ namespace o3o
     {
         public Dictionary<decimal, string> ImageCache;
         public Dictionary<decimal, BitmapImage> MemoryCache = new Dictionary<decimal, BitmapImage>();
+        string AppData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "o3o");
 
         public ImageHandler()
         {
-            if (!Directory.Exists("Cache"))
+
+            if (!Directory.Exists(AppData))
             {
-                Directory.CreateDirectory("Cache");
+                Directory.CreateDirectory(AppData);
             }
 
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\Cache\\ImageCache.bin"))
+            if (!Directory.Exists(Path.Combine(AppData,"Cache")))
+            {
+                Directory.CreateDirectory(Path.Combine(AppData,"Cache"));
+            }
+
+            if (File.Exists(AppData + "\\Cache\\ImageCache.bin"))
             {
                 LoadCache();
             }
@@ -46,7 +53,7 @@ namespace o3o
 
         public void LoadCache()
         {
-            Stream s = File.Open(Directory.GetCurrentDirectory() + "\\Cache\\ImageCache.bin", FileMode.Open);
+            Stream s = File.Open(AppData+ "\\Cache\\ImageCache.bin", FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             ImageCache = (Dictionary<decimal, string>)bf.Deserialize(s);
             s.Close();
@@ -55,15 +62,15 @@ namespace o3o
         public void SaveCache()
         {
             BinaryFormatter bf = new BinaryFormatter();
-            Stream s = File.Open(Directory.GetCurrentDirectory() + "\\Cache\\ImageCache.bin", FileMode.Create);
+            Stream s = File.Open(AppData + "\\Cache\\ImageCache.bin", FileMode.Create);
             bf.Serialize(s, ImageCache);
             s.Close();
         }
 
         public void StoreImage(BitmapImage image, string imagename, decimal userID)
         {
-           
-            string path = Directory.GetCurrentDirectory() + "\\Cache\\" + imagename + ".png";
+
+            string path = AppData + "\\Cache\\" + imagename + ".png";
             ImageCache.Add(userID, path);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
