@@ -60,10 +60,9 @@ namespace o3o
             tweetImg.Source = Imagesource;
             ID = status.Id.ToString();
             Status = status;
-            if (status.IsFavorited != true)
-            {
-                favBtn.MouseDown += new MouseButtonEventHandler(favBtn_MouseDown);
-            }
+
+            favBtn.MouseDown += new MouseButtonEventHandler(favBtn_MouseDown);
+
             if (status.Retweeted != true)
             {
                 retweetBtn.MouseDown += new MouseButtonEventHandler(retweetBtn_MouseDown);
