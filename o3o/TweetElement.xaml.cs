@@ -48,13 +48,14 @@ namespace o3o
         public bool loaded = false;
         public TwitterStatus Status;
         UserDatabase.User dbUser;
-
+        bool moreusers;
         private MainWindow1 parent;
-        public TweetElement(MainWindow1 prnt, TwitterStatus status, UserDatabase.User usr, ImageSource Imagesource)
+        public TweetElement(MainWindow1 prnt, TwitterStatus status, UserDatabase.User usr, ImageSource Imagesource, bool MoreThanOneUser = false)
         {
 
             InitializeComponent();
             dbUser = usr;
+            moreusers = MoreThanOneUser;
             name = status.User.ScreenName;
             tweetImg.Source = Imagesource;
             ID = status.Id.ToString();
@@ -201,7 +202,11 @@ namespace o3o
                     }
                 }
                 #endregion
-                label1.Text = "To: " + dbUser.UserDetails.ScreenName;
+                if (moreusers)
+                {
+                    label1.Text = "To: " + dbUser.UserDetails.ScreenName;
+                }
+                
                 AtNameLabel.Text = "@" + Status.User.ScreenName;
                 NameLabel.Text = Status.User.Name;
 
@@ -244,8 +249,8 @@ namespace o3o
             if (textheight <= 18) //17.29
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(357, 6));
-                points.Add(new Point(357, 64));
+                points.Add(new Point(347, 6));
+                points.Add(new Point(347, 64));
                 points.Add(new Point(25, 64));
                 points.Add(new Point(10, 80));
 
@@ -255,15 +260,15 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 64, 0, 0);
                 label1.Margin = new Thickness(60, 64, 0, 0);
-                replyimageborder.Margin = new Thickness(297, 65, 0, 0);
-                retweetimageborder.Margin = new Thickness(319, 65, 0, 0);
-                favimageborder.Margin = new Thickness(341, 65, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 65, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 65, 0, 0);
+                favimageborder.Margin = new Thickness(331, 65, 0, 0);
             }
             else if (textheight > 18 && textheight <= 35) //34.58
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(357, 6));
-                points.Add(new Point(357, 74));
+                points.Add(new Point(347, 6));
+                points.Add(new Point(347, 74));
                 points.Add(new Point(25, 74));
                 points.Add(new Point(10, 90));
 
@@ -273,15 +278,15 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 74, 0, 0);
                 label1.Margin = new Thickness(60, 74, 0, 0);
-                replyimageborder.Margin = new Thickness(297, 75, 0, 0);
-                retweetimageborder.Margin = new Thickness(319, 75, 0, 0);
-                favimageborder.Margin = new Thickness(341, 75, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 75, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 75, 0, 0);
+                favimageborder.Margin = new Thickness(331, 75, 0, 0);
             }
             else if (textheight > 35 && textheight <= 52)  //51.87
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(357, 6));
-                points.Add(new Point(357, 87));
+                points.Add(new Point(347, 6));
+                points.Add(new Point(347, 87));
                 points.Add(new Point(25, 87));
                 points.Add(new Point(10, 105));
 
@@ -291,15 +296,15 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 87, 0, 0);
                 label1.Margin = new Thickness(60, 87, 0, 0);
-                replyimageborder.Margin = new Thickness(297, 90, 0, 0);
-                retweetimageborder.Margin = new Thickness(319, 90, 0, 0);
-                favimageborder.Margin = new Thickness(341, 90, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 90, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 90, 0, 0);
+                favimageborder.Margin = new Thickness(331, 90, 0, 0);
             }
             else // > 69.16
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(357, 6));
-                points.Add(new Point(357, 100));
+                points.Add(new Point(347, 6));
+                points.Add(new Point(347, 100));
                 points.Add(new Point(25, 100));
                 points.Add(new Point(10, 118));
 
@@ -309,9 +314,9 @@ namespace o3o
 
                 datelabel.Margin = new Thickness(26, 100, 0, 0);
                 label1.Margin = new Thickness(113, 100, 0, 0);
-                replyimageborder.Margin = new Thickness(297, 100, 0, 0);
-                retweetimageborder.Margin = new Thickness(319, 100, 0, 0);
-                favimageborder.Margin = new Thickness(341, 100, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 100, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 100, 0, 0);
+                favimageborder.Margin = new Thickness(331, 100, 0, 0);
 
             }
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));

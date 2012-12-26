@@ -6,7 +6,7 @@
         xmlns:l="clr-namespace:o3o"
         xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
         xmlns:cp="clr-namespace:DropDownCustomColorPicker"
-        Title="o3o" Height="700" Width="393" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="393" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="393" Closed="Window_Closed">
+        Title="o3o" Height="700" Width="393" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="393" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="393" Closed="Window_Closed" KeyDown="Window_KeyDown">
     
         <Window.Resources>
         <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
@@ -429,78 +429,7 @@
                            
                         </ListBox.OpacityMask>
                     </ListBox>
-                    <TextBox Language="en-us" SpellCheck.IsEnabled="True" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="auto" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" Visibility="Collapsed">
-                        
-                        <TextBox.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <Trigger Property="TextBox.Visibility"  Value="Visible">
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                    </Trigger>
-                                    
-                                </Style.Triggers>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
                     
-                    <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,0,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Foreground="Black" Visibility="Collapsed">
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
-                    </TextBlock.Effect>
-                        <TextBlock.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <Trigger Property="TextBlock.Visibility"  Value="Visible">
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                    </Trigger>
-                                    
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,0,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="1" Width="65" FontSize="11" Foreground="Black" Visibility="Collapsed">
-                    <TextBlock.Effect>
-                        <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
-                    </TextBlock.Effect>
-                         <TextBlock.Style>
-                            <Style>
-                                <Style.Triggers>
-                                    <Trigger Property="TextBlock.Visibility"  Value="Visible">
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                    </Trigger>
-                                    
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
-                    <Menu Height="20" Name="UserSelectionMenu"  HorizontalAlignment="Right" Width="98"  Margin="0,0,6,-1" VerticalAlignment="Bottom" Padding="0" Background="#00000000" Panel.ZIndex="10">
-                        <MenuItem Header="" Name="UserSelectionMenuCurrentName">
-                            <!--<MenuItem Header="User_A"/>
-                            <MenuItem Header="User_B"/>-->
-                        </MenuItem>
-                    </Menu>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -734,6 +663,78 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <TextBox Language="en-us" SpellCheck.IsEnabled="True" Name="textBox1" KeyDown="textBox1_KeyDown" VerticalAlignment="Bottom" HorizontalContentAlignment="Left" Width="auto" Height="53" Margin="-1,0,1,17" TextChanged="textBox1_TextChanged" Background="#50FFFFFF" TextWrapping="Wrap" Visibility="Collapsed">
+
+            <TextBox.Style>
+                <Style>
+                    <Style.Triggers>
+                        <Trigger Property="TextBox.Visibility"  Value="Visible">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <TextBlock Text="Tweet:" Height="18" HorizontalAlignment="Left" Margin="0,0,0,0" Name="TweetLbl" VerticalAlignment="Bottom" Padding="0" Width="35" Foreground="Black" Visibility="Collapsed">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
+                    </TextBlock.Effect>
+                        <TextBlock.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="TextBlock.Visibility"  Value="Visible">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+        </TextBlock>
+        <TextBlock Text="140" Height="18" HorizontalAlignment="Left" Margin="35,0,0,0" Name="charleft" VerticalAlignment="Bottom" Padding="1" Width="65" FontSize="11" Foreground="Black" Visibility="Collapsed">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="White" Opacity="1" RenderingBias="Performance" />
+                    </TextBlock.Effect>
+                         <TextBlock.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="TextBlock.Visibility"  Value="Visible">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                        From="0.0" To="1.0" Duration="0:0:0.6"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                    
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+        </TextBlock>
+        <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
+        <Menu Height="20" Name="UserSelectionMenu"  HorizontalAlignment="Right" Width="98"  Margin="0,0,6,-1" VerticalAlignment="Bottom" Padding="0" Background="#00000000" Panel.ZIndex="10">
+            <MenuItem Header="" Name="UserSelectionMenuCurrentName">
+                <!--<MenuItem Header="User_A"/>
+                            <MenuItem Header="User_B"/>-->
+            </MenuItem>
+        </Menu>
         <Image Height="14"  MouseDown="Twitter_Button_MouseDown" MouseEnter="Twitter_Button_MouseEnter" MouseLeave="Twitter_Button_MouseLeave" HorizontalAlignment="Right" Margin="0,5,2,0" Name="Twitter_Button" Stretch="None" VerticalAlignment="Top" Width="14" Source="/o3o;component/Images/bird_black.png" />
 
     </Grid>

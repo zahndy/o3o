@@ -66,15 +66,14 @@ namespace o3o
         [DllImport("kernel32", SetLastError = true)]
         static extern IntPtr LoadLibrary(string lpFileName);
 
-        static bool CheckLibrary(string fileName)
+        static bool CheckLibrary(string fileName) // return true if present
         {
-            return LoadLibrary(fileName) == IntPtr.Zero;
+            return LoadLibrary(fileName) != IntPtr.Zero;
         }
 
         public MainWindow1()
         {
-
-            if (CheckLibrary("OpenAl.dll"))
+            if (!CheckLibrary("OpenAl.dll") && !CheckLibrary("OpenAL32.dll"))
             {
                 DialogResult fuckup = System.Windows.Forms.MessageBox.Show("OpenAl is not installed \nPress OK to close and start the download of the \nCreative OpenAL Installer",
          "ERROR",
@@ -340,6 +339,8 @@ namespace o3o
 
                             this.testbutton.Content = "Tweet";
                             this.TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                            this.TweetMentions.Margin = new Thickness(0, 0, 0, 17);
+                            this.TweetMessages.Margin = new Thickness(0, 0, 0, 17);
                             this.textBox1.Visibility = Visibility.Collapsed;
                             this.charleft.Visibility = Visibility.Collapsed;
                             this.TweetLbl.Visibility = Visibility.Collapsed;
@@ -355,6 +356,8 @@ namespace o3o
 
                         this.testbutton.Content = "Tweet";
                         this.TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                        this.TweetMentions.Margin = new Thickness(0, 0, 0, 17);
+                        this.TweetMessages.Margin = new Thickness(0, 0, 0, 17);
                         this.textBox1.Visibility = Visibility.Collapsed;
                         this.charleft.Visibility = Visibility.Collapsed;
                         this.TweetLbl.Visibility = Visibility.Collapsed;
@@ -366,6 +369,8 @@ namespace o3o
                 {
                     this.testbutton.Content = "Tweet";
                     this.TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                    this.TweetMentions.Margin = new Thickness(0, 0, 0, 17);
+                    this.TweetMessages.Margin = new Thickness(0, 0, 0, 17);
                     this.textBox1.Visibility = Visibility.Collapsed;
                     this.charleft.Visibility = Visibility.Collapsed;
                     this.TweetLbl.Visibility = Visibility.Collapsed;
@@ -431,8 +436,15 @@ namespace o3o
             {
                 FillMentions(status, _usr);
             }
-            
-            TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+            TweetElement element;
+            if (UsrDB.Users.Count > 1)
+            {
+                 element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation),true);
+            }
+            else
+            {
+                 element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+            }
             element.polyOpacity = polygonOpacity;
               this.TweetElements.Items.Insert(0, element); 
 
@@ -447,7 +459,15 @@ namespace o3o
 
         public void FillMentions(TwitterStatus status, UserDatabase.User _usr)
         {
-            TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+            TweetElement element;
+            if (UsrDB.Users.Count > 1)
+            {
+                element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation), true);
+            }
+            else
+            {
+                element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+            }
             element.polyOpacity = polygonOpacity;
             this.TweetMentions.Items.Insert(0, element);
             if (this.TweetMentions.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
@@ -464,10 +484,16 @@ namespace o3o
             if (o3o.Properties.Settings.Default.ShowNotificationPopup)
             {
                 notify notification = new notify(this);
-                TweetElement element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
-
+                TweetElement element;
+                if (UsrDB.Users.Count > 1)
+                {
+                    element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation), true);
+                }
+                else
+                {
+                    element = new TweetElement(this, status, _usr, ImageCache.GetImage(status.User.Id, status.User.ProfileImageLocation));
+                }
                 element.polyOpacity = polygonOpacity;
-                element.replyBtn.Source = new BitmapImage(new Uri("/o3o;component/Images/reply.png", UriKind.Relative));
                 notification.content.Items.Add(element);
                 playsound();
             }
@@ -483,6 +509,8 @@ namespace o3o
             {
                 testbutton.Content = "Tweet";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                TweetMentions.Margin = new Thickness(0, 0, 0, 70);
+                TweetMessages.Margin = new Thickness(0, 0, 0, 70);
                 textBox1.Visibility = Visibility.Visible;
                 charleft.Visibility = Visibility.Visible;
                 TweetLbl.Visibility = Visibility.Visible;
@@ -519,6 +547,8 @@ namespace o3o
             {
                 testbutton.Content = "Cancel";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                TweetMentions.Margin = new Thickness(0, 0, 0, 70);
+                TweetMessages.Margin = new Thickness(0, 0, 0, 70);
                 textBox1.Visibility = Visibility.Visible;
                 charleft.Visibility = Visibility.Visible;
                 TweetLbl.Visibility = Visibility.Visible;
@@ -593,21 +623,7 @@ namespace o3o
         private void textBox1_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
 
-            if (e.Key == Key.Enter)
-            {
-                SendTweet();
-            }
-            if (e.Key == Key.Escape)
-            {
-                textBox1.Text = "";
-                testbutton.Content = "Tweet";
-                TweetElements.Margin = new Thickness(0, 0, 0, 17);
-                textBox1.Visibility = Visibility.Collapsed;
-                charleft.Visibility = Visibility.Collapsed;
-                TweetLbl.Visibility = Visibility.Collapsed;
-                inreply = false;
-                replystatus = null;
-            }
+            
 
         }
 
@@ -620,6 +636,8 @@ namespace o3o
             {
                 testbutton.Content = "Tweet";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                TweetMentions.Margin = new Thickness(0, 0, 0, 70);
+                TweetMessages.Margin = new Thickness(0, 0, 0, 70);
                 textBox1.Visibility = Visibility.Visible;
                 charleft.Visibility = Visibility.Visible;
                 TweetLbl.Visibility = Visibility.Visible;
@@ -1046,6 +1064,44 @@ namespace o3o
                 al.Sourcef(FSource, al.GAIN, newvol);
             }
         #endregion
+
+            private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    if (textBox1.Visibility == Visibility.Collapsed)
+                    {
+                        testbutton.Content = "Cancel";
+                        TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                        TweetMentions.Margin = new Thickness(0, 0, 0, 70);
+                        TweetMessages.Margin = new Thickness(0, 0, 0, 70);
+                        textBox1.Visibility = Visibility.Visible;
+                        charleft.Visibility = Visibility.Visible;
+                        TweetLbl.Visibility = Visibility.Visible;
+                        textBox1.Focus();
+                    }
+                    else
+                    {
+                        
+                       SendTweet();
+                        
+                    }
+                }
+               
+                if (e.Key == Key.Escape)
+                {
+                    textBox1.Text = "";
+                    testbutton.Content = "Tweet";
+                    TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                    TweetMentions.Margin = new Thickness(0, 0, 0, 17);
+                    TweetMessages.Margin = new Thickness(0, 0, 0, 17);
+                    textBox1.Visibility = Visibility.Collapsed;
+                    charleft.Visibility = Visibility.Collapsed;
+                    TweetLbl.Visibility = Visibility.Collapsed;
+                    inreply = false;
+                    replystatus = null;
+                }
+            }
 
            
 

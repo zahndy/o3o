@@ -15,32 +15,20 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0046F62D782A6CA03F786526B3210A24"
-        "OwnerKey" = "8:_2FE45007FB0347848E70D19D3DD862A1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0046F62D782A6CA03F786526B3210A24"
-        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0046F62D782A6CA03F786526B3210A24"
-        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_06C2EEC0F72346D39DE3A72E21712F5A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_08DBEEB5761043809250BF2E22DABCF0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "OwnerKey" = "8:_2FE45007FB0347848E70D19D3DD862A1"
+        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -63,25 +51,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_23D26515FCF74BB88D45FA1452B26C49"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_25AFE9DD72CB4D58A474C7E378B7A2D4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2FE45007FB0347848E70D19D3DD862A1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_3F57388C946446B2A794144306CA7F5A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -94,12 +64,6 @@
         "Entry"
         {
         "MsmKey" = "8:_5BE20873EB954067848AB981F23764CD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_5FCBA778035B42C69BBEF3A55D943127"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -118,12 +82,24 @@
         "Entry"
         {
         "MsmKey" = "8:_752904190D1F3B7562F07BC534BCC915"
-        "OwnerKey" = "8:_5FCBA778035B42C69BBEF3A55D943127"
+        "OwnerKey" = "8:_08DBEEB5761043809250BF2E22DABCF0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_79EFF7A1B94F4B02B4D21A4C72DAFAA7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7CB71DB70A684E6E875D288AC8700922"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7EFDDEB32086404EB9E01C492BD25E6C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -153,49 +129,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_934D3768018CB8DC6D1BD91CC2CCF05C"
-        "OwnerKey" = "8:_0046F62D782A6CA03F786526B3210A24"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_934D3768018CB8DC6D1BD91CC2CCF05C"
-        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_934D3768018CB8DC6D1BD91CC2CCF05C"
-        "OwnerKey" = "8:_BB7EF632C60F48A09701B57DC017F89E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_934D3768018CB8DC6D1BD91CC2CCF05C"
-        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9CE871C0988C4CC5AD889BB9A83ED080"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9FBC9C2E03724D7EA537BC5DB116FB69"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A1FD40D1A6334D12BC2C3361729A1FD7"
+        "MsmKey" = "8:_A25EA379831243C18D740138E172BE24"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A25EA379831243C18D740138E172BE24"
+        "MsmKey" = "8:_A3CA6D44175740FCA0E49ADF08144114"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -243,6 +189,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E2D48AB3CAD74A2F8A27E79654D537F2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -250,6 +202,12 @@
         "Entry"
         {
         "MsmKey" = "8:_F97947AAC8314D47AF9CA66D327F02C1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FA4A2443880548EA9CA37EB16D4C40A6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -268,25 +226,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BB7EF632C60F48A09701B57DC017F89E"
+        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5FCBA778035B42C69BBEF3A55D943127"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_752904190D1F3B7562F07BC534BCC915"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2FE45007FB0347848E70D19D3DD862A1"
+        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -298,13 +244,49 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0046F62D782A6CA03F786526B3210A24"
+        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_934D3768018CB8DC6D1BD91CC2CCF05C"
+        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BB7EF632C60F48A09701B57DC017F89E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BB7EF632C60F48A09701B57DC017F89E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_752904190D1F3B7562F07BC534BCC915"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_08DBEEB5761043809250BF2E22DABCF0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -332,6 +314,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -399,23 +394,12 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0046F62D782A6CA03F786526B3210A24"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06C2EEC0F72346D39DE3A72E21712F5A"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Twitterizer2, Version=2.4.1.19063, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0046F62D782A6CA03F786526B3210A24"
-                    {
-                    "Name" = "8:Twitterizer2.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Twitterizer2.DLL"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\Sounds\\Pop2.wav"
+            "TargetName" = "8:Pop2.wav"
             "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
+            "Folder" = "8:_4051EC9EE21B4DDDAED1FDADE17D4BD5"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -426,16 +410,27 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_06C2EEC0F72346D39DE3A72E21712F5A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_08DBEEB5761043809250BF2E22DABCF0"
             {
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\Sounds\\Pop2.wav"
-            "TargetName" = "8:Pop2.wav"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:vshost, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_08DBEEB5761043809250BF2E22DABCF0"
+                    {
+                    "Name" = "8:o3o.vshost.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.vshost.exe"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_4051EC9EE21B4DDDAED1FDADE17D4BD5"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -541,81 +536,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_23D26515FCF74BB88D45FA1452B26C49"
-            {
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.vshost.exe.config"
-            "TargetName" = "8:o3o.vshost.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_25AFE9DD72CB4D58A474C7E378B7A2D4"
             {
             "SourcePath" = "8:..\\ReadMe.rtf"
             "TargetName" = "8:ReadMe.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2FE45007FB0347848E70D19D3DD862A1"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:o3o, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2FE45007FB0347848E70D19D3DD862A1"
-                    {
-                    "Name" = "8:o3o.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3F57388C946446B2A794144306CA7F5A"
-            {
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.vshost.exe.manifest"
-            "TargetName" = "8:o3o.vshost.exe.manifest"
             "Tag" = "8:"
             "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Condition" = "8:"
@@ -666,37 +590,6 @@
                     }
                 }
             "SourcePath" = "8:..\\o3o\\bin\\Release\\Twitterizer2.Streaming.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5FCBA778035B42C69BBEF3A55D943127"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:vshost, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_5FCBA778035B42C69BBEF3A55D943127"
-                    {
-                    "Name" = "8:o3o.vshost.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.vshost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
@@ -792,7 +685,7 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
+            "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
@@ -802,6 +695,46 @@
             "TargetName" = "8:clutter.wav"
             "Tag" = "8:"
             "Folder" = "8:_4051EC9EE21B4DDDAED1FDADE17D4BD5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7CB71DB70A684E6E875D288AC8700922"
+            {
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.vshost.exe.manifest"
+            "TargetName" = "8:o3o.vshost.exe.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7EFDDEB32086404EB9E01C492BD25E6C"
+            {
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.vshost.exe.config"
+            "TargetName" = "8:o3o.vshost.exe.config"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -896,57 +829,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_934D3768018CB8DC6D1BD91CC2CCF05C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_934D3768018CB8DC6D1BD91CC2CCF05C"
-                    {
-                    "Name" = "8:Newtonsoft.Json.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Newtonsoft.Json.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9CE871C0988C4CC5AD889BB9A83ED080"
-            {
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.exe.config"
-            "TargetName" = "8:o3o.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FBC9C2E03724D7EA537BC5DB116FB69"
             {
             "SourcePath" = "8:..\\o3o\\Images\\twitter_512.ico"
@@ -967,10 +849,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A1FD40D1A6334D12BC2C3361729A1FD7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A25EA379831243C18D740138E172BE24"
             {
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.exe.manifest"
-            "TargetName" = "8:o3o.exe.manifest"
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\ffmpeg.exe"
+            "TargetName" = "8:ffmpeg.exe"
             "Tag" = "8:"
             "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Condition" = "8:"
@@ -987,10 +869,10 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A25EA379831243C18D740138E172BE24"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A3CA6D44175740FCA0E49ADF08144114"
             {
-            "SourcePath" = "8:..\\o3o\\bin\\Release\\ffmpeg.exe"
-            "TargetName" = "8:ffmpeg.exe"
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.exe.config"
+            "TargetName" = "8:o3o.exe.config"
             "Tag" = "8:"
             "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Condition" = "8:"
@@ -1158,6 +1040,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E19291DEDE694EFCBE16A0DC09B03CFC"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:o3o, Version=1.0.4743.29790, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E19291DEDE694EFCBE16A0DC09B03CFC"
+                    {
+                    "Name" = "8:o3o.exe"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E2D48AB3CAD74A2F8A27E79654D537F2"
             {
             "SourcePath" = "8:..\\o3o\\bin\\Release\\Sounds\\Sweep.wav"
@@ -1184,6 +1097,26 @@
             "TargetName" = "8:Bleep2.wav"
             "Tag" = "8:"
             "Folder" = "8:_4051EC9EE21B4DDDAED1FDADE17D4BD5"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FA4A2443880548EA9CA37EB16D4C40A6"
+            {
+            "SourcePath" = "8:..\\o3o\\bin\\Release\\o3o.exe.manifest"
+            "TargetName" = "8:o3o.exe.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1277,7 +1210,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:o3o"
         "ProductCode" = "8:{B164DA72-54B6-48F9-8929-A9BB73CB6A41}"
-        "PackageCode" = "8:{EDAF14B8-B436-4B97-A27E-2A350AB0764A}"
+        "PackageCode" = "8:{4E6CD0E2-9555-4AB0-858B-8B1D69B03E27}"
         "UpgradeCode" = "8:{3D6D1B88-0E8F-4942-B49F-48F535125C61}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1405,7 +1338,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_2FE45007FB0347848E70D19D3DD862A1"
+            "Target" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
             "Folder" = "8:_DC79B38605BA46F0B942E32DD0AA53D2"
             "WorkingFolder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Icon" = "8:_9FBC9C2E03724D7EA537BC5DB116FB69"
@@ -1419,7 +1352,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_2FE45007FB0347848E70D19D3DD862A1"
+            "Target" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
             "Folder" = "8:_3A70CBD392BF469AA9795718738510D9"
             "WorkingFolder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Icon" = "8:_9FBC9C2E03724D7EA537BC5DB116FB69"
@@ -1433,7 +1366,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_2FE45007FB0347848E70D19D3DD862A1"
+            "Target" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
             "Folder" = "8:_A0BEC18ADA494AA09483D768BCE74B8B"
             "WorkingFolder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
             "Icon" = "8:_9FBC9C2E03724D7EA537BC5DB116FB69"

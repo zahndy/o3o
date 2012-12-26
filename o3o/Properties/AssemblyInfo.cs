@@ -8,9 +8,9 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("o3o")]
-[assembly: AssemblyDescription("It's a twitter client o3o...")]
+[assembly: AssemblyDescription("It's a twitter client o3o... For general help and bugs, see our github page.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("FluffSoft")]
+[assembly: AssemblyCompany("FluffSoft")] 
 [assembly: AssemblyProduct("o3o")]
 [assembly: AssemblyCopyright("Copyright © FluffSoft 2012")]
 [assembly: AssemblyTrademark("")]
@@ -51,6 +51,6 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyFileVersion("1.0.*")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

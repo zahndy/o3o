@@ -18,7 +18,16 @@ namespace o3o
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.textBoxDescription.Text = AssemblyDescription
+               + Environment.NewLine
+               + Environment.NewLine
+               + "Credits:" + Environment.NewLine
+               + "zahndy - lead dev, main backend and UI" + Environment.NewLine 
+               + "http://twitter.com/zanderroxley" + Environment.NewLine
+               + "Alexander - Tweetstack and multi user backend" + Environment.NewLine 
+               + "http://twitter.com/xarinatan" + Environment.NewLine;
+               //lol hardcoded credits
+           
         }
 
         #region Assembly Attribute Accessors
