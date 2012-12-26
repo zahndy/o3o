@@ -62,14 +62,35 @@ namespace o3o
         System.Timers.Timer _timer;
 
         #region loading stuff
-       
+
+        [DllImport("kernel32", SetLastError = true)]
+        static extern IntPtr LoadLibrary(string lpFileName);
+
+        static bool CheckLibrary(string fileName)
+        {
+            return LoadLibrary(fileName) == IntPtr.Zero;
+        }
 
         public MainWindow1()
         {
-            InitializeComponent();
 
-            MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
-            this.Loaded += new RoutedEventHandler(Window_Loaded);
+            if (CheckLibrary("OpenAl.dll"))
+            {
+                DialogResult fuckup = System.Windows.Forms.MessageBox.Show("OpenAl is not installed \nPress OK to close and start the download of the \nCreative OpenAL Installer",
+         "ERROR",
+         MessageBoxButtons.OK,
+         MessageBoxIcon.Error,
+         MessageBoxDefaultButton.Button1);
+                Process.Start("http://connect.creativelabs.com/openal/Downloads/oalinst.zip");
+                Process.GetCurrentProcess().Kill(); // added this because the next line isnt working.
+                System.Windows.Application.Current.Shutdown(); 
+            }
+            else
+            {
+                InitializeComponent();
+                MouseDown += delegate { if (MouseButtonState.Pressed == System.Windows.Input.Mouse.LeftButton) { DragMove(); } };
+                this.Loaded += new RoutedEventHandler(Window_Loaded);
+            }
         }
 
         void Window_Loaded(object sender, RoutedEventArgs e)
