@@ -526,7 +526,7 @@ namespace o3o
         }
         public void unfavoriteTweet(decimal id, string user)
         {
-            UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.favorite(id);
+            UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.unfavorite(id);
         }
         public void retweet(decimal id, string user)
         {
