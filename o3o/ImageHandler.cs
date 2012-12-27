@@ -103,51 +103,57 @@ namespace o3o
                 else
                 {
                     BitmapImage newimage;
-
-                    if (ImageLocation.Length > 0)
+                    if (ImageLocation != null)
                     {
-                        try
+                        if (ImageLocation.Length > 0)
                         {
-                            int BytesToRead = 100;
-                            WebRequest request = WebRequest.Create(new Uri(ImageLocation));
-                            request.Timeout = -1;
-                            WebResponse response = request.GetResponse();
-                            Stream responseStream = response.GetResponseStream();
-                            BinaryReader reader = new BinaryReader(responseStream);
-                            MemoryStream memoryStream = new MemoryStream();
-
-                            byte[] bytebuffer = new byte[BytesToRead];
-                            int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-                            while (bytesRead > 0)
+                            try
                             {
-                                memoryStream.Write(bytebuffer, 0, bytesRead);
-                                bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                                int BytesToRead = 100;
+                                WebRequest request = WebRequest.Create(new Uri(ImageLocation));
+                                request.Timeout = -1;
+                                WebResponse response = request.GetResponse();
+                                Stream responseStream = response.GetResponseStream();
+                                BinaryReader reader = new BinaryReader(responseStream);
+                                MemoryStream memoryStream = new MemoryStream();
+
+                                byte[] bytebuffer = new byte[BytesToRead];
+                                int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+
+                                while (bytesRead > 0)
+                                {
+                                    memoryStream.Write(bytebuffer, 0, bytesRead);
+                                    bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                                }
+                                BitmapImage _image = new BitmapImage();
+                                _image.BeginInit();
+                                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                                _image.StreamSource = memoryStream;
+                                _image.EndInit();
+
+
+
+                                newimage = _image;
+
+                                request = null;
+                                response = null;
+                                responseStream = null;
+                                reader = null;
+                                memoryStream = null;
+                                bytebuffer = null;
+                                bytesRead = 0;
+                                BytesToRead = 0;
                             }
-                            BitmapImage _image = new BitmapImage();
-                            _image.BeginInit();
-                            memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            _image.StreamSource = memoryStream;
-                            _image.EndInit();
-
-
-
-                            newimage = _image;
-
-                            request = null;
-                            response = null;
-                            responseStream = null;
-                            reader = null;
-                            memoryStream = null;
-                            bytebuffer = null;
-                            bytesRead = 0;
-                            BytesToRead = 0;
+                            catch (Exception)
+                            {
+                                //newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
+                                newimage = tobitmapimage(new Bitmap(o3o.Properties.Resources.image_Failed));
+                            }
                         }
-                        catch (Exception)
+                        else
                         {
-                            //newimage = new BitmapImage(new Uri("/o3o;component/Images/image_Failed.png", UriKind.Relative));
-                            newimage = tobitmapimage( new Bitmap(o3o.Properties.Resources.image_Failed) );
+                            newimage = tobitmapimage(new Bitmap(o3o.Properties.Resources.image_Failed));
                         }
                     }
                     else
