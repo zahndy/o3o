@@ -6,7 +6,7 @@
         xmlns:l="clr-namespace:o3o"
         xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
         xmlns:cp="clr-namespace:DropDownCustomColorPicker"
-        Title="o3o" Height="700" Width="393" Background="White" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="393" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="393" Closed="Window_Closed" KeyDown="Window_KeyDown">
+        Title="o3o" Height="700" Width="393" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="393" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="393" Closed="Window_Closed" KeyDown="Window_KeyDown" Foreground="Black" AllowsTransparency="False" Background="White">
     
         <Window.Resources>
         <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
@@ -412,7 +412,6 @@
     </Window.Resources>
     
     <Grid Name="grid1">
-       
         <TabControl HorizontalAlignment="Stretch" Name="tabControl1" VerticalAlignment="Stretch" Height="auto" Width="auto" Background="#00000000" Padding="0" BorderBrush="#00000000">
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid Name="hometabcontent">

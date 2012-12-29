@@ -92,7 +92,8 @@ namespace o3o
                 }
                 else
                 {
-                    color = new SolidColorBrush(Colors.SkyBlue);
+                    //color = new SolidColorBrush(Colors.SkyBlue);
+                    color = (SolidColorBrush)new BrushConverter().ConvertFromString(AeroGlassHelper.GetColor());
                 }
 
                 TweetBlock.Inlines.Clear();

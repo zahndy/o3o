@@ -25,6 +25,23 @@ namespace o3o
         [DllImport("dwmapi.dll", PreserveSig = false)]
         static extern bool DwmIsCompositionEnabled();
 
+        public static bool CheckDwm(this Window Window)
+        {
+            return DwmIsCompositionEnabled();
+        }
+
+        public static string GetColor()
+        {
+            int argbColor = (int)Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
+            var color = System.Drawing.Color.FromArgb(argbColor);
+            return ConverterToHex(color);
+        }
+
+        private static String ConverterToHex(System.Drawing.Color c)
+        {
+            return String.Format("#{0}{1}{2}", c.R.ToString("X2"), c.G.ToString("X2"), c.B.ToString("X2"));
+        }
+
         public static bool SetAeroGlass(this Window Window)
         {
             return SetAeroGlass(Window, new AeroMargin(-1, -1, -1, -1));
@@ -38,6 +55,7 @@ namespace o3o
             DwmExtendFrameIntoClientArea(hwnd, ref Margin);
             return true;
         }
+        
 
     }
 }

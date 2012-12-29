@@ -61,6 +61,7 @@ namespace o3o
         string AppData = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "o3o");
         System.Timers.Timer _timer;
 
+
         #region loading stuff
 
         [DllImport("kernel32", SetLastError = true)]
@@ -95,8 +96,11 @@ namespace o3o
         void Window_Loaded(object sender, RoutedEventArgs e)
         {
             changeUI(o3o.Properties.Settings.Default.Layout);
-            this.SetAeroGlass();
-
+            if (this.CheckDwm())
+            {
+                this.SetAeroGlass(); 
+            }
+             
             this.Left = o3o.Properties.Settings.Default.LastWindowPosition.X;
             this.Top = o3o.Properties.Settings.Default.LastWindowPosition.Y;
             this.Height = o3o.Properties.Settings.Default.LastWindowHeight;
