@@ -469,7 +469,7 @@
             <TabItem Name="SystemTab" BorderBrush="#00000000" Header="Settings">
                 <Grid >
                     <Button HorizontalAlignment="Left" Width="90" Height="25" Content="About o3o" Margin="6,0,0,24" VerticalAlignment="Bottom" Click="Button_Click" />
-                    <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" x:Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,43,0,0"></cp:CustomColorPicker>
+                    <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" x:Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,43,0,0" SelectedColor="#00000000" AllowDrop="True"></cp:CustomColorPicker>
                     <Label Content="color for links(requires restart):" Height="18" HorizontalAlignment="Left" Margin="-1,45,0,0" Name="label1" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />

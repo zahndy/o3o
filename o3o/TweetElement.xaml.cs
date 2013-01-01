@@ -246,6 +246,7 @@ namespace o3o
 
             messagePolygon.Name = "messagePolygon";
             PointCollection points = new PointCollection();
+            #region elementsize
             if (textheight <= 18) //17.29
             {
                 points.Add(new Point(10, 6));
@@ -259,7 +260,7 @@ namespace o3o
                 TweetBlock.Height = 36;
 
                 datelabel.Margin = new Thickness(26, 64, 0, 0);
-                label1.Margin = new Thickness(60, 64, 0, 0);
+                label1.Margin = new Thickness(52, 64, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 65, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 65, 0, 0);
                 favimageborder.Margin = new Thickness(331, 65, 0, 0);
@@ -277,7 +278,7 @@ namespace o3o
                 TweetBlock.Height = 50;
 
                 datelabel.Margin = new Thickness(26, 74, 0, 0);
-                label1.Margin = new Thickness(60, 74, 0, 0);
+                label1.Margin = new Thickness(52, 74, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 75, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 75, 0, 0);
                 favimageborder.Margin = new Thickness(331, 75, 0, 0);
@@ -295,12 +296,12 @@ namespace o3o
                 TweetBlock.Height = 65;
 
                 datelabel.Margin = new Thickness(26, 87, 0, 0);
-                label1.Margin = new Thickness(60, 87, 0, 0);
-                replyimageborder.Margin = new Thickness(287, 90, 0, 0);
-                retweetimageborder.Margin = new Thickness(309, 90, 0, 0);
-                favimageborder.Margin = new Thickness(331, 90, 0, 0);
+                label1.Margin = new Thickness(52, 87, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 85, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 85, 0, 0);
+                favimageborder.Margin = new Thickness(331, 85, 0, 0);
             }
-            else // > 69.16
+            else if (textheight > 52 && textheight <= 69) // > 69.16
             {
                 points.Add(new Point(10, 6));
                 points.Add(new Point(347, 6));
@@ -313,12 +314,49 @@ namespace o3o
                 TweetBlock.Height = 75;
 
                 datelabel.Margin = new Thickness(26, 100, 0, 0);
-                label1.Margin = new Thickness(113, 100, 0, 0);
-                replyimageborder.Margin = new Thickness(287, 100, 0, 0);
-                retweetimageborder.Margin = new Thickness(309, 100, 0, 0);
-                favimageborder.Margin = new Thickness(331, 100, 0, 0);
+                label1.Margin = new Thickness(52, 100, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 95, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 95, 0, 0);
+                favimageborder.Margin = new Thickness(331, 95, 0, 0);
 
             }
+            else if (textheight > 69 && textheight <= 87) // > 86,45
+            {
+                points.Add(new Point(10, 6));
+                points.Add(new Point(347, 6));
+                points.Add(new Point(347, 113));
+                points.Add(new Point(25, 113));
+                points.Add(new Point(10, 131));
+
+                tweetelementgrid.Height = 140;
+                tweetElement.Height = 140;
+                TweetBlock.Height = 85;
+
+                datelabel.Margin = new Thickness(26, 113, 0, 0);
+                label1.Margin = new Thickness(52, 113, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 105, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 105, 0, 0);
+                favimageborder.Margin = new Thickness(331, 105, 0, 0);
+            }
+            else
+            {
+                points.Add(new Point(10, 6));
+                points.Add(new Point(347, 6));
+                points.Add(new Point(347, 126));
+                points.Add(new Point(25, 126));
+                points.Add(new Point(10, 144));
+
+                tweetelementgrid.Height = 153;
+                tweetElement.Height = 153;
+                TweetBlock.Height = 95;
+
+                datelabel.Margin = new Thickness(26, 126, 0, 0);
+                label1.Margin = new Thickness(52, 126, 0, 0);
+                replyimageborder.Margin = new Thickness(287, 115, 0, 0);
+                retweetimageborder.Margin = new Thickness(309, 115, 0, 0);
+                favimageborder.Margin = new Thickness(331, 115, 0, 0);
+            }
+            #endregion
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = brush;
             messagePolygon.Points = points;

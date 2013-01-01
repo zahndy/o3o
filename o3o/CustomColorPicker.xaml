@@ -171,7 +171,7 @@
                 </ContextMenu>
             </Button.ContextMenu>
             <Rectangle Width="10" Height="10" Stroke="Black" Name="recContent" HorizontalAlignment="Center" 
-                      Margin="0 1 0 1"/>
+                      Margin="0 1 0 1" />
         </Button>         
     </StackPanel>
 </UserControl>

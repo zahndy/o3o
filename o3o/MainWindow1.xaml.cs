@@ -127,7 +127,9 @@ namespace o3o
             {
                 this.topmostcheckbox.IsChecked = true;
             }
-
+            Color col = System.Windows.Media.Color.FromArgb(Properties.Settings.Default.system_color.A,Properties.Settings.Default.system_color.R,Properties.Settings.Default.system_color.G,Properties.Settings.Default.system_color.B);
+            colorpicker.recContent.Fill = new SolidColorBrush(col);
+            colorpicker.SelectedColor = col;
             if (UsrDB.load() == false || UsrDB.Users.Count == 0)
                 UsrDB.CreateUser();
             if (UsrDB.Users[0].UserDetails != null)
