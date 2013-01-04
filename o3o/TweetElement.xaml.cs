@@ -250,8 +250,8 @@ namespace o3o
             if (textheight <= 18) //17.29
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(347, 6));
-                points.Add(new Point(347, 64));
+                points.Add(new Point(352, 6));
+                points.Add(new Point(352, 64));
                 points.Add(new Point(25, 64));
                 points.Add(new Point(10, 80));
 
@@ -268,8 +268,8 @@ namespace o3o
             else if (textheight > 18 && textheight <= 35) //34.58
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(347, 6));
-                points.Add(new Point(347, 74));
+                points.Add(new Point(352, 6));
+                points.Add(new Point(352, 74));
                 points.Add(new Point(25, 74));
                 points.Add(new Point(10, 90));
 
@@ -286,8 +286,8 @@ namespace o3o
             else if (textheight > 35 && textheight <= 52)  //51.87
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(347, 6));
-                points.Add(new Point(347, 87));
+                points.Add(new Point(352, 6));
+                points.Add(new Point(352, 87));
                 points.Add(new Point(25, 87));
                 points.Add(new Point(10, 105));
 
@@ -304,8 +304,8 @@ namespace o3o
             else if (textheight > 52 && textheight <= 69) // > 69.16
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(347, 6));
-                points.Add(new Point(347, 100));
+                points.Add(new Point(352, 6));
+                points.Add(new Point(352, 100));
                 points.Add(new Point(25, 100));
                 points.Add(new Point(10, 118));
 
@@ -323,8 +323,8 @@ namespace o3o
             else if (textheight > 69 && textheight <= 87) // > 86,45
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(347, 6));
-                points.Add(new Point(347, 113));
+                points.Add(new Point(352, 6));
+                points.Add(new Point(352, 113));
                 points.Add(new Point(25, 113));
                 points.Add(new Point(10, 131));
 
@@ -341,8 +341,8 @@ namespace o3o
             else
             {
                 points.Add(new Point(10, 6));
-                points.Add(new Point(347, 6));
-                points.Add(new Point(347, 126));
+                points.Add(new Point(352, 6));
+                points.Add(new Point(352, 126));
                 points.Add(new Point(25, 126));
                 points.Add(new Point(10, 144));
 
