@@ -63,6 +63,7 @@ namespace o3o
         {
             //What happen??!??!?!??!!??!1//1/1/111oneone
             //Restart dat SHEET OF PAPER
+            System.Threading.Thread.Sleep(2000);
             TwitterStatus notification = new TwitterStatus();
             notification.Text = "Stream died! Restarting stream.. Poke a developer if this happens a lot, or get a better connection.";
             notification.User = new TwitterUser();
