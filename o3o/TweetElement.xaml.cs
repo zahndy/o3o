@@ -380,8 +380,8 @@ namespace o3o
 
         private void datelabel_MouseLeave(object sender, MouseEventArgs e)
         {
-            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(150, 0, 0, 0));
-            //parent.TweetElements.Cursor = HandOpen;
+            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(194, 0, 0, 0));
+            //parent.TweetElements.Cursor = HandOpen;        #C2000000
         }
 
         private void datelabel_MouseEnter(object sender, MouseEventArgs e)

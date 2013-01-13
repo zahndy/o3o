@@ -85,7 +85,7 @@
 
         <TextBlock MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Text="Name" Height="17" HorizontalAlignment="Left" Margin="52,7,0,0" Name="NameLabel" VerticalAlignment="Top" Foreground="White" Padding="0" Width="177" FontStyle="Normal" FontWeight="SemiBold" FontSize="12">
         </TextBlock>
-        <TextBlock MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Text="@name" Height="17" Margin="0,7,4,0" Name="AtNameLabel" VerticalAlignment="Top" Foreground="#E3FFFFFF" Padding="0" HorizontalAlignment="Right" Width="130" FontSize="11">
+        <TextBlock MouseDown="AtNameLabel_MouseDown" MouseEnter="linkMouseEnter" MouseLeave="linkMouseLeave" Text="@name" Height="17" Margin="0,7,4,0" Name="AtNameLabel" VerticalAlignment="Top" Foreground="#64FFFFFF" Padding="0" HorizontalAlignment="Right" Width="130" FontSize="11">
         </TextBlock>
     </Grid>
 
