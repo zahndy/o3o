@@ -866,6 +866,8 @@ namespace o3o
             o3o.Properties.Settings.Default.LastWindowPosition = WindowPosition;
             o3o.Properties.Settings.Default.LastWindowHeight = this.Height;
             o3o.Properties.Settings.Default.Save();
+            System.Windows.Application.Current.Shutdown();
+            Process.GetCurrentProcess().Kill();
         }
 
         public void setLayOut(int index)

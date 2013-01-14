@@ -105,6 +105,30 @@ namespace o3o
                     string a = kaas[b];
                     if (a.Length > 1)
                     {
+                        bool hasperiodend = false;
+                        bool hascommaend = false;
+                        if(a.StartsWith("."))
+                        {
+                         TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(".")));
+                         a = a.Remove(0, 1);
+                        }
+                        if (a.StartsWith(","))
+                        {
+                            TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(",")));
+                            a = a.Remove(0, 1);
+                        }
+
+                        if (a.EndsWith("."))
+                        {
+                            a = a.Substring(0, a.LastIndexOf("."));
+                            hasperiodend = true;
+                        }
+                        if (a.EndsWith(","))
+                        {
+                            a = a.Substring(0, a.LastIndexOf(","));
+                            hascommaend = true;
+                        }
+                        
                         if (a.StartsWith("@"))
                         {
                             string username = a.Replace("@", "");
@@ -114,8 +138,6 @@ namespace o3o
                             uname.TextDecorations = null;
                             uname.Foreground = color;
                             TweetBlock.Inlines.Add(uname);
-                            TweetBlock.Inlines.Add(new Run(" "));
-
                         }
                         else if (a.StartsWith("#"))
                         {
@@ -126,7 +148,6 @@ namespace o3o
                             hash.TextDecorations = null;
                             hash.Foreground = color;
                             TweetBlock.Inlines.Add(hash);
-                            TweetBlock.Inlines.Add(new Run(" "));
                         }
                         else if (a.StartsWith("http"))
                         {
@@ -144,18 +165,15 @@ namespace o3o
                                         link.TextDecorations = null;
                                         link.Foreground = color;
                                         TweetBlock.Inlines.Add(link);
-                                        TweetBlock.Inlines.Add(new Run(" "));
                                     }
                                     catch (Exception)
                                     {
                                         TweetBlock.Inlines.Add(a);
-                                        TweetBlock.Inlines.Add(new Run(" "));
                                     }
                                 }
                                 else
                                 {
                                     TweetBlock.Inlines.Add(a);
-                                    TweetBlock.Inlines.Add(new Run(" "));
                                 }
 
                             }
@@ -173,18 +191,15 @@ namespace o3o
                                         link.TextDecorations = null;
                                         link.Foreground = color;
                                         TweetBlock.Inlines.Add(link);
-                                        TweetBlock.Inlines.Add(new Run(" "));
                                     }
                                     catch (Exception)
                                     {
                                         TweetBlock.Inlines.Add(a);
-                                        TweetBlock.Inlines.Add(new Run(" "));
                                     }
                                 }
                                 else
                                 {
                                     TweetBlock.Inlines.Add(a);
-                                    TweetBlock.Inlines.Add(new Run(" "));
                                 }
                             }
 
@@ -192,8 +207,20 @@ namespace o3o
                         else
                         {
                             TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(a)));
-                            TweetBlock.Inlines.Add(new Run(" "));
+                            
                         }
+
+                        if (hasperiodend)
+                        {
+                            TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(".")));
+                            
+                        }
+                        if (hascommaend)
+                        {
+                            TweetBlock.Inlines.Add(new Run(HttpUtility.HtmlDecode(",")));
+                            
+                        }
+                        TweetBlock.Inlines.Add(new Run(" "));
                     }
                     else
                     {
