@@ -42,7 +42,7 @@ namespace o3o
                     string pin = Browserform.Document.GetElementById("oauth_pin").GetElementsByTagName("code")[0].InnerText;
                     Twitterizer.OAuthTokenResponse otokenrespverified = Twitterizer.OAuthUtility.GetAccessToken(CONSUMERKEY, CONSUMERSECRET, otokenresp.Token, pin);
                     privOAUTHSUCCESS = otokenrespverified;
-                    MessageBox.Show("Authentication successful!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Authentication successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     success = true;
                     this.Close();
                 }

@@ -36,11 +36,14 @@ namespace o3o
             {
                 polyOpacity = value;
                 SolidColorBrush gBrush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
-                messagePolygon.Fill = gBrush;
+                //messagePolygon.Fill = gBrush;
+                if(tweetelementgrid.Children.OfType<Polygon>().FirstOrDefault() != null)
+                tweetelementgrid.Children.OfType<Polygon>().FirstOrDefault().Fill = gBrush;
+               
             }
         }
         //public TweetElement() { }
-        
+        Polygon messagePolygon = new Polygon();
         public string name;
         public float polyOpacity = 0.6f;
         public string imagelocation;
@@ -256,7 +259,7 @@ namespace o3o
             tweetImg.Source = _image;
         }
 
-        Polygon messagePolygon = new Polygon();
+        
         void generatePolygonAndMargins(int charlength, string text)
         {
             FormattedText formattedText = new FormattedText(
@@ -286,7 +289,7 @@ namespace o3o
                 tweetElement.Height = 85;
                 TweetBlock.Height = 36;
 
-                datelabel.Margin = new Thickness(26, 64, 0, 0);
+                AtNameLabel.Margin = new Thickness(26, 64, 0, 0);
                 label1.Margin = new Thickness(52, 64, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 65, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 65, 0, 0);
@@ -304,7 +307,7 @@ namespace o3o
                 tweetElement.Height = 95;
                 TweetBlock.Height = 50;
 
-                datelabel.Margin = new Thickness(26, 74, 0, 0);
+                AtNameLabel.Margin = new Thickness(26, 74, 0, 0);
                 label1.Margin = new Thickness(52, 74, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 75, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 75, 0, 0);
@@ -322,7 +325,7 @@ namespace o3o
                 tweetElement.Height = 110;
                 TweetBlock.Height = 65;
 
-                datelabel.Margin = new Thickness(26, 87, 0, 0);
+                AtNameLabel.Margin = new Thickness(26, 87, 0, 0);
                 label1.Margin = new Thickness(52, 87, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 88, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 88, 0, 0);
@@ -340,7 +343,7 @@ namespace o3o
                 tweetElement.Height = 125;
                 TweetBlock.Height = 75;
 
-                datelabel.Margin = new Thickness(26, 100, 0, 0);
+                AtNameLabel.Margin = new Thickness(26, 100, 0, 0);
                 label1.Margin = new Thickness(52, 100, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 101, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 101, 0, 0);
@@ -359,7 +362,7 @@ namespace o3o
                 tweetElement.Height = 140;
                 TweetBlock.Height = 85;
 
-                datelabel.Margin = new Thickness(26, 113, 0, 0);
+                AtNameLabel.Margin = new Thickness(26, 113, 0, 0);
                 label1.Margin = new Thickness(52, 113, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 114, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 114, 0, 0);
@@ -377,7 +380,7 @@ namespace o3o
                 tweetElement.Height = 153;
                 TweetBlock.Height = 95;
 
-                datelabel.Margin = new Thickness(26, 126, 0, 0);
+                AtNameLabel.Margin = new Thickness(26, 126, 0, 0);
                 label1.Margin = new Thickness(52, 126, 0, 0);
                 replyimageborder.Margin = new Thickness(287, 127, 0, 0);
                 retweetimageborder.Margin = new Thickness(309, 127, 0, 0);
@@ -387,12 +390,12 @@ namespace o3o
             SolidColorBrush brush = new SolidColorBrush(Color.FromArgb((byte)(polyOpacity * 255), 0, 0, 0));
             messagePolygon.Fill = brush;
             messagePolygon.Points = points;
+            
             tweetelementgrid.Children.Insert(0, messagePolygon);
-
+   
             formattedText = null;
             points = null;
             brush = null;
-            messagePolygon = null;
 
         }
 
@@ -407,13 +410,13 @@ namespace o3o
 
         private void datelabel_MouseLeave(object sender, MouseEventArgs e)
         {
-            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(194, 0, 0, 0));
+            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(59, 255, 255, 255));
             //parent.TweetElements.Cursor = HandOpen;        #C2000000
         }
 
         private void datelabel_MouseEnter(object sender, MouseEventArgs e)
         {
-            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
             parent.TweetElements.Cursor = System.Windows.Input.Cursors.Hand;
         }
 
@@ -583,7 +586,7 @@ namespace o3o
 
         private void linkMouseLeave(object sender, MouseEventArgs e)
         {
-           //parent.TweetElements.Cursor = HandOpen;
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
         }
 
         //public ~TweetElement(){}

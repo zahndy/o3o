@@ -494,7 +494,7 @@
                         </Button.Background>
                     </Button>
                     <Button Content="Open File" Height="23" HorizontalAlignment="Left" Margin="173,107,0,0" Name="button1" VerticalAlignment="Top" Width="168" Click="button1_Click" />
-                    <Slider Height="23" Margin="188.077,136.462,0,0" Name="slider1" VerticalAlignment="Top" Value="20" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" Maximum="100" HorizontalAlignment="Left" Width="154" />
+                    <Slider Height="23" Margin="188.077,136.462,0,0" Name="slider1" VerticalAlignment="Top" Value="20" UseLayoutRounding="False" Tag="Volume" ValueChanged="slider1_ValueChanged" Maximum="100" HorizontalAlignment="Left" Width="154" SmallChange="1" />
                     <Label Content="Volume:" Height="28" HorizontalAlignment="Left" Margin="-1,142,0,0" Name="label4" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
@@ -543,7 +543,7 @@
                         </Label.Effect>
                     </Label>
 
-                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="119,207,0,0" Name="tweetsdisplayLabel" Text="{Binding Path=Value, ElementName=TweetsDisplaySlider}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="volumeLabel_TextChanged" Foreground="White">
+                    <TextBox Height="23" MaxLength="2" HorizontalAlignment="Left" Margin="119,207,0,0" Name="tweetsdisplayLabel" Text="{Binding Path=Value, ElementName=TweetsDisplaySlider}" VerticalAlignment="Top" Focusable="True" IsEnabled="True" IsReadOnly="True" Background="#00000000" BorderThickness="0" Width="32" TextChanged="tweetsdisplayLabel_TextChanged"  Foreground="White">
                         <TextBox.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </TextBox.Effect>

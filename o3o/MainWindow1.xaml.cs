@@ -673,6 +673,13 @@ namespace o3o
             }
         }
 
+        private void tweetsdisplayLabel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string[] bla = tweetsdisplayLabel.Text.Split('.');
+            tweetsdisplayLabel.Text = bla[0].ToString();
+
+        }
+
         private void volumeLabel_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (volumeLabel.Text.Length > 1)
@@ -1110,6 +1117,8 @@ namespace o3o
                     replystatus = null;
                 }
             }
+
+            
 
            
 

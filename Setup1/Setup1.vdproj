@@ -27,12 +27,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0FC071CB64FA41568CECC67AE5E47942"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -59,6 +53,12 @@
         {
         "MsmKey" = "8:_41A5A956828F42A3855EE0CCEF1085A9"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5909EDE92DA9CF2EC08DBA3A9E67F502"
+        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -125,6 +125,30 @@
         {
         "MsmKey" = "8:_8E88F1D419114D8B90517FF238F52CE9"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9F4DB8D76095556D0655F850CBEDA704"
+        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9F4DB8D76095556D0655F850CBEDA704"
+        "OwnerKey" = "8:_5909EDE92DA9CF2EC08DBA3A9E67F502"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9F4DB8D76095556D0655F850CBEDA704"
+        "OwnerKey" = "8:_BB7EF632C60F48A09701B57DC017F89E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9F4DB8D76095556D0655F850CBEDA704"
+        "OwnerKey" = "8:_F835120347D6DC64558041F9AC57B8C8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -201,6 +225,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_F835120347D6DC64558041F9AC57B8C8"
+        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F835120347D6DC64558041F9AC57B8C8"
+        "OwnerKey" = "8:_5909EDE92DA9CF2EC08DBA3A9E67F502"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F835120347D6DC64558041F9AC57B8C8"
+        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F97947AAC8314D47AF9CA66D327F02C1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -220,43 +262,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5BE20873EB954067848AB981F23764CD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0D6186697562C2963BB76C8376839CA1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BB7EF632C60F48A09701B57DC017F89E"
+        "OwnerKey" = "8:_5909EDE92DA9CF2EC08DBA3A9E67F502"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -280,13 +292,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_08DBEEB5761043809250BF2E22DABCF0"
+        "OwnerKey" = "8:_F835120347D6DC64558041F9AC57B8C8"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E19291DEDE694EFCBE16A0DC09B03CFC"
+        "OwnerKey" = "8:_9F4DB8D76095556D0655F850CBEDA704"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_08DBEEB5761043809250BF2E22DABCF0"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -445,37 +463,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0D6186697562C2963BB76C8376839CA1"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Twitterizer2.Streaming, Version=2.4.1.23953, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_0D6186697562C2963BB76C8376839CA1"
-                    {
-                    "Name" = "8:Twitterizer2.Streaming.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Twitterizer2.Streaming.DLL"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0FC071CB64FA41568CECC67AE5E47942"
             {
             "SourcePath" = "8:..\\o3o\\bin\\Release\\Sounds\\Drum.wav"
@@ -574,6 +561,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5909EDE92DA9CF2EC08DBA3A9E67F502"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Twitterizer2.Streaming, Version=2.4.1.23953, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5909EDE92DA9CF2EC08DBA3A9E67F502"
+                    {
+                    "Name" = "8:Twitterizer2.Streaming.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Twitterizer2.Streaming.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5BE20873EB954067848AB981F23764CD"
@@ -829,6 +847,37 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9F4DB8D76095556D0655F850CBEDA704"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9F4DB8D76095556D0655F850CBEDA704"
+                    {
+                    "Name" = "8:Newtonsoft.Json.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9FBC9C2E03724D7EA537BC5DB116FB69"
             {
             "SourcePath" = "8:..\\o3o\\Images\\twitter_512.ico"
@@ -1044,7 +1093,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:o3o, Version=1.0.4743.29790, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:o3o, Version=1.0.4785.4230, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_E19291DEDE694EFCBE16A0DC09B03CFC"
@@ -1089,6 +1138,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F835120347D6DC64558041F9AC57B8C8"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Twitterizer2, Version=2.4.1.19063, Culture=neutral, PublicKeyToken=69d1469eac671567, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F835120347D6DC64558041F9AC57B8C8"
+                    {
+                    "Name" = "8:Twitterizer2.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Twitterizer2.DLL"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_DD0A19593AB54FFFB9C905C05494BFB9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F97947AAC8314D47AF9CA66D327F02C1"
@@ -1210,7 +1290,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:o3o"
         "ProductCode" = "8:{B164DA72-54B6-48F9-8929-A9BB73CB6A41}"
-        "PackageCode" = "8:{4E6CD0E2-9555-4AB0-858B-8B1D69B03E27}"
+        "PackageCode" = "8:{8A5315F4-5CA3-47CA-99FA-AE35EDAA217B}"
         "UpgradeCode" = "8:{3D6D1B88-0E8F-4942-B49F-48F535125C61}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
