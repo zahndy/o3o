@@ -44,7 +44,7 @@
         </TextBlock>
         <TextBlock TextAlignment="Left" Text="" Height="23" HorizontalAlignment="Left" Margin="156,87,0,0" Name="label1" VerticalAlignment="Top" Foreground="#C2000000" Padding="0,1,0,0" Width="194" ForceCursor="True">
         </TextBlock>
-        <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="-" Height="17" HorizontalAlignment="Right" Margin="0,7,4,0" Name="datelabel" VerticalAlignment="Top" Foreground="#3BFFFFFF" Padding="0,1,0,0" Width="39" FontSize="11">
+        <TextBlock MouseDown="datelabel_MouseDown" MouseEnter="datelabel_MouseEnter" MouseLeave="datelabel_MouseLeave" Text="-" Height="17" HorizontalAlignment="Right" Margin="0,7,4,0" Name="datelabel" VerticalAlignment="Top" Foreground="#3BFFFFFF" Padding="0,1,0,0" Width="28" FontSize="11">
         </TextBlock>
 
         
