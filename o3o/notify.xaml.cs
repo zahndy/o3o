@@ -30,7 +30,7 @@ namespace o3o
         {
             parent = parentWindow;
             InitializeComponent();
-            this.Left = ((parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 105;
+            this.Left = ((parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 107;
             this.Top =  parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
             ypos = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
             this.Show();

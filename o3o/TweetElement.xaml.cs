@@ -410,13 +410,13 @@ namespace o3o
 
         private void datelabel_MouseLeave(object sender, MouseEventArgs e)
         {
-            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(59, 255, 255, 255));
+            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
             //parent.TweetElements.Cursor = HandOpen;        #C2000000
         }
 
         private void datelabel_MouseEnter(object sender, MouseEventArgs e)
         {
-            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
+            datelabel.Foreground = new SolidColorBrush(Color.FromArgb(150, 255, 255, 255));
             parent.TweetElements.Cursor = System.Windows.Input.Cursors.Hand;
         }
 
