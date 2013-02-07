@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Windows.Media.Effects;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Threading;
 using System.Net;
 using System.Windows.Forms;
@@ -237,37 +238,37 @@ namespace o3o
             foreach (TweetElement tweet in this.TweetElements.Items)
             {
                 TimeSpan Difference = DateTime.Now.Subtract(tweet.Status.CreatedDate);
-
-                if (Difference.Hours > 0)
-                {
-                    tweet.datelabel.Text = Difference.Hours.ToString() + "h";
-                }
-                else if (Difference.Hours <= 1 && Difference.Minutes >= 1)
-                {
-                    tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
-                }
-                else if (Difference.Minutes < 1)
-                {
-                    tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
-                }
+                SetTweetDate(tweet, Difference);
             }
-            foreach (TweetElement tweet in this.TweetMentions.Items)
+            foreach (TweetElement mention in this.TweetMentions.Items)
             {
-                TimeSpan Difference = DateTime.Now.Subtract(tweet.Status.CreatedDate);
-
-                if (Difference.Hours > 0)
-                {
-                    tweet.datelabel.Text = Difference.Hours.ToString() + "h";
-                }
-                else if (Difference.Hours <= 1 && Difference.Minutes >= 1)
-                {
-                    tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
-                }
-                else if (Difference.Minutes < 1)
-                {
-                    tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
-                }
+                TimeSpan Difference = DateTime.Now.Subtract(mention.Status.CreatedDate);
+                SetTweetDate(mention, Difference);
             }
+        }
+
+        void SetTweetDate(TweetElement tweet, TimeSpan Difference)
+        {
+            
+            if (Difference.Days > 0)
+            {
+                tweet.datelabel.Text = tweet.Status.CreatedDate.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(tweet.Status.CreatedDate.Month).Substring(0, 3);
+            }
+            else if (Difference.Hours > 0)
+            {
+                tweet.datelabel.Text = Difference.Hours.ToString() + "h";
+            }
+            else if (Difference.Hours <= 1 && Difference.Minutes >= 1)
+            {
+                tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
+            }
+            else if (Difference.Minutes < 1)
+            {
+                tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
+            }
+            //{
+            //    tweet.datelabel.Text.Insert(0, Difference.Days.ToString()+"d");
+            //}
         }
 
         private void prefetch(UserDatabase.User usr)
