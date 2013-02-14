@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
 using System.Net;
 using System.Drawing;
 
@@ -144,6 +140,7 @@ namespace o3o
                                 bytebuffer = null;
                                 bytesRead = 0;
                                 BytesToRead = 0;
+                                
                             }
                             catch (Exception)
                             {

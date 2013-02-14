@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Twitterizer;
-using Twitterizer.Core;
 using System.Xml.Serialization;
 using System.Net;
 
