@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Windows;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Net;
 using System.Reflection;
+using System.Web;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
-using System.Net;
-using System.IO;
-using System.Web;
-using System.Globalization;
 using Twitterizer;
 
 namespace o3o

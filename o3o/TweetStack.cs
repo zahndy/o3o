@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Twitterizer;
-using System.Xml.Serialization;
 using System.Net;
+using System.Xml.Serialization;
+using Twitterizer;
 
 namespace o3o
 {

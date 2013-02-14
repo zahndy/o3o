@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenAL;
+using System;
 using System.IO;
-using OpenAL;
 
 namespace Unf
 {
