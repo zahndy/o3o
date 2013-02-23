@@ -69,9 +69,7 @@ namespace o3o
             messagePolygon.Fill = gBrush;
         }
 
-       
-
-
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -405,6 +403,7 @@ namespace o3o
         {
             datelabel.Foreground = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
             //parent.TweetElements.Cursor = HandOpen;        #C2000000
+            parent.TweetElements.Cursor = System.Windows.Input.Cursors.Arrow;
         }
 
         private void datelabel_MouseEnter(object sender, MouseEventArgs e)

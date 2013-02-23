@@ -25,6 +25,10 @@ namespace o3o
         public dostuff dostuffdel;
         public delegate void DelTweetDelegate(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason);
         public DelTweetDelegate cheese;
+        public delegate void clearTweetStackDelegate(string reason);
+        public clearTweetStackDelegate bacon;
+        public delegate void FetchTweets(UserDatabase.User usr);
+        public FetchTweets fetch;
         public delegate void SetTime();
         public SetTime derp;
         public Screen[] Displays = System.Windows.Forms.Screen.AllScreens;
@@ -198,6 +202,8 @@ namespace o3o
                 usr.tweetStack.NewTweet += new TweetStack.newtweetDel(o3o_NewTweet);
                 usr.tweetStack.DMReceived += new TweetStack.DMReceivedDel(o3o_NewDM);
                 usr.tweetStack.TweetDeleted += new TweetStack.TweetDeletedDel(o3o_TweetDeleted);
+                usr.tweetStack.clear += new TweetStack.clearTweetStack(o3o_clearTweetStack);
+                usr.tweetStack.FetchTweets += new TweetStack.fetchTweets(o3o_FetchTweets);
                 prefetch(usr);
             }
 
@@ -230,6 +236,11 @@ namespace o3o
                 TimeSpan Difference = DateTime.Now.Subtract(mention.Status.CreatedDate);
                 SetTweetDate(mention, Difference);
             }
+            foreach (DMElement message in this.TweetMessages.Items)
+            {
+                TimeSpan Difference = DateTime.Now.Subtract(message.Status.CreatedDate);
+                SetTweetDate(message, Difference);
+            }
         }
 
         void SetTweetDate(TweetElement tweet, TimeSpan Difference)
@@ -251,9 +262,33 @@ namespace o3o
             {
                 tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
             }
-            //{
-            //    tweet.datelabel.Text.Insert(0, Difference.Days.ToString()+"d");
-            //}
+        }
+
+        void SetTweetDate(DMElement tweet, TimeSpan Difference)
+        {
+
+            if (Difference.Days > 0)
+            {
+                tweet.datelabel.Text = tweet.Status.CreatedDate.Day.ToString() + " " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(tweet.Status.CreatedDate.Month).Substring(0, 3) +" "+ tweet.Status.CreatedDate.Year;
+            }
+            else if (Difference.Hours > 0)
+            {
+                tweet.datelabel.Text = Difference.Hours.ToString() + "h";
+            }
+            else if (Difference.Hours <= 1 && Difference.Minutes >= 1)
+            {
+                tweet.datelabel.Text = Difference.Minutes.ToString() + "m";
+            }
+            else if (Difference.Minutes < 1)
+            {
+                tweet.datelabel.Text = Difference.Seconds.ToString() + "s";
+            }
+        }
+
+        void o3o_FetchTweets(UserDatabase.User usr)
+        {
+            fetch = new FetchTweets(prefetch);
+            maindispatcher.Invoke(fetch, new object[] { usr });
         }
 
         private void prefetch(UserDatabase.User usr)
@@ -287,6 +322,23 @@ namespace o3o
                 {
                     TweetElement el = (TweetElement)this.TweetMentions.Items[this.TweetMentions.Items.Count - 1];
                     this.TweetMentions.Items.Remove(el);
+                    el.Dispose();
+                }
+            }
+
+            TwitterDirectMessageCollection fetchmessages = usr.tweetStack.Twitter.GetMessages();
+
+            foreach (TwitterDirectMessage message in fetchmessages)
+            {
+
+                DMElement element = new DMElement(this, message, usr, ImageCache.GetImage(message.SenderId, message.Sender.ProfileImageLocation));
+                element.polyOpacity = polygonOpacity;
+                this.TweetMessages.Items.Add(element);
+
+                if (this.TweetMessages.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
+                {
+                    DMElement el = (DMElement)this.TweetMessages.Items[this.TweetMessages.Items.Count - 1];
+                    this.TweetMessages.Items.Remove(el);
                     el.Dispose();
                 }
             }
@@ -329,7 +381,7 @@ namespace o3o
                             this.textBox1.Text = "";
                             this.charleft.Text = "140";
 
-                            this.testbutton.Content = "Tweet";
+                            this.TweetButton.Content = "Tweet";
                             this.TweetElements.Margin = new Thickness(0, 0, 0, 17);
                             this.TweetMentions.Margin = new Thickness(0, 0, 0, 17);
                             this.TweetMessages.Margin = new Thickness(0, 0, 0, 17);
@@ -346,7 +398,7 @@ namespace o3o
                         this.textBox1.Text = "";
                         this.charleft.Text = "140";
 
-                        this.testbutton.Content = "Tweet";
+                        this.TweetButton.Content = "Tweet";
                         this.TweetElements.Margin = new Thickness(0, 0, 0, 17);
                         this.TweetMentions.Margin = new Thickness(0, 0, 0, 17);
                         this.TweetMessages.Margin = new Thickness(0, 0, 0, 17);
@@ -359,7 +411,7 @@ namespace o3o
                 }
                 else
                 {
-                    this.testbutton.Content = "Tweet";
+                    this.TweetButton.Content = "Tweet";
                     this.TweetElements.Margin = new Thickness(0, 0, 0, 17);
                     this.TweetMentions.Margin = new Thickness(0, 0, 0, 17);
                     this.TweetMessages.Margin = new Thickness(0, 0, 0, 17);
@@ -412,12 +464,22 @@ namespace o3o
         
         void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
         {
-            DMElement element = new DMElement(this, DM, _usr);
+            DMElement element;
+            if (UsrDB.Users.Count > 1)
+            {
+                 element = new DMElement(this, DM, _usr, ImageCache.GetImage(DM.Sender.Id, DM.Sender.ProfileImageLocation), true);
+            }
+            else
+            {
+                 element = new DMElement(this, DM, _usr, ImageCache.GetImage(DM.Sender.Id, DM.Sender.ProfileImageLocation));
+            }
             element.polyOpacity = polygonOpacity;
             this.TweetMessages.Items.Add(element);
             if (this.TweetMessages.Items.Count > o3o.Properties.Settings.Default.amountOfTWeetsToDisplay)
             {
-                this.TweetMessages.Items.RemoveAt(this.TweetElements.Items.Count);
+                TweetElement el = (TweetElement)this.TweetMessages.Items[this.TweetMessages.Items.Count - 1];
+                this.TweetMessages.Items.Remove(el);
+                el.Dispose();
             }
         }
 
@@ -499,7 +561,7 @@ namespace o3o
             textBox1.Text = "@" + Status.User.ScreenName + " ";
             if (textBox1.Visibility == Visibility.Collapsed)
             {
-                testbutton.Content = "Tweet";
+                TweetButton.Content = "Tweet";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
                 TweetMentions.Margin = new Thickness(0, 0, 0, 70);
                 TweetMessages.Margin = new Thickness(0, 0, 0, 70);
@@ -510,6 +572,11 @@ namespace o3o
             }
             textBox1.Focus();
 
+        }
+
+        public void DMreply(TwitterDirectMessage Status)
+        {
+            Process.Start("https://twitter.com/messages");
         }
 
         public void favoriteTweet(decimal id, string user)
@@ -530,14 +597,24 @@ namespace o3o
 
         #region UI interactions
 
+        void o3o_clearTweetStack(string reason)
+        {
+            bacon = new clearTweetStackDelegate(clearTweetStack);
+            maindispatcher.Invoke(bacon, new object[] { reason });
+        }
 
+        public void clearTweetStack(string reason = "")
+        {
+            this.TweetElements.Items.Clear();
+            this.TweetMentions.Items.Clear();
+            this.TweetMessages.Items.Clear();
+        }
 
-
-        private void testbutton_Click(object sender, RoutedEventArgs e)
+        private void TweetButton_Click(object sender, RoutedEventArgs e)
         {
             if (textBox1.Visibility == Visibility.Collapsed)
             {
-                testbutton.Content = "Cancel";
+                TweetButton.Content = "Cancel";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
                 TweetMentions.Margin = new Thickness(0, 0, 0, 70);
                 TweetMessages.Margin = new Thickness(0, 0, 0, 70);
@@ -564,23 +641,46 @@ namespace o3o
              WindowState = WindowState.Minimized;
         }
 
-        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        private int CharactersLeft = 140;
+
+        private void textBox1_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             
-            int left = 140 - (textBox1.Text.Length);
-            charleft.Text = left.ToString();
-            if (left < 0)
+
+        }
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int chars = 140;
+            string tempstring = textBox1.Text;
+            chars -= System.Text.RegularExpressions.Regex.Matches(tempstring, "http").Count * 20;
+            chars -= System.Text.RegularExpressions.Regex.Matches(tempstring, "www").Count * 20;
+
+            System.Text.RegularExpressions.Regex urlRx = new System.Text.RegularExpressions.Regex(@"(?<url>(http:[/][/]|www.)([a-z]|[A-Z]|[0-9]|[/.]|[~])*)", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+            System.Text.RegularExpressions.MatchCollection matches = urlRx.Matches(tempstring);
+
+            foreach (System.Text.RegularExpressions.Match match in matches)
+            {
+                var url = match.Groups["url"].Value;
+                tempstring = tempstring.Replace(url, "");
+            }
+            chars -= tempstring.Length;
+            CharactersLeft = chars;
+
+            charleft.Text = CharactersLeft.ToString();
+            if (CharactersLeft < 0)
             {
                 charleft.Foreground = new SolidColorBrush(Colors.Red);
             }
-            else if (left == 140)
+            else if (CharactersLeft > 140)
             {
-                testbutton.Content = "Cancel";
+                TweetButton.Content = "Cancel";
             }
             else
             {
                 charleft.Foreground = new SolidColorBrush(Colors.Black);
-                testbutton.Content = "Send";
+                TweetButton.Content = "Send";
             }
         }
 
@@ -610,23 +710,12 @@ namespace o3o
         }
 
         
-
-   
-        private void textBox1_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-
-            
-
-        }
-
-        
-        
         public void tbox(string inc) 
         {
             textBox1.Text = inc;
             if (textBox1.Visibility == Visibility.Collapsed)
             {
-                testbutton.Content = "Tweet";
+                TweetButton.Content = "Tweet";
                 TweetElements.Margin = new Thickness(0, 0, 0, 70);
                 TweetMentions.Margin = new Thickness(0, 0, 0, 70);
                 TweetMessages.Margin = new Thickness(0, 0, 0, 70);
@@ -754,10 +843,10 @@ namespace o3o
                 MentionsTab.Content = null;
                 MentionsTab = null;
 
-                men.Width = 361;
+                men.Width = 369;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 361;
+                homegrid.Width = 369;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
@@ -787,13 +876,13 @@ namespace o3o
                 MessagesTab.Content = null;
                 MessagesTab = null;
 
-                men.Width = 361;
+                men.Width = 369;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
-                mesg.Width = 361;
+                mesg.Width = 369;
                 mesg.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 361;
+                homegrid.Width = 369;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
@@ -1072,7 +1161,7 @@ namespace o3o
                 {
                     if (textBox1.Visibility == Visibility.Collapsed)
                     {
-                        testbutton.Content = "Cancel";
+                        TweetButton.Content = "Cancel";
                         TweetElements.Margin = new Thickness(0, 0, 0, 70);
                         TweetMentions.Margin = new Thickness(0, 0, 0, 70);
                         TweetMessages.Margin = new Thickness(0, 0, 0, 70);
@@ -1092,7 +1181,7 @@ namespace o3o
                 if (e.Key == Key.Escape)
                 {
                     textBox1.Text = "";
-                    testbutton.Content = "Tweet";
+                    TweetButton.Content = "Tweet";
                     TweetElements.Margin = new Thickness(0, 0, 0, 17);
                     TweetMentions.Margin = new Thickness(0, 0, 0, 17);
                     TweetMessages.Margin = new Thickness(0, 0, 0, 17);
@@ -1102,6 +1191,17 @@ namespace o3o
                     inreply = false;
                     replystatus = null;
                 }
+            }
+
+            private void ClearTweetstackButton_Click(object sender, RoutedEventArgs e)
+            {
+                clearTweetStack();
+                GC.Collect();
+            }
+
+            private void ClearImageCacheButton_Click(object sender, RoutedEventArgs e)
+            {
+                ImageCache.ClearCache();
             }
 
             

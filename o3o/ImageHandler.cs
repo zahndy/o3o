@@ -49,18 +49,33 @@ namespace o3o
 
         public void LoadCache()
         {
-            Stream s = File.Open(AppData+ "\\Cache\\ImageCache.bin", FileMode.Open);
-            BinaryFormatter bf = new BinaryFormatter();
-            ImageCache = (Dictionary<decimal, string>)bf.Deserialize(s);
-            s.Close();
+            using (Stream s = File.Open(AppData + "\\Cache\\ImageCache.bin", FileMode.Open))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                ImageCache = (Dictionary<decimal, string>)bf.Deserialize(s);
+            }// s.Close();
         }
 
         public void SaveCache()
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            Stream s = File.Open(AppData + "\\Cache\\ImageCache.bin", FileMode.Create);
-            bf.Serialize(s, ImageCache);
-            s.Close();
+            
+            using (Stream s = File.Open(AppData + "\\Cache\\ImageCache.bin", FileMode.Create))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(s, ImageCache);
+            }
+            //s.Close();
+        }
+
+        public void ClearCache()
+        {
+            foreach (KeyValuePair<decimal ,string> image in ImageCache)
+            {
+                File.Delete(image.Value);
+            }
+            ImageCache.Clear();
+            MemoryCache.Clear();
+            SaveCache();
         }
 
         public void StoreImage(BitmapImage image, string imagename, decimal userID)
@@ -78,7 +93,12 @@ namespace o3o
 
         public ImageSource FetchImage(string imageloc, decimal id)
         {
-            BitmapImage bit = new BitmapImage(new Uri(imageloc));
+            BitmapImage bit;
+            using (FileStream stream = new FileStream(imageloc, FileMode.Open, FileAccess.Read))
+            {
+                bit = tobitmapimage(Image.FromStream(stream));
+            }
+             //= new BitmapImage(new Uri());
             MemoryCache.Add(id, bit);
             return (ImageSource)bit;
         }
