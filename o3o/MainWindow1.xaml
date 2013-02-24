@@ -416,7 +416,7 @@
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid Name="hometabcontent">
                     <Grid Name="homegrid">
-                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="auto"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="369"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000"  >
                         <ListBox.OpacityMask>
                             <LinearGradientBrush StartPoint="1,0">
@@ -468,7 +468,7 @@
             </TabItem>
             <TabItem Name="SystemTab" BorderBrush="#00000000" Header="Settings">
                 <Grid >
-                    <Button HorizontalAlignment="Left" Width="90" Height="25" Content="About o3o" Margin="6,0,0,24" VerticalAlignment="Bottom" Click="Button_Click" />
+                    <Button HorizontalAlignment="Left" Width="170" Height="25" Content="About o3o" Margin="6,528,0,0" VerticalAlignment="Top" Click="Button_Click" />
                     <cp:CustomColorPicker SelectedColorChanged="colorpicker_SelectedColorChanged" x:Name="colorpicker" Width="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="173,43,0,0" SelectedColor="#00000000" AllowDrop="True"></cp:CustomColorPicker>
                     <Label Content="color for links(requires restart):" Height="18" HorizontalAlignment="Left" Margin="-1,45,0,0" Name="label1" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
@@ -510,7 +510,6 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Button Content="Clear User Data and Restart" Height="25" HorizontalAlignment="Right" Margin="0,0,6,24" Name="ClearUserDataButton" VerticalAlignment="Bottom" Width="155" Click="ClearUserDataButton_Click" />
                     <Label Content="Text balloonopacity:" Height="25" HorizontalAlignment="Left" Margin="-1,177,0,0" Name="label7" VerticalAlignment="Top" Padding="0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
@@ -578,21 +577,20 @@
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Label Content="Play Notification Sound:" Height="19" HorizontalAlignment="Left" Margin="-1,326,0,0" Name="notficsoundlabel" VerticalAlignment="Top" Padding="0,2,0,0" Foreground="White">
+                    <Label Content="Play Notification Sound:" Height="19" HorizontalAlignment="Left" Margin="0,331,0,0" Name="notficsoundlabel" VerticalAlignment="Top" Padding="0,2,0,0" Foreground="White">
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
                     <CheckBox Content="" Height="16" HorizontalAlignment="Left" Margin="173,308,0,0" Name="PopupCheckBox" VerticalAlignment="Top" Checked="PopupCheckBox_Checked" Unchecked="PopupCheckBox_Unchecked"/>
-                    <CheckBox Content="" Height="16" HorizontalAlignment="Left" Margin="173,328,0,0" Name="SoundCheckBox" VerticalAlignment="Top" Checked="SoundCheckBox_Checked" Unchecked="SoundCheckBox_Unchecked"/>
+                    <CheckBox Content="" Height="16" HorizontalAlignment="Left" Margin="173,331,0,0" Name="SoundCheckBox" VerticalAlignment="Top" Checked="SoundCheckBox_Checked" Unchecked="SoundCheckBox_Unchecked"/>
 
-                    <Label Content="Layout: (restarts o3o)" Height="19" HorizontalAlignment="Left" Margin="0,408,0,0" Name="lauoutlbl" VerticalAlignment="Top" Padding="0,2,0,0" Foreground="White"  >
+                    <Label Content="Layout: (restarts o3o)" Height="19" HorizontalAlignment="Left" Margin="1,356,0,0" Name="lauoutlbl" VerticalAlignment="Top" Padding="0,2,0,0" Foreground="White"  >
                         <Label.Effect>
                             <DropShadowEffect ShadowDepth="0" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                         </Label.Effect>
                     </Label>
-                    <Button Content="Manage Accounts" Height="23" HorizontalAlignment="Right" Margin="0,0,6,55" Name="button_Manage_Accounts" VerticalAlignment="Bottom" Width="155" Click="button_Manage_Accounts_Click" />
-                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="14,433,0,0" Name="LayoutButton1" VerticalAlignment="Top" Width="52">
+                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="15,381,0,0" Name="LayoutButton1" VerticalAlignment="Top" Width="52">
                         <Grid >
                             <Polygon Name="layputpoly1"
                                 Points="6,6 30,6 30,77 6,77 " Height="83" Width="36">
@@ -605,7 +603,7 @@
                             </Polygon>
                         </Grid>
                     </RadioButton>
-                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="92,433,0,0" Name="LayoutButton2" VerticalAlignment="Top" Width="84">
+                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="93,381,0,0" Name="LayoutButton2" VerticalAlignment="Top" Width="84">
                         <Grid >
                         <Polygon Name="layoutpolys2"
                                 Points="6,6 30,6 30,77 6,77 6,6" Height="83" Width="70">
@@ -627,7 +625,7 @@
                             </Polygon>
                         </Grid>
                     </RadioButton>
-                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="192,433,0,0" Name="LayoutButton3" VerticalAlignment="Top" Width="113">
+                    <RadioButton Height="83" HorizontalAlignment="Left" Margin="193,381,0,0" Name="LayoutButton3" VerticalAlignment="Top" Width="113">
                         <Grid Width="96">
                             <Polygon Name="layoutpolys3"
                                 Points="6,6 30,6 30,77 6,77 6,6" Height="83" Width="70" HorizontalAlignment="Left">
@@ -658,7 +656,10 @@
                             </Polygon>
                         </Grid>
                     </RadioButton>
-                    
+                    <Button Content="Clear Tweetstack" ToolTip="use this to clear everything if performance is getting sluggish or something&#xa;you might want to lower the tweets in view if this happens" Height="23" HorizontalAlignment="Left" Margin="6,499,0,0" Name="ClearTweetstackButton" VerticalAlignment="Top" Width="170" Click="ClearTweetstackButton_Click"/>
+                    <Button Content="Clear Imagecache" ToolTip="clear all images in the imagecache" Height="23" HorizontalAlignment="Left" Margin="6,470,0,0" Name="ClearImageCacheButton" VerticalAlignment="Top" Width="170" Click="ClearImageCacheButton_Click"/>
+                    <Button Content="Clear User Data and Restart" Height="25" HorizontalAlignment="Right" Margin="0,499,6,0" Name="ClearUserDataButton" VerticalAlignment="Top" Width="175" Click="ClearUserDataButton_Click" />
+                    <Button Content="Manage Accounts" Height="23" HorizontalAlignment="Right" Margin="0,470,6,0" Name="button_Manage_Accounts" VerticalAlignment="TOP" Width="175" Click="button_Manage_Accounts_Click" />
                 </Grid>
             </TabItem>
         </TabControl>
@@ -727,7 +728,7 @@
                             </Style>
                         </TextBlock.Style>
         </TextBlock>
-        <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="testbutton" VerticalAlignment="Bottom" Width="100" Click="testbutton_Click" Template="{DynamicResource GlassButton}" Foreground="White" />
+        <Button Content="Tweet" Height="17" HorizontalAlignment="Center" Margin="76,1,79,0" Name="TweetButton" VerticalAlignment="Bottom" Width="140" Click="TweetButton_Click"  Template="{DynamicResource GlassButton}" Foreground="White" />
         <Menu Height="20" Name="UserSelectionMenu"  HorizontalAlignment="Right" Width="98"  Margin="0,0,6,-1" VerticalAlignment="Bottom" Padding="0" Background="#00000000" Panel.ZIndex="10">
             <MenuItem Header="" Name="UserSelectionMenuCurrentName">
                 <!--<MenuItem Header="User_A"/>

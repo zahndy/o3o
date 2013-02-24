@@ -56,17 +56,63 @@ namespace o3o
             //Don't need this yet
             
         }
-
+        public delegate void clearTweetStack(string reason);
+        public event clearTweetStack clear;
+        public delegate void fetchTweets(UserDatabase.User usr);
+        public event fetchTweets FetchTweets;
         void StreamStoppedcallback(Twitterizer.Streaming.StopReasons stopreason)
         {
             //What happen??!??!?!??!!??!1//1/1/111oneone
             //Restart dat SHEET OF PAPER
-            System.Threading.Thread.Sleep(2000);
+            //System.Threading.Thread.Sleep(2000); wat
             TwitterStatus notification = new TwitterStatus();
-            notification.Text = "Stream died! Restarting stream.. Poke a developer if this happens a lot, or get a better connection.";
+            notification.Text = "Stream died! Restarting stream when twitter is aviable again...";
             notification.User = new TwitterUser();
             notification.User.ScreenName = "Internal message system";
             NewTweet(notification, privOAuth);
+
+            bool offline = true;
+            while (offline)
+            {
+                
+                bool isOnline = false; 
+          
+                try
+                {
+                     System.Net.NetworkInformation.Ping pong = new System.Net.NetworkInformation.Ping();
+                     IPAddress adress = new IPAddress(new byte[] {8,8,8,8});
+
+                     if (pong.Send(adress).Status == System.Net.NetworkInformation.IPStatus.Success)
+                     {
+                         System.Net.NetworkInformation.Ping ping = new System.Net.NetworkInformation.Ping();
+                         System.Net.NetworkInformation.PingReply result = ping.Send("www.twitter.com");
+                         if (result.Status == System.Net.NetworkInformation.IPStatus.Success)
+                         { isOnline = true; }
+                     }
+                }
+                catch(Exception){}
+
+                if (isOnline)
+                {
+                    offline = false; 
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(10000);
+                }
+            }
+
+            notification = new TwitterStatus();
+            notification.Text = "Restarting stream!";
+            notification.User = new TwitterUser();
+            notification.User.ScreenName = "Internal message system";
+            NewTweet(notification, privOAuth);
+            
+            System.Threading.Thread.Sleep(500);
+
+            clear("connection lost");
+            FetchTweets(privOAuth);
+
             StartStream(new Twitterizer.Streaming.StreamOptions());
         }
 
@@ -128,7 +174,7 @@ namespace o3o
 
             public void SendTweet(string tweet)
             {
-                if (tweet.Count() <= 140)
+                //if (tweet.Count() <= 140) // lolno, this is handled in the mainwindow class with url shortening
                     try
                     {
                         Twitterizer.TwitterResponse<Twitterizer.TwitterStatus> response = Twitterizer.TwitterStatus.Update(privOAuth.GetOAuthToken(), tweet);
@@ -147,8 +193,8 @@ namespace o3o
                         //TweetStack.NewTweet(notification, privOAuth);
                         
                     }
-                else
-                    throw new Exception("Status update too long! Make sure it's less than 140 characters!"); // also replace this with system message
+               // else
+                //    throw new Exception("Status update too long! Make sure it's less than 140 characters!"); // also replace this with system message
             }
 
             //This is all deprecated since streaming tweets were introduced.
@@ -178,7 +224,12 @@ namespace o3o
             {
                 return TwitterUser.Show(privOAuth.GetOAuthToken(), _UserName).ResponseObject;
             }
-            
+
+            public TwitterDirectMessageCollection GetMessages()
+            {
+                return TwitterDirectMessage.DirectMessages(privOAuth.GetOAuthToken()).ResponseObject;
+            }
+
             public void favorite(decimal Id)
             {
                 StatusUpdateOptions options = new StatusUpdateOptions();
