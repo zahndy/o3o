@@ -658,9 +658,10 @@
                     </RadioButton>
                     <Button Content="Clear Tweetstack" ToolTip="use this to clear everything if performance is getting sluggish or something&#xa;you might want to lower the tweets in view if this happens" Height="23" HorizontalAlignment="Left" Margin="6,499,0,0" Name="ClearTweetstackButton" VerticalAlignment="Top" Width="170" Click="ClearTweetstackButton_Click"/>
                     <Button Content="Clear Imagecache" ToolTip="clear all images in the imagecache" Height="23" HorizontalAlignment="Left" Margin="6,470,0,0" Name="ClearImageCacheButton" VerticalAlignment="Top" Width="170" Click="ClearImageCacheButton_Click"/>
-                    <Button Content="Clear User Data and Restart" Height="25" HorizontalAlignment="Right" Margin="0,499,6,0" Name="ClearUserDataButton" VerticalAlignment="Top" Width="175" Click="ClearUserDataButton_Click" />
+                    <Button Content="Clear User Data and Restart" Height="25" HorizontalAlignment="Right" Margin="0,498,6,0" Name="ClearUserDataButton" VerticalAlignment="Top" Width="175" Click="ClearUserDataButton_Click" />
                     <Button Content="Manage Accounts" Height="23" HorizontalAlignment="Right" Margin="0,470,6,0" Name="button_Manage_Accounts" VerticalAlignment="TOP" Width="175" Click="button_Manage_Accounts_Click" />
                     <Button Content="Force garbage collection" Height="25" HorizontalAlignment="Right" Margin="0,528,6,0" Name="forceGC" VerticalAlignment="Top" Width="175" Click="forceGC_Click" />
+                    <Button Name="NotifyTest" HorizontalAlignment="Left" Width="170" Height="25" Content="Test Notification" Margin="6,558,0,0" VerticalAlignment="Top" Click="NotifyTest_Click"  />
 
                 </Grid>
             </TabItem>

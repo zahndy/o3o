@@ -648,12 +648,35 @@ namespace o3o
 
         public void clearTweetStack(string reason = "")
         {
+            foreach (TweetElement element in TweetElements.Items)
+            {
+                element.Dispose();
+            }
+            foreach (TweetElement element in TweetMentions.Items)
+            {
+                element.Dispose();
+            }
+            foreach (DMElement element in TweetMessages.Items)
+            {
+                element.Dispose();
+            }
             this.TweetElements.Items.Clear();
             this.TweetMentions.Items.Clear();
             this.TweetMessages.Items.Clear();
+            
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+        }
+
+        private void NotifyTest_Click(object sender, RoutedEventArgs e)
+        {
+            TwitterStatus notification = new TwitterStatus();
+            notification.Text = "Test!";
+            notification.User = new TwitterUser();
+            notification.User.ScreenName = "Internal message system";
+            Notification(notification, UsrDB.Users[0]);
+            notification = null;
         }
 
         private void TweetButton_Click(object sender, RoutedEventArgs e)
@@ -1257,6 +1280,8 @@ namespace o3o
                 al.Sourcef(FSource, al.GAIN, newvol);
             }
         #endregion
+
+           
 
             
 

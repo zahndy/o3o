@@ -22,6 +22,7 @@ namespace o3o
             InitializeComponent();
             this.Left = ((parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.X + parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Width) - this.Width) - 107;
             this.Top =  parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y-this.Height;
+
             ypos = parent.Displays[Properties.Settings.Default.DisplayIndex].Bounds.Location.Y;
             this.Show();
             this.SetAeroGlass();
@@ -42,14 +43,19 @@ namespace o3o
              else if ((this.Top >= (ypos - this.Height)) && wait <= 0 && !mousehover()) // going up
              {
                  this.Top -= 5;
-                 if (this.Top == (ypos - this.Height) && wait <= 0)
+                 wait--;
+                 if (this.Top <= (ypos - this.Height) && wait <= 0)
                  {
                      this.Close();
                  }
              }
-             else if ( this.Top <0 && wait > 0)  //going down
+             else if (this.Top < ypos && wait > 0)  //going down
              {
                  this.Top += 5;
+             }
+             if (wait < 100)
+             {
+                 this.Close();
              }
          }
 
