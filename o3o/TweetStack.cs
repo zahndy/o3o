@@ -273,6 +273,34 @@ namespace o3o
                     System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error, retweet failed", System.Windows.Forms.MessageBoxButtons.OK);
                 }
             }
+
+            public bool Block(decimal asshole)
+            {
+                Twitterizer.TwitterResponse<TwitterUser> response = Twitterizer.TwitterBlock.Create(privOAuth.GetOAuthToken(), asshole);
+                if (!(response.Result == RequestResult.Success))
+                {
+                    System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error, Blocking failed", System.Windows.Forms.MessageBoxButtons.OK);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            public bool Report(decimal personID)
+            {
+                Twitterizer.TwitterResponse<TwitterUser> response = Twitterizer.TwitterSpam.ReportUser(privOAuth.GetOAuthToken(), personID);
+                if (!(response.Result == RequestResult.Success))
+                {
+                    System.Windows.Forms.MessageBox.Show("error: " + response.ErrorMessage, "error, Reporting failed", System.Windows.Forms.MessageBoxButtons.OK);
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
             
         }
 

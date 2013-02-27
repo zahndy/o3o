@@ -23,7 +23,7 @@ namespace o3o
         public static UserDatabase UsrDB = new UserDatabase();
         public delegate void dostuff(TwitterStatus status, UserDatabase.User _usr);
         public dostuff dostuffdel;
-        public delegate void DelTweetDelegate(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason);
+        public delegate void DelTweetDelegate(string deletedreason);
         public DelTweetDelegate cheese;
         public delegate void clearTweetStackDelegate(string reason);
         public clearTweetStackDelegate bacon;
@@ -447,20 +447,46 @@ namespace o3o
         void o3o_TweetDeleted(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
         {
             cheese = new DelTweetDelegate(deleteTweet);
-            maindispatcher.Invoke(cheese, new object[] { deletedreason });
+            maindispatcher.Invoke(cheese, new object[] { deletedreason.Id.ToString() });
         }
         
-        public void deleteTweet(Twitterizer.Streaming.TwitterStreamDeletedEvent deletedreason)
+        public void deleteTweet(string ID)
         {
             foreach (TweetElement tweet in this.TweetElements.Items)
             {
-                if (tweet.tweetElement.ID == deletedreason.Id.ToString())
+                if (tweet.tweetElement.ID == ID)
                 {
                     this.TweetElements.Items.Remove(tweet);
                     break;
                 }
             }
+
+            foreach (TweetElement mention in this.TweetMentions.Items)
+            {
+                if (mention.tweetElement.ID == ID)
+                {
+                    this.TweetMentions.Items.Remove(mention);
+                    break;
+                }
+            }
+
+            foreach (DMElement DM in this.TweetMessages.Items)
+            {
+                if (DM.DM_Element.ID == ID)
+                {
+                    this.TweetMessages.Items.Remove(DM);
+                    break;
+                }
+            }
         }
+
+        public void deleteTweetById(string tweetElemetId)
+        {
+            cheese = new DelTweetDelegate(deleteTweet);
+            maindispatcher.Invoke(cheese, new object[] { tweetElemetId });
+        }
+
+
         
         void o3o_NewDM(TwitterDirectMessage DM, UserDatabase.User _usr)  // PLZ CHECK IF WORK
         {
@@ -593,6 +619,23 @@ namespace o3o
 
         }
 
+        public void Block(decimal userid, string user, string elementID)
+        {
+            if (UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.Block(userid))
+            { 
+                deleteTweetById(elementID);
+            }
+        }
+
+        public void Report(decimal userid, string user, string elementID)
+        {
+            if (UsrDB.Users.Find(u => u.UserDetails.ScreenName == user).tweetStack.Twitter.Report(userid))
+            {
+                deleteTweetById(elementID);
+            }
+        }
+
+        
         #endregion
 
         #region UI interactions
@@ -608,6 +651,8 @@ namespace o3o
             this.TweetElements.Items.Clear();
             this.TweetMentions.Items.Clear();
             this.TweetMessages.Items.Clear();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
             GC.Collect();
         }
 
@@ -631,7 +676,13 @@ namespace o3o
            
         }
 
-        
+        private void forceGC_Click(object sender, RoutedEventArgs e)
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
+
         private void closebutton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -923,6 +974,57 @@ namespace o3o
             grid1.Cursor = System.Windows.Input.Cursors.Arrow;
         }
 
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (textBox1.Visibility == Visibility.Collapsed)
+                {
+                    TweetButton.Content = "Cancel";
+                    TweetElements.Margin = new Thickness(0, 0, 0, 70);
+                    TweetMentions.Margin = new Thickness(0, 0, 0, 70);
+                    TweetMessages.Margin = new Thickness(0, 0, 0, 70);
+                    textBox1.Visibility = Visibility.Visible;
+                    charleft.Visibility = Visibility.Visible;
+                    TweetLbl.Visibility = Visibility.Visible;
+                    textBox1.Focus();
+                }
+                else
+                {
+
+                    SendTweet();
+
+                }
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                textBox1.Text = "";
+                TweetButton.Content = "Tweet";
+                TweetElements.Margin = new Thickness(0, 0, 0, 17);
+                TweetMentions.Margin = new Thickness(0, 0, 0, 17);
+                TweetMessages.Margin = new Thickness(0, 0, 0, 17);
+                textBox1.Visibility = Visibility.Collapsed;
+                charleft.Visibility = Visibility.Collapsed;
+                TweetLbl.Visibility = Visibility.Collapsed;
+                inreply = false;
+                replystatus = null;
+            }
+        }
+
+        private void ClearTweetstackButton_Click(object sender, RoutedEventArgs e)
+        {
+            clearTweetStack();
+            GC.Collect();
+        }
+
+        private void ClearImageCacheButton_Click(object sender, RoutedEventArgs e)
+        {
+            ImageCache.ClearCache();
+        }
+
+            
+
         #endregion
 
         #region misc stuff
@@ -1156,56 +1258,9 @@ namespace o3o
             }
         #endregion
 
-            private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-            {
-                if (e.Key == Key.Enter)
-                {
-                    if (textBox1.Visibility == Visibility.Collapsed)
-                    {
-                        TweetButton.Content = "Cancel";
-                        TweetElements.Margin = new Thickness(0, 0, 0, 70);
-                        TweetMentions.Margin = new Thickness(0, 0, 0, 70);
-                        TweetMessages.Margin = new Thickness(0, 0, 0, 70);
-                        textBox1.Visibility = Visibility.Visible;
-                        charleft.Visibility = Visibility.Visible;
-                        TweetLbl.Visibility = Visibility.Visible;
-                        textBox1.Focus();
-                    }
-                    else
-                    {
-                        
-                       SendTweet();
-                        
-                    }
-                }
-               
-                if (e.Key == Key.Escape)
-                {
-                    textBox1.Text = "";
-                    TweetButton.Content = "Tweet";
-                    TweetElements.Margin = new Thickness(0, 0, 0, 17);
-                    TweetMentions.Margin = new Thickness(0, 0, 0, 17);
-                    TweetMessages.Margin = new Thickness(0, 0, 0, 17);
-                    textBox1.Visibility = Visibility.Collapsed;
-                    charleft.Visibility = Visibility.Collapsed;
-                    TweetLbl.Visibility = Visibility.Collapsed;
-                    inreply = false;
-                    replystatus = null;
-                }
-            }
-
-            private void ClearTweetstackButton_Click(object sender, RoutedEventArgs e)
-            {
-                clearTweetStack();
-                GC.Collect();
-            }
-
-            private void ClearImageCacheButton_Click(object sender, RoutedEventArgs e)
-            {
-                ImageCache.ClearCache();
-            }
-
             
+
+         
 
            
 

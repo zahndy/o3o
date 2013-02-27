@@ -37,7 +37,10 @@
         <TextBlock MouseRightButtonUp="TweetBlock_MouseRightButtonDown" Name="TweetBlock" Height="65" HorizontalAlignment="Left" Margin="52,24,0,0" Text="text" VerticalAlignment="Top" Width="294" Foreground="White" Background="Transparent" TextWrapping="Wrap" Padding="0" FontSize="13">
             <TextBlock.ContextMenu>
                 <ContextMenu x:Name="contextmenu">
-            <MenuItem Header="copy" Click="MenuItem_Click"/>
+            <MenuItem Header="Copy" Click="Copy_Click"/>
+                <Separator/>
+            <MenuItem Header="Block" Click="Block_Click"/>
+            <MenuItem Header="Report for spam" Click="Report_Click"/>
         </ContextMenu></TextBlock.ContextMenu><!--<TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="1" BlurRadius="5" Color="Black" Opacity="1" RenderingBias="Performance" />
                 </TextBlock.Effect>-->

@@ -265,7 +265,7 @@ namespace o3o
                 points.Add(new Point(10, 80));
 
                 tweetelementgrid.Height = 85;
-                tweetElement.Height = 85;
+                DM_Element.Height = 85;
                 TweetBlock.Height = 36;
 
                 AtNameLabel.Margin = new Thickness(26, 64, 0, 0);
@@ -281,7 +281,7 @@ namespace o3o
                 points.Add(new Point(10, 90));
 
                 tweetelementgrid.Height = 95;
-                tweetElement.Height = 95;
+                DM_Element.Height = 95;
                 TweetBlock.Height = 50;
 
                 AtNameLabel.Margin = new Thickness(26, 74, 0, 0);
@@ -297,7 +297,7 @@ namespace o3o
                 points.Add(new Point(10, 105));
 
                 tweetelementgrid.Height = 110;
-                tweetElement.Height = 110;
+                DM_Element.Height = 110;
                 TweetBlock.Height = 65;
 
                 AtNameLabel.Margin = new Thickness(26, 87, 0, 0);
@@ -313,7 +313,7 @@ namespace o3o
                 points.Add(new Point(10, 118));
 
                 tweetelementgrid.Height = 125;
-                tweetElement.Height = 125;
+                DM_Element.Height = 125;
                 TweetBlock.Height = 75;
 
                 AtNameLabel.Margin = new Thickness(26, 100, 0, 0);
@@ -330,7 +330,7 @@ namespace o3o
                 points.Add(new Point(10, 131));
 
                 tweetelementgrid.Height = 140;
-                tweetElement.Height = 140;
+                DM_Element.Height = 140;
                 TweetBlock.Height = 85;
 
                 AtNameLabel.Margin = new Thickness(26, 113, 0, 0);
@@ -346,7 +346,7 @@ namespace o3o
                 points.Add(new Point(10, 144));
 
                 tweetelementgrid.Height = 153;
-                tweetElement.Height = 153;
+                DM_Element.Height = 153;
                 TweetBlock.Height = 95;
 
                 AtNameLabel.Margin = new Thickness(26, 126, 0, 0);
@@ -475,7 +475,7 @@ namespace o3o
                 replyimageborder = null;
                 Status = null;
                 tweetelementgrid = null;
-                tweetElement = null;
+                DM_Element = null;
             }
         }
 

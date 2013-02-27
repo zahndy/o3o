@@ -468,7 +468,7 @@ namespace o3o
             parent.reply(Status);
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void Copy_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(Status.Text);
         }
@@ -618,6 +618,16 @@ namespace o3o
                 tweetelementgrid = null;
                 tweetElement = null;
             }
+        }
+
+        private void Block_Click(object sender, RoutedEventArgs e)
+        {
+            parent.Block(Status.User.Id, dbUser.UserDetails.ScreenName, this.ID);
+        }
+
+        private void Report_Click(object sender, RoutedEventArgs e)
+        {
+            parent.Report(Status.User.Id, dbUser.UserDetails.ScreenName, this.ID);
         }
 
     }
