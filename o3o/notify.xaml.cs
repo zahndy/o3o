@@ -53,7 +53,7 @@ namespace o3o
              {
                  this.Top += 5;
              }
-             if (wait < 100)
+             if (wait < -100)
              {
                  this.Close();
              }
