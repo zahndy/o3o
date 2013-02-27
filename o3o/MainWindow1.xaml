@@ -6,7 +6,7 @@
         xmlns:l="clr-namespace:o3o"
         xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
         xmlns:cp="clr-namespace:DropDownCustomColorPicker"
-        Title="o3o" Height="700" Width="393" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="393" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="393" Closed="Window_Closed" KeyDown="Window_KeyDown" Foreground="Black" AllowsTransparency="False" Background="White">
+        Title="o3o" Height="700" Width="398" WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip" MinHeight="230" MinWidth="398" Margin="290" Icon="/o3o;component/Images/twitter_32.ico" MaxWidth="398" Closed="Window_Closed" KeyDown="Window_KeyDown" Foreground="Black" AllowsTransparency="False" Background="White">
     
         <Window.Resources>
         <ControlTemplate x:Key="GlassButton" TargetType="{x:Type Button}">
@@ -416,7 +416,7 @@
             <TabItem Header="Home" Name="HomeTab" BorderBrush="#00000000" Padding="6,0">
                 <Grid Name="hometabcontent">
                     <Grid Name="homegrid">
-                    <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="369"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
+                        <ListBox ScrollViewer.CanContentScroll="False"  Margin="0,0,0,17" Name="TweetElements" VerticalAlignment="Stretch" HorizontalContentAlignment="Left" Width="374"  BorderBrush="#00000000" BorderThickness="0" SelectionMode="Extended" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxStyle1}" Background="#00000000"  >
                         <ListBox.OpacityMask>
                             <LinearGradientBrush StartPoint="1,0">

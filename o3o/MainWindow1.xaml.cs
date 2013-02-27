@@ -608,6 +608,7 @@ namespace o3o
             this.TweetElements.Items.Clear();
             this.TweetMentions.Items.Clear();
             this.TweetMessages.Items.Clear();
+            GC.Collect();
         }
 
         private void TweetButton_Click(object sender, RoutedEventArgs e)
@@ -831,9 +832,9 @@ namespace o3o
                 LayoutButton2.IsChecked = true;
                 LayoutButton3.Checked += new RoutedEventHandler(LayoutButton3_Checked);
 
-                this.Width = 761;
-                this.MinWidth = 761;
-                this.MaxWidth = 761;
+                this.Width = 771;
+                this.MinWidth = 771;
+                this.MaxWidth = 771;
 
                 Grid men = mentionsgrid;
 
@@ -843,10 +844,10 @@ namespace o3o
                 MentionsTab.Content = null;
                 MentionsTab = null;
 
-                men.Width = 369;
+                men.Width = 374;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 369;
+                homegrid.Width = 374;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
@@ -858,9 +859,9 @@ namespace o3o
                 LayoutButton2.Checked += new RoutedEventHandler(LayoutButton2_Checked);
                 LayoutButton3.IsChecked = true;
 
-                this.Width = 1130;
-                this.MinWidth = 1130;
-                this.MaxWidth = 1130;
+                this.Width = 1145;
+                this.MinWidth = 1145;
+                this.MaxWidth = 1145;
 
                 Grid men = mentionsgrid;
                 Grid mesg = messagesgrid;
@@ -876,13 +877,13 @@ namespace o3o
                 MessagesTab.Content = null;
                 MessagesTab = null;
 
-                men.Width = 369;
+                men.Width = 374;
                 men.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
-                mesg.Width = 369;
+                mesg.Width = 374;
                 mesg.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
 
-                homegrid.Width = 369;
+                homegrid.Width = 374;
                 homegrid.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
 
                 hometabcontent.Children.Add(men);
